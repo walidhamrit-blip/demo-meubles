@@ -363,6 +363,88 @@ console.log('\n5. Thèmes, WhatsApp et rubans');
 }
 
 /* ========================================================================
+   6. Sélecteur de langues (FR / EN / AR)
+   ======================================================================== */
+console.log('\n6. Sélecteur de langues');
+{
+    const { document, errors } = await loadPage('index.html');
+
+    // L'en-tête contient deux sélecteurs (barre desktop + tiroir mobile) :
+    // on contrôle le premier, les deux partagent le même gabarit.
+    const switcher = document.querySelector('header .language-switch');
+    const links = [...switcher.querySelectorAll('a')];
+    check('trois langues proposées dans l’en-tête', links.length === 3, `${links.length} lien(s)`);
+
+    const codes = links.map((link) => link.getAttribute('hreflang'));
+    check(
+        'chaque lien annonce sa langue (hreflang)',
+        ['fr', 'en', 'ar'].every((code) => codes.includes(code)),
+        codes.join(', '),
+    );
+
+    const arabic = links.find((link) => link.getAttribute('hreflang') === 'ar');
+    check(
+        'le lien arabe mène à la version /ar/',
+        arabic?.getAttribute('href') === 'ar/',
+        arabic?.getAttribute('href'),
+    );
+    check('le lien arabe est annoté lang="ar"', arabic?.getAttribute('lang') === 'ar');
+
+    const alternates = [...document.querySelectorAll('link[rel="alternate"]')].map((link) =>
+        link.getAttribute('hreflang'),
+    );
+    check(
+        'hreflang réciproques + x-default sur la page d’accueil',
+        ['fr', 'en', 'ar', 'x-default'].every((code) => alternates.includes(code)),
+        alternates.join(', '),
+    );
+
+    const current = links.find((link) => link.getAttribute('aria-current') === 'true');
+    check('la langue courante est signalée', current?.getAttribute('hreflang') === 'fr', current?.getAttribute('hreflang'));
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+{
+    // Version arabe : sens de lecture et langue déclarés au niveau du document.
+    const { document, errors } = await loadPage('ar/index.html');
+    const root = document.documentElement;
+    check('page arabe : lang="ar"', root.getAttribute('lang') === 'ar', root.getAttribute('lang'));
+    check('page arabe : dir="rtl"', root.getAttribute('dir') === 'rtl', root.getAttribute('dir'));
+
+    const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
+    check(
+        'canonical auto-référent de la version arabe',
+        canonical === 'https://www.maisontripoli.com/ar/',
+        canonical,
+    );
+
+    const options = [...document.querySelectorAll('header [data-theme-set]')];
+    check('sélecteur de thème également présent en arabe', options.length >= 3, `${options.length} pastille(s)`);
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+{
+    // Page anglaise : contenu réellement traduit, liens internes conservés.
+    const { document, errors } = await loadPage('en/collections/index.html');
+    const heading = document.querySelector('h1')?.textContent?.trim() ?? '';
+    check('page anglaise : titre de niveau 1 traduit', /Collections/i.test(heading), heading.slice(0, 60));
+
+    const internal = [...document.querySelectorAll('main a[href]')].map((a) => a.getAttribute('href'));
+    check(
+        'liens internes présents dans la version anglaise',
+        internal.length >= 5 && internal.every((link) => !link.startsWith('/')),
+        `${internal.length} lien(s)`,
+    );
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+/* ========================================================================
    Synthèse
    ======================================================================== */
 console.log(`\n${'─'.repeat(64)}`);

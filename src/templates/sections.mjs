@@ -7,6 +7,7 @@
 
 import { href } from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
+import { tr } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -137,18 +138,14 @@ export function ctaBand({ depth, eyebrow, title, text, primary, secondary, tone 
 export function newsletterSection() {
     return `<section class="py-16 bg-surface-3 text-center px-6 border-t border-line-strong" aria-labelledby="newsletter-title">
             <div class="max-w-xl mx-auto">
-                <p class="text-[11px] uppercase tracking-[0.3em] text-accent-ink block mb-2">Correspondance privée</p>
-                <h2 id="newsletter-title" class="font-serif text-2xl sm:text-3xl font-light text-ink mb-3">Recevez nos nouvelles éditions</h2>
-                <p class="text-xs text-muted mb-6 leading-relaxed">
-                    Aperçus confidentiels de nos nouvelles lignes de mobilier, invitations aux vernissages et chroniques sur l'architecture libanaise.
-                </p>
+                <p class="text-[11px] uppercase tracking-[0.3em] text-accent-ink block mb-2">${tr('Correspondance privée')}</p>
+                <h2 id="newsletter-title" class="font-serif text-2xl sm:text-3xl font-light text-ink mb-3">${tr('Recevez nos nouvelles éditions')}</h2>
+                <p class="text-xs text-muted mb-6 leading-relaxed">${tr("Aperçus confidentiels de nos nouvelles lignes de mobilier, invitations aux vernissages et chroniques sur l'architecture libanaise.")}</p>
                 <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2">
-                    <label for="newsletterEmail" class="sr-only">Votre adresse e-mail</label>
-                    <input type="email" id="newsletterEmail" name="email" required autocomplete="email" inputmode="email" placeholder="Votre adresse e-mail"
+                    <label for="newsletterEmail" class="sr-only">${tr('Votre adresse e-mail')}</label>
+                    <input type="email" id="newsletterEmail" name="email" required autocomplete="email" inputmode="email" placeholder="${tr('Votre adresse e-mail')}"
                            class="w-full bg-surface border border-line-strong px-4 py-3 text-xs focus:outline-none focus:border-ink">
-                    <button type="submit" class="px-8 py-3 bg-inverse text-on-inverse text-xs uppercase tracking-widest hover:bg-accent hover:text-on-accent transition shrink-0">
-                        S'inscrire
-                    </button>
+                    <button type="submit" class="px-8 py-3 bg-inverse text-on-inverse text-xs uppercase tracking-widest hover:bg-accent hover:text-on-accent transition shrink-0">${tr("S'inscrire")}</button>
                 </form>
                 <p id="newsletterStatus" class="mt-3 text-xs text-emerald-800" role="status" aria-live="polite"></p>
             </div>
@@ -163,40 +160,34 @@ export function materialsSection(depth) {
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
                     <div class="lg:col-span-5 space-y-6">
-                        <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Atelier de confection Tripoli</p>
-                        <h2 id="matieres-title" class="font-serif text-3xl sm:text-5xl text-ink font-light leading-tight">
-                            La Noblesse des Matières Sélectionnées
-                        </h2>
-                        <p class="text-muted text-sm leading-relaxed font-light">
-                            À Tripoli, chaque pièce prend racine dans le choix intransigeant des essences de bois locales et régionales, associées aux marbres extraits du bassin levantin et aux tissages européens.
-                        </p>
+                        <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">${tr('Atelier de confection Tripoli')}</p>
+                        <h2 id="matieres-title" class="font-serif text-3xl sm:text-5xl text-ink font-light leading-tight">${tr('La Noblesse des Matières Sélectionnées')}</h2>
+                        <p class="text-muted text-sm leading-relaxed font-light">${tr('À Tripoli, chaque pièce prend racine dans le choix intransigeant des essences de bois locales et régionales, associées aux marbres extraits du bassin levantin et aux tissages européens.')}</p>
 
                         <div class="pt-4 border-t border-line-strong space-y-4">
-                            <p id="finish-label" class="text-xs uppercase tracking-widest font-medium text-ink">Sélectionnez une essence de finition :</p>
+                            <p id="finish-label" class="text-xs uppercase tracking-widest font-medium text-ink">${tr('Sélectionnez une essence de finition :')}</p>
 
                             <div class="flex flex-wrap items-center gap-4" role="group" aria-labelledby="finish-label">
                                 <button type="button" class="finish-btn flex flex-col items-center group" data-material="walnut" aria-pressed="true">
                                     <span class="finish-swatch w-12 h-12 rounded-full border-2 bg-[#483327] shadow-inner mb-1.5 transition transform group-hover:scale-105" aria-hidden="true"></span>
-                                    <span class="text-[11px] uppercase tracking-wider text-ink-strong font-medium">Noyer foncé</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-ink-strong font-medium">${tr('Noyer foncé')}</span>
                                 </button>
                                 <button type="button" class="finish-btn flex flex-col items-center group" data-material="oak" aria-pressed="false">
                                     <span class="finish-swatch w-12 h-12 rounded-full border-2 bg-[#BCA07B] shadow-inner mb-1.5 transition transform group-hover:scale-105" aria-hidden="true"></span>
-                                    <span class="text-[11px] uppercase tracking-wider text-muted group-hover:text-ink-strong font-medium">Chêne clair</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-muted group-hover:text-ink-strong font-medium">${tr('Chêne clair')}</span>
                                 </button>
                                 <button type="button" class="finish-btn flex flex-col items-center group" data-material="travertine" aria-pressed="false">
                                     <span class="finish-swatch w-12 h-12 rounded-full border-2 bg-[#DCD4C5] shadow-inner mb-1.5 transition transform group-hover:scale-105" aria-hidden="true"></span>
-                                    <span class="text-[11px] uppercase tracking-wider text-muted group-hover:text-ink-strong font-medium">Travertin</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-muted group-hover:text-ink-strong font-medium">${tr('Travertin')}</span>
                                 </button>
                                 <button type="button" class="finish-btn flex flex-col items-center group" data-material="ebony" aria-pressed="false">
                                     <span class="finish-swatch w-12 h-12 rounded-full border-2 bg-[#1E1B18] shadow-inner mb-1.5 transition transform group-hover:scale-105" aria-hidden="true"></span>
-                                    <span class="text-[11px] uppercase tracking-wider text-muted group-hover:text-ink-strong font-medium">Ébène noir</span>
+                                    <span class="text-[11px] uppercase tracking-wider text-muted group-hover:text-ink-strong font-medium">${tr('Ébène noir')}</span>
                                 </button>
                             </div>
 
                             <div id="materialDescription" class="bg-surface p-4 border border-line mt-4 text-xs text-ink-strong/80 leading-relaxed" role="status" aria-live="polite">
-                                <strong class="font-medium text-ink block mb-1">Noyer Royal de la Vallée :</strong>
-                                Séchage naturel en grange à Tripoli pendant 18 mois, puis polissage ciré à la main avec une cire d'abeille biologique libanaise.
-                            </div>
+                                <strong class="font-medium text-ink block mb-1">${tr('Noyer Royal de la Vallée :')}</strong>${tr("Séchage naturel en grange à Tripoli pendant 18 mois, puis polissage ciré à la main avec une cire d'abeille biologique libanaise.")}</div>
                         </div>
                     </div>
 
@@ -209,21 +200,18 @@ export function materialsSection(depth) {
                                          https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1600&amp;q=72 1600w"
                                  sizes="(min-width: 1024px) 58vw, 92vw"
                                  width="1600" height="1000" loading="lazy" decoding="async"
-                                 alt="Console basse Bahia en noyer foncé sculpté et ciré à la main, finition d'ébénisterie de l'atelier Maison Tripoli"
+                                 alt="${tr("Console basse Bahia en noyer foncé sculpté et ciré à la main, finition d'ébénisterie de l'atelier Maison Tripoli")}"
                                  class="w-full h-full object-cover transition-opacity duration-500">
-                            <figcaption class="absolute bottom-6 left-6 right-6 bg-surface/90 backdrop-blur-md p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <figcaption class="absolute bottom-6 start-6 end-6 bg-surface/90 backdrop-blur-md p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                 <span>
-                                    <span class="block text-[10px] tracking-widest uppercase text-accent-ink font-semibold">Exemplaire atelier</span>
-                                    <span id="materialTitle" class="block font-serif text-lg text-ink">Console Basse « Bahia » en Noyer Sculpté</span>
+                                    <span class="block text-[10px] tracking-widest uppercase text-accent-ink font-semibold">${tr('Exemplaire atelier')}</span>
+                                    <span id="materialTitle" class="block font-serif text-lg text-ink">${tr('Console Basse « Bahia » en Noyer Sculpté')}</span>
                                 </span>
-                                <button type="button" data-open-dialog="consultationModal" class="text-xs uppercase tracking-widest underline underline-offset-4 hover:text-accent-ink shrink-0 text-left">
-                                    Commander un échantillon
-                                </button>
+                                <button type="button" data-open-dialog="consultationModal" class="text-xs uppercase tracking-widest underline underline-offset-4 hover:text-accent-ink shrink-0 text-left">${tr('Commander un échantillon')}</button>
                             </figcaption>
                         </figure>
                         <p class="mt-4 text-[11px] uppercase tracking-widest text-muted">
-                            Finitions disponibles sur l'ensemble des collections —
-                            ${`<a href="${href('/collections/', { depth })}" class="underline underline-offset-4 hover:text-ink">voir les cinq collections</a>`}
+                            ${tr("Finitions disponibles sur l'ensemble des collections —")}${`<a href="${href('/collections/', { depth })}" class="underline underline-offset-4 hover:text-ink">${tr('voir les cinq collections')}</a>`}
                         </p>
                     </div>
 
@@ -236,7 +224,7 @@ export function materialsSection(depth) {
 
 export function finishSection(tone = 'dark') {
     return `<div class="pt-8 mt-8 border-t border-line-strong">
-                <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold mb-5">Quatre finitions au choix</p>
+                <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold mb-5">${tr('Quatre finitions au choix')}</p>
                 ${finishStrip(tone)}
             </div>`;
 }

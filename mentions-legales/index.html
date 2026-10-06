@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="clair" class="scroll-smooth">
+<html lang="fr" dir="ltr" data-theme="clair" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <title>Mentions Légales, CGV &amp; Confidentialité | Maison Tripoli</title>
     <meta name="description" content="Mentions légales, conditions générales de vente, confidentialité et expéditions de Maison Tripoli, atelier d'ébénisterie et de mobilier d'art à Tripoli.">
     <link rel="canonical" href="https://www.maisontripoli.com/mentions-legales/">
+
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Maison Tripoli">
     <meta name="theme-color" content="#231F1D">
@@ -172,7 +173,7 @@
                             Collections
                             <svg class="icon w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:rotate-180" aria-hidden="true" focusable="false"><use href="#i-chevron-down"></use></svg>
                         </a>
-                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute left-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
+                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute start-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
                         <li>
                             <a href="../collections/salons/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
                                 <span class="font-serif text-base normal-case tracking-normal text-ink">Salons &amp; banquettes</span>
@@ -208,25 +209,25 @@
                     <li>
                         <a href="../atelier/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             L'Atelier
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../sur-mesure/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Sur-Mesure
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../projets/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Projets
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../contact/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Showroom
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                 </ul>
@@ -235,12 +236,8 @@
 
             <div class="text-center">
                 <a href="../" class="group block" aria-label="Maison Tripoli — retour à l'accueil">
-                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">
-                        Maison Tripoli
-                    </span>
-                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">
-                        Atelier Mobilier • 1948
-                    </span>
+                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">Maison Tripoli</span>
+                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">Atelier Mobilier • 1948</span>
                 </a>
             </div>
 
@@ -253,9 +250,7 @@
                 </button>
 
                 <a href="../contact/"
-                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">
-                    Prendre rendez-vous
-                </a>
+                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">Prendre rendez-vous</a>
 
                 <button type="button"
                         id="cartToggleBtn"
@@ -266,6 +261,35 @@
                     <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-baggage-claim"></use></svg>
                     <span id="cartCountBadge" class="text-xs font-serif italic text-accent-ink" aria-hidden="true">(0)</span>
                 </button>
+
+                <nav class="language-switch" aria-label="Changer de langue">
+        <ul class="flex items-center gap-0.5">
+            <li>
+            <a href="../mentions-legales/"
+               hreflang="fr"
+               lang="fr"
+               aria-current="true"
+               title="Français"
+               class="language-link language-link--current">FR</a>
+        </li>
+            <li>
+            <a href="../en/"
+               hreflang="en"
+               lang="en"
+               
+               title="English — page d’accueil"
+               class="language-link">EN</a>
+        </li>
+            <li>
+            <a href="../ar/"
+               hreflang="ar"
+               lang="ar"
+               
+               title="العربية — page d’accueil"
+               class="language-link">ع</a>
+        </li>
+        </ul>
+    </nav>
 
                 <div class="hidden sm:block"><div class="flex items-center gap-1" role="group" aria-label="Thème d’affichage">
         <button type="button" class="theme-btn" data-theme-set="clair" aria-pressed="false" title="Thème clair — sable">
@@ -335,9 +359,39 @@
                         <svg class="icon w-4 h-4 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
                         Rechercher une pièce
                     </button>
-                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">
-                        Visite privée au showroom
-                    </button>
+                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">Visite privée au showroom</button>
+                </div>
+
+                <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold">Langue</span>
+                    <nav class="language-switch" aria-label="Changer de langue — menu mobile">
+        <ul class="flex items-center gap-0.5">
+            <li>
+            <a href="../mentions-legales/"
+               hreflang="fr"
+               lang="fr"
+               aria-current="true"
+               title="Français"
+               class="language-link language-link--current">FR</a>
+        </li>
+            <li>
+            <a href="../en/"
+               hreflang="en"
+               lang="en"
+               
+               title="English — page d’accueil"
+               class="language-link">EN</a>
+        </li>
+            <li>
+            <a href="../ar/"
+               hreflang="ar"
+               lang="ar"
+               
+               title="العربية — page d’accueil"
+               class="language-link">ع</a>
+        </li>
+        </ul>
+    </nav>
                 </div>
 
                 <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
@@ -363,7 +417,7 @@
 
     <main id="main" class="flex-1">
 <section class="pt-16 pb-24 px-6 lg:px-12 max-w-3xl mx-auto" aria-labelledby="legal-title">
-            <nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
+            <nav data-breadcrumb aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
                 <ol class="flex flex-wrap items-center gap-2">
                     <li class="flex items-center gap-2">
                     
@@ -377,20 +431,16 @@
             </nav>
 
             <p class="text-xs uppercase tracking-[0.3em] text-accent-ink font-semibold mb-3">Informations réglementaires</p>
-            <h1 id="legal-title" class="font-serif text-3xl sm:text-5xl text-ink font-light leading-tight mb-6">
-                Mentions Légales &amp; Conditions de Vente
-            </h1>
-            <p class="text-muted text-sm leading-relaxed font-light mb-14">
-                Dernière mise à jour : octobre 2026. Ce document précise l'identité de l'éditeur du site, les conditions d'acquisition des pièces d'ébénisterie et le traitement de vos données personnelles.
-            </p>
+            <h1 id="legal-title" class="font-serif text-3xl sm:text-5xl text-ink font-light leading-tight mb-6">Mentions Légales &amp; Conditions de Vente</h1>
+            <p class="text-muted text-sm leading-relaxed font-light mb-14">Dernière mise à jour : octobre 2026. Ce document précise l'identité de l'éditeur du site, les conditions d'acquisition des pièces d'ébénisterie et le traitement de vos données personnelles.</p>
 
             <section aria-labelledby="editeur" class="mb-12">
                 <h2 id="editeur" class="font-serif text-2xl text-ink font-normal mb-4">1. Éditeur du site</h2>
                 <address class="not-italic text-sm text-muted leading-relaxed space-y-1">
                     <p><strong class="font-medium text-ink-strong">Maison Tripoli — Atelier &amp; Manufacture de Mobilier</strong> — atelier d'ébénisterie et manufacture de mobilier d'art.</p>
                     <p>Boulevard Fouad Chehab, Quartier des Ateliers d'Art, Tripoli, Liban.</p>
-                    <p>Téléphone : <a href="tel:+9616442890" class="underline underline-offset-2 hover:text-ink">+961&nbsp;6&nbsp;442&nbsp;890</a></p>
-                    <p>E-mail : <a href="mailto:contact@maisontripoli.com" class="underline underline-offset-2 hover:text-ink">contact@maisontripoli.com</a></p>
+                    <p>Téléphone :<a href="tel:+9616442890" class="underline underline-offset-2 hover:text-ink">+961&nbsp;6&nbsp;442&nbsp;890</a></p>
+                    <p>E-mail :<a href="mailto:contact@maisontripoli.com" class="underline underline-offset-2 hover:text-ink">contact@maisontripoli.com</a></p>
                 </address>
             </section>
 
@@ -404,45 +454,30 @@
             <section id="conditions-de-vente" aria-labelledby="cgv" class="mb-12">
                 <h2 id="cgv" class="font-serif text-2xl text-ink font-normal mb-4">3. Conditions générales de vente</h2>
                 <div class="text-sm text-muted leading-relaxed font-light space-y-4">
-                    <p>
-                        Les pièces présentées sont fabriquées sur commande dans notre atelier de Tripoli. Le devis transmis via le site constitue une demande de chiffrage et non une commande ferme : celle-ci devient définitive après validation des plans techniques, du choix des matières et versement d'un acompte de 40 %.
-                    </p>
-                    <p>
-                        Le délai de fabrication indicatif est de 4 à 6 semaines pour les pièces du catalogue et de 8 à 16 semaines pour les projets sur-mesure intégrant boiseries et mobilier. Les délais sont confirmés par écrit à la commande.
-                    </p>
-                    <p>
-                        L'ébénisterie est garantie 30 ans contre tout vice de structure. Le garnissage et les revêtements sont garantis 5 ans. Sont exclus les dommages résultant d'un usage non conforme, d'une exposition prolongée à l'humidité ou d'une modification par un tiers.
-                    </p>
+                    <p>Les pièces présentées sont fabriquées sur commande dans notre atelier de Tripoli. Le devis transmis via le site constitue une demande de chiffrage et non une commande ferme : celle-ci devient définitive après validation des plans techniques, du choix des matières et versement d'un acompte de 40 %.</p>
+                    <p>Le délai de fabrication indicatif est de 4 à 6 semaines pour les pièces du catalogue et de 8 à 16 semaines pour les projets sur-mesure intégrant boiseries et mobilier. Les délais sont confirmés par écrit à la commande.</p>
+                    <p>L'ébénisterie est garantie 30 ans contre tout vice de structure. Le garnissage et les revêtements sont garantis 5 ans. Sont exclus les dommages résultant d'un usage non conforme, d'une exposition prolongée à l'humidité ou d'une modification par un tiers.</p>
                 </div>
             </section>
 
             <section id="expeditions" aria-labelledby="expedition" class="mb-12">
                 <h2 id="expedition" class="font-serif text-2xl text-ink font-normal mb-4">4. Expéditions &amp; livraisons</h2>
-                <p class="text-sm text-muted leading-relaxed font-light">
-                    Nous livrons au Liban et à l'international (Europe, Golfe, Afrique du Nord). Les pièces sont emballées en caisse bois sur mesure et manipulées sous gants blancs. Les tarifs de fret sont établis après étude technique, selon le volume, la destination et les droits de douane applicables. L'installation par nos artisans est incluse au Liban et disponible sur devis à l'étranger.
-                </p>
+                <p class="text-sm text-muted leading-relaxed font-light">Nous livrons au Liban et à l'international (Europe, Golfe, Afrique du Nord). Les pièces sont emballées en caisse bois sur mesure et manipulées sous gants blancs. Les tarifs de fret sont établis après étude technique, selon le volume, la destination et les droits de douane applicables. L'installation par nos artisans est incluse au Liban et disponible sur devis à l'étranger.</p>
             </section>
 
             <section aria-labelledby="confidentialite" class="mb-12">
                 <h2 id="confidentialite" class="font-serif text-2xl text-ink font-normal mb-4">5. Données personnelles &amp; cookies</h2>
                 <div class="text-sm text-muted leading-relaxed font-light space-y-4">
-                    <p>
-                        Les informations transmises via les formulaires (nom, téléphone, e-mail, description du projet) sont utilisées exclusivement pour répondre à votre demande de devis ou de rendez-vous. Elles ne sont ni vendues ni cédées à des tiers et sont conservées 36 mois maximum.
+                    <p>Les informations transmises via les formulaires (nom, téléphone, e-mail, description du projet) sont utilisées exclusivement pour répondre à votre demande de devis ou de rendez-vous. Elles ne sont ni vendues ni cédées à des tiers et sont conservées 36 mois maximum.</p>
+                    <p>Conformément au Règlement général sur la protection des données (RGPD) et à la loi libanaise n° 81/2018, vous disposez d'un droit d'accès, de rectification, d'opposition et d'effacement. Toute demande peut être adressée à<a href="mailto:contact@maisontripoli.com" class="underline underline-offset-2 hover:text-ink">contact@maisontripoli.com</a>.
                     </p>
-                    <p>
-                        Conformément au Règlement général sur la protection des données (RGPD) et à la loi libanaise n° 81/2018, vous disposez d'un droit d'accès, de rectification, d'opposition et d'effacement. Toute demande peut être adressée à <a href="mailto:contact@maisontripoli.com" class="underline underline-offset-2 hover:text-ink">contact@maisontripoli.com</a>.
-                    </p>
-                    <p>
-                        Ce site ne dépose aucun cookie publicitaire ni traceur tiers. Les ressources externes utilisées (polices web, images d'ambiance) sont chargées en HTTPS depuis leurs propres serveurs. Si vous intégrez par la suite un outil de mesure d'audience ou une régie publicitaire, une bannière de consentement conforme deviendra obligatoire avant tout dépôt de cookie non essentiel.
-                    </p>
+                    <p>Ce site ne dépose aucun cookie publicitaire ni traceur tiers. Les ressources externes utilisées (polices web, images d'ambiance) sont chargées en HTTPS depuis leurs propres serveurs. Si vous intégrez par la suite un outil de mesure d'audience ou une régie publicitaire, une bannière de consentement conforme deviendra obligatoire avant tout dépôt de cookie non essentiel.</p>
                 </div>
             </section>
 
             <section aria-labelledby="mediateur" class="mb-12">
                 <h2 id="mediateur" class="font-serif text-2xl text-ink font-normal mb-4">6. Litiges</h2>
-                <p class="text-sm text-muted leading-relaxed font-light">
-                    Le droit libanais est applicable. En cas de litige, une solution amiable sera recherchée en priorité ; à défaut, les tribunaux compétents de Tripoli (Liban) seront seuls saisis.
-                </p>
+                <p class="text-sm text-muted leading-relaxed font-light">Le droit libanais est applicable. En cas de litige, une solution amiable sera recherchée en priorité ; à défaut, les tribunaux compétents de Tripoli (Liban) seront seuls saisis.</p>
             </section>
 
             <p class="pt-8 border-t border-line-strong">
@@ -519,9 +554,7 @@
 
             <div class="lg:col-span-2 space-y-4">
                 <p class="font-serif text-2xl tracking-[0.2em] uppercase font-light text-white">Maison Tripoli</p>
-                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">
-                    Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.
-                </p>
+                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.</p>
                 <ul class="flex gap-2 pt-2 text-on-inverse-muted">
                     <li>
                         <a href="https://www.instagram.com/maisontripoli" target="_blank" rel="noopener noreferrer me" class="inline-flex p-2 hover:text-white transition" aria-label="Suivre Maison Tripoli sur Instagram (nouvelle fenêtre)">
@@ -587,7 +620,7 @@
 
     <!-- COUCHE — Recherche au catalogue -->
     <div id="searchModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-surface/[0.98] backdrop-blur-md flex-col justify-center items-center px-6 py-16" hidden>
-        <button type="button" data-close-dialog class="absolute top-8 right-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
+        <button type="button" data-close-dialog class="absolute top-8 end-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
             <svg class="icon w-7 h-7 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
         </button>
         <div class="max-w-2xl w-full text-center">
@@ -602,14 +635,12 @@
     <!-- COUCHE — Prise de rendez-vous au showroom -->
     <div id="consultationModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="consultationTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm items-center justify-center p-4" hidden>
         <div class="bg-surface max-w-lg w-full p-6 sm:p-8 border border-line-strong shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button type="button" data-close-dialog class="absolute top-5 right-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
+            <button type="button" data-close-dialog class="absolute top-5 end-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
                 <svg class="icon w-5 h-5 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
             </button>
             <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service personnalisé</p>
             <h2 id="consultationTitle" class="font-serif text-2xl text-ink font-normal mt-1 mb-2">Visite privée au showroom</h2>
-            <p class="text-xs text-muted mb-6">
-                Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.
-            </p>
+            <p class="text-xs text-muted mb-6">Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.</p>
 
             <form id="consultationForm" class="space-y-4 text-xs">
                 <div>
@@ -632,16 +663,14 @@
                         <option>Collaboration professionnelle (architecte)</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">
-                    Confirmer la demande
-                </button>
+                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">Confirmer la demande</button>
                 <p id="consultationStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
             </form>
         </div>
     </div>
 
     <!-- TIROIR — Sélection et demande de devis -->
-    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 right-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
+    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 end-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
         <div class="p-6 border-b border-line-strong flex items-center justify-between">
             <div>
                 <h2 id="cartTitle" class="font-serif text-xl text-ink font-normal">Mon devis &amp; sélection</h2>
@@ -666,11 +695,8 @@
                 <span id="cartSubtotal" class="font-serif text-lg font-medium">0 $</span>
             </p>
             <p class="text-[10px] text-muted leading-tight">
-                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.
-            </p>
-            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">
-                Finaliser la demande de devis
-            </button>
+                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.</p>
+            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">Finaliser la demande de devis</button>
             <p id="cartStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
         </div>
     </div>

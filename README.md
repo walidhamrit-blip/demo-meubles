@@ -28,7 +28,27 @@ référencement naturel.
 └── /404.html                    Erreur personnalisée (noindex, follow)
 ```
 
-`robots.txt` et `sitemap.xml` sont **générés** par le build à partir de cette liste.
+### Versions linguistiques
+
+Le français est servi à la racine (langue pivot) ; les pages **traduites** vivent
+sous `/en/` et `/ar/` :
+
+```
+/en/                             Home (traduite, hreflang réciproque)
+/en/collections/                 Collections hub
+/ar/                             النسخة العربية (dir="rtl")
+/ar/collections/                 مجموعات
+```
+
+Seules les pages déclarées dans `PAGE_LOCALES` (`src/content/i18n.mjs`) sont
+publiées dans une autre langue : le build refuse de générer une page à moitié
+traduite (il échoue en listant les chaînes manquantes), et le contrôle
+`npm run check:i18n` vérifie qu'aucun texte français ne subsiste dans une page
+traduite. Les pages non traduites ne portent ni `hreflang` ni entrée de plan de
+site supplémentaire ; le sélecteur y renvoie vers l'accueil de la langue visée.
+
+`robots.txt` et `sitemap.xml` sont **générés** par le build à partir de cette liste ;
+le plan de site porte les alternances `xhtml:link` (hreflang) de chaque page.
 
 ---
 
@@ -91,9 +111,11 @@ npm run serve            # prévisualisation locale sur http://localhost:8080
 
 npm run validate         # validation HTML5 des 13 pages (html-validate, règles W3C)
 npm run check:styles     # classes utilisées ⊂ classes compilées (garde-fou Tailwind)
+npm run check:contrast   # contrastes WCAG des trois thèmes (clair + 2 sombres)
+npm run check:i18n       # aucun texte français résiduel dans une page traduite
 npm run audit            # audit SEO / accessibilité / performance statique
 npm run test             # parcours fonctionnels du DOM (jsdom)
-npm run check            # enchaîne build + validate + check:styles + audit + test
+npm run check            # enchaîne build + validate + check:styles + check:contrast + check:i18n + audit + test
 ```
 
 `npm run check` est **la commande de référence avant toute mise en ligne** : elle
@@ -128,6 +150,19 @@ sont générés automatiquement.
 
 > Ne jamais éditer le sprite ni les fichiers HTML générés à la main : ils sont
 > écrasés à chaque exécution du build.
+
+---
+
+### Une traduction
+
+1. Ajouter la page dans `PAGE_LOCALES` (`src/content/i18n.mjs`), par exemple
+   `'/sur-mesure/': ['fr', 'en', 'ar']`.
+2. Passer chaque chaîne visible du gabarit par `tr('…')` (ou par un accesseur
+   `get x() { return tr('…'); }` dans un module de contenu).
+3. Lancer `npm run build:site` : les traductions manquantes sont listées dans
+   l'erreur, et il suffit de les ajouter aux blocs `en` / `ar` de la table `ui`.
+4. Terminer par `npm run check` — `check:i18n` refuse tout texte français
+   oublié dans une page traduite.
 
 ---
 

@@ -12,11 +12,12 @@
     "brand": "python3 tools/build-brand-assets.py",
     "audit": "node tools/audit-seo.mjs",
     "test": "node tools/smoke-test.mjs",
-    "validate": "html-validate index.html 404.html \"collections/**/*.html\" atelier/index.html sur-mesure/index.html projets/index.html contact/index.html mentions-legales/index.html",
-    "check": "npm run build && npm run validate && npm run check:styles && npm run check:contrast && npm run audit && npm run test",
+    "validate": "html-validate index.html 404.html \"collections/**/*.html\" \"en/**/*.html\" \"ar/**/*.html\" atelier/index.html sur-mesure/index.html projets/index.html contact/index.html mentions-legales/index.html",
+    "check": "npm run build && npm run validate && npm run check:styles && npm run check:contrast && npm run check:i18n && npm run audit && npm run test",
     "serve": "python3 -m http.server 8080 --bind 0.0.0.0",
     "check:styles": "node tools/check-styles.mjs",
-    "check:contrast": "node tools/check-contrast.mjs"
+    "check:contrast": "node tools/check-contrast.mjs",
+    "check:i18n": "node tools/check-i18n.mjs"
   },
   "devDependencies": {
     "html-validate": "^11.16.2",

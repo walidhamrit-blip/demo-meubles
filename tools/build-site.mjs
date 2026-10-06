@@ -17,17 +17,27 @@
  *
  * Usage : node tools/build-site.mjs
  */
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rm, rmdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { decodeDeep } from '../src/lib/html.mjs';
+import {
+    localeCodes,
+    localesFor,
+    setLocale,
+    defaultLocale,
+    missingTranslations,
+    missingCount,
+    rollbackMissing,
+} from '../src/content/i18n.mjs';
+import { localizedPath, depthOf, setDepth, getDepth } from '../src/lib/paths.mjs';
 import { site } from '../src/site.config.mjs';
 import { collections } from '../src/content/collections.mjs';
 import { products } from '../src/content/products.mjs';
 import { renderPage } from '../src/templates/layout.mjs';
 
 import accueil from '../src/pages/accueil.mjs';
-import { collectionPages } from '../src/pages/collections.mjs';
+import { hubPage, collectionPage } from '../src/pages/collections.mjs';
 import atelier from '../src/pages/atelier.mjs';
 import surMesure from '../src/pages/sur-mesure.mjs';
 import projets from '../src/pages/projets.mjs';
@@ -50,15 +60,22 @@ function resolveOutput(publicPath) {
     return `${publicPath.replace(/^\/|\/$/g, '')}/index.html`;
 }
 
-const routes = [
-    accueil(),
-    ...collectionPages(),
-    atelier(),
-    surMesure(),
-    projets(),
-    contact(),
-    mentionsLegales(),
-    erreur404(),
+/**
+ * Fabriques de pages. Chaque page est évaluée UNE FOIS PAR LANGUE : les
+ * modules lisent la locale courante (i18n) et produisent le contenu demandé.
+ * L'évaluation paresseuse permet de ne relever les traductions manquantes que
+ * pour les pages réellement publiées dans la langue en cours.
+ */
+const pageFactories = () => [
+    accueil,
+    hubPage,
+    ...collections.map((collection) => () => collectionPage(collection)),
+    atelier,
+    surMesure,
+    projets,
+    contact,
+    mentionsLegales,
+    erreur404,
 ];
 
 /* ------------------------------------------------------- Vérifications amont */
@@ -92,9 +109,22 @@ function assertValid(route) {
 function buildSitemap(pages) {
     const today = new Date().toISOString().slice(0, 10);
 
-    const toUrl = (page) => {
+    const toUrl = (page, locale) => {
+        const publicPath = localizedPath(page.path, locale);
         const priority = page.path === '/' ? '1.0' : page.path.startsWith('/collections') ? '0.9' : '0.6';
         const changefreq = page.path === '/' ? 'weekly' : 'monthly';
+
+        // Alternances hreflang : uniquement entre versions réellement publiées
+        const alternates = page.locales
+            .map(
+                (code) =>
+                    `    <xhtml:link rel="alternate" hreflang="${code}" href="${site.url}${localizedPath(page.path, code)}"/>`,
+            )
+            .concat(
+                `    <xhtml:link rel="alternate" hreflang="x-default" href="${site.url}${page.path}"/>`,
+            )
+            .join('\n');
+
         const images = page.path.startsWith('/collections/')
             ? products
                   .filter((product) => page.path.includes(product.collection))
@@ -108,7 +138,8 @@ function buildSitemap(pages) {
             : '';
 
         return `  <url>
-    <loc>${site.url}${page.path}</loc>
+    <loc>${site.url}${publicPath}</loc>
+${alternates}
     <lastmod>${today}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
@@ -118,8 +149,11 @@ ${images ? `${images}\n` : ''}  </url>`;
     return `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Plan de site généré automatiquement par tools/build-site.mjs — ne pas éditer à la main -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${pages.map(toUrl).join('\n')}
+${pages
+    .flatMap((page) => page.locales.map((locale) => toUrl(page, locale)))
+    .join('\n')}
 </urlset>
 `;
 }
@@ -192,56 +226,154 @@ async function cleanLegacyOutput() {
     }
 }
 
+/**
+ * Élague les versions traduites devenues obsolètes.
+ *
+ * Le plan de publication peut se réduire (une page retirée de PAGE_LOCALES,
+ * une collection renommée…) : les fichiers déjà écrits lors d'un build
+ * précédent resteraient sinon servis, avec du contenu français et un hreflang
+ * trompeur. On ne conserve donc que ce que ce build vient d'écrire.
+ */
+async function pruneLocalizedOutputs(written) {
+    const expected = new Set(written.filter((page) => page.locale !== defaultLocale).map((page) => page.output));
+    let removed = 0;
+
+    for (const locale of localeCodes) {
+        if (locale === defaultLocale) continue;
+        const root = path.join(ROOT, locale);
+        const files = await walk(root).catch(() => []);
+
+        for (const file of files) {
+            if (!file.endsWith('.html')) continue;
+            const relative = path.relative(ROOT, file).split(path.sep).join('/');
+            if (expected.has(relative)) continue;
+            await rm(file, { force: true });
+            removed += 1;
+        }
+
+        // Dossiers vidés par l'élagage (du plus profond au plus haut niveau).
+        const dirs = (await walk(root, { directoriesOnly: true }).catch(() => []))
+            .sort((a, b) => b.length - a.length);
+        for (const dir of dirs) {
+            const entries = await readdir(dir).catch(() => ['x']);
+            if (entries.length === 0) await rmdir(dir).catch(() => {});
+        }
+    }
+
+    if (removed) console.log(`  ↺ ${removed} page(s) traduite(s) obsolète(s) supprimée(s)`);
+}
+
+/** Parcours récursif d'un dossier (fichiers, ou dossiers si demandé). */
+async function walk(dir, { directoriesOnly = false } = {}) {
+    const entries = await readdir(dir, { withFileTypes: true });
+    const found = [];
+    for (const entry of entries) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            if (directoriesOnly) found.push(full);
+            found.push(...(await walk(full, { directoriesOnly })));
+        } else if (!directoriesOnly) {
+            found.push(full);
+        }
+    }
+    return found;
+}
+
 /* -------------------------------------------------------------- Point d'entrée */
 
 async function build() {
     const seen = new Map();
     const written = [];
     const indexable = [];
+    const localizedOutputs = [];
 
-    console.log(`\nGénération de ${routes.length} page(s) — ${site.url}`);
+    const pageCount = pageFactories().length;
+    console.log(`\nGénération de ${pageCount} page(s) × ${localeCodes.length} langue(s) — ${site.url}`);
 
-    for (const route of routes) {
-        assertValid(route);
+    for (const locale of localeCodes) {
+        setLocale(locale);
 
-        if (seen.has(route.path)) {
-            throw new Error(`Chemin dupliqué entre deux pages : ${route.path} et ${seen.get(route.path)}`);
-        }
-        seen.set(route.path, route.path);
+        for (const makePage of pageFactories()) {
+            // Repère posé avant l'évaluation : si la page n'existe pas dans
+            // cette langue, ses chaînes non traduites ne sont pas signalées.
+            const marker = missingCount();
 
-        // Le préfixe relatif des liens et des ressources est calculé à partir
-        // de la profondeur de la page (les pages « racine absolue », comme la
-        // 404, gèrent leurs liens directement dans leur propre gabarit).
-        const depth = route.depth;
+            // Première évaluation « sonde » : elle donne le chemin source, donc
+            // la profondeur de la version publiée dans cette langue. Elle hérite
+            // de la profondeur du rendu précédent, d'où la reconstruction
+            // systématique dès que la profondeur visée diffère.
+            const probeDepth = getDepth();
+            let route = makePage();
+            if (!localesFor(route.path).includes(locale)) {
+                rollbackMissing(marker);
+                continue;
+            }
 
-        const html = renderPage({
-            path: route.path,
-            depth,
-            title: route.title,
-            description: route.description,
-            robots: route.robots,
-            ogType: route.ogType,
-            preload: route.preload,
-            includeQuickView: route.includeQuickView,
-            body: route.body,
-            jsonLd: route.jsonLd,
-        });
+            const publicPath = localizedPath(route.path, locale);
+            // Les liens internes sont relatifs : une page traduite gagne un
+            // niveau de profondeur, il faut donc reconstruire le corps.
+            const depth = depthOf(publicPath);
+            if (probeDepth !== depth) {
+                setDepth(depth);
+                route = makePage();
+            }
 
-        const output = resolveOutput(route.path);
-        const target = path.join(ROOT, output);
-        await mkdir(path.dirname(target), { recursive: true });
-        await writeFile(target, html, 'utf8');
+            assertValid(route);
 
-        const size = Buffer.byteLength(html, 'utf8');
-        written.push({ output, size });
-        console.log(
-            `  ✓ ${route.path.padEnd(30)} → ${output.padEnd(38)} ${String(Math.round(size / 1024)).padStart(4)} Ko`,
-        );
+            const html = renderPage({
+                path: route.path,
+                depth,
+                title: route.title,
+                description: route.description,
+                robots: route.robots,
+                ogType: route.ogType,
+                preload: route.preload,
+                includeQuickView: route.includeQuickView,
+                body: route.body,
+                jsonLd: route.jsonLd,
+            });
 
-        if (route.robots !== 'noindex, follow') {
-            indexable.push({ path: route.path, depth });
+            if (seen.has(publicPath)) {
+                throw new Error(`Chemin dupliqué entre deux pages : ${publicPath}`);
+            }
+            seen.set(publicPath, `${route.path} (${locale})`);
+
+            const output = resolveOutput(publicPath);
+            const target = path.join(ROOT, output);
+            await mkdir(path.dirname(target), { recursive: true });
+            await writeFile(target, html, 'utf8');
+
+            const size = Buffer.byteLength(html, 'utf8');
+            written.push({ path: publicPath, output, size, locale });
+            console.log(
+                `  ✓ ${locale === defaultLocale ? '  ' : locale.toUpperCase()} ${publicPath.padEnd(28)} → ${output.padEnd(36)} ${String(Math.round(size / 1024)).padStart(4)} Ko`,
+            );
+
+            if (locale !== defaultLocale) {
+                localizedOutputs.push({ publicPath, output, locale, size });
+            } else if (route.robots !== 'noindex, follow') {
+                // Une entrée par page source, portant ses variantes de langue :
+                // le plan de site expose ainsi les alternances hreflang.
+                indexable.push({
+                    path: route.path,
+                    depth,
+                    locales: localesFor(route.path).filter((code) => code !== undefined),
+                });
+            }
         }
     }
+
+    setLocale(defaultLocale);
+
+    // Traductions manquantes : on refuse de publier une page à moitié traduite
+    const missing = missingTranslations();
+    if (missing.length) {
+        throw new Error(
+            `Traductions manquantes (${missing.length}) :\n  - ${missing.join('\n  - ')}`,
+        );
+    }
+
+    await pruneLocalizedOutputs([...written, ...localizedOutputs]);
 
     await writeBrowserCatalog();
 

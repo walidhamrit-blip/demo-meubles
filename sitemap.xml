@@ -1,21 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Plan de site généré automatiquement par tools/build-site.mjs — ne pas éditer à la main -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.maisontripoli.com/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.maisontripoli.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maisontripoli.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/"/>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.maisontripoli.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.maisontripoli.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maisontripoli.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/"/>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.maisontripoli.com/ar/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.maisontripoli.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maisontripoli.com/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.maisontripoli.com/collections/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.maisontripoli.com/en/collections/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maisontripoli.com/ar/collections/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/"/>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.maisontripoli.com/en/collections/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.maisontripoli.com/en/collections/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maisontripoli.com/ar/collections/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/"/>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.maisontripoli.com/ar/collections/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.maisontripoli.com/en/collections/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maisontripoli.com/ar/collections/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.maisontripoli.com/collections/salons/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/salons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/salons/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -34,6 +85,8 @@
   </url>
   <url>
     <loc>https://www.maisontripoli.com/collections/salles-a-manger/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/salles-a-manger/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/salles-a-manger/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -52,6 +105,8 @@
   </url>
   <url>
     <loc>https://www.maisontripoli.com/collections/chambres/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/chambres/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/chambres/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -70,6 +125,8 @@
   </url>
   <url>
     <loc>https://www.maisontripoli.com/collections/rangements/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/rangements/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/rangements/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -88,6 +145,8 @@
   </url>
   <url>
     <loc>https://www.maisontripoli.com/collections/eclairage-objets/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/collections/eclairage-objets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/collections/eclairage-objets/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -102,30 +161,40 @@
   </url>
   <url>
     <loc>https://www.maisontripoli.com/atelier/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/atelier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/atelier/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.maisontripoli.com/sur-mesure/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/sur-mesure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/sur-mesure/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.maisontripoli.com/projets/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/projets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/projets/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.maisontripoli.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/contact/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.maisontripoli.com/mentions-legales/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.maisontripoli.com/mentions-legales/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maisontripoli.com/mentions-legales/"/>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

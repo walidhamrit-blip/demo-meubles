@@ -7,6 +7,7 @@
 
 import { href, asset } from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
+import { tr } from '../content/i18n.mjs';
 
 /* ------------------------------------------------------------------ Icônes */
 
@@ -124,7 +125,7 @@ export function breadcrumbs(items, depth) {
         })
         .join('\n                    ');
 
-    return `<nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
+    return `<nav data-breadcrumb aria-label="${tr("Fil d'Ariane")}" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
                 <ol class="flex flex-wrap items-center gap-2">
                     ${list}
                 </ol>
@@ -165,10 +166,10 @@ export function productCard(product, depth) {
                             width: 1000,
                             height: 1250,
                         })}
-                        <span class="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-ink">
+                        <span class="absolute top-4 start-4 bg-surface/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-ink">
                             ${product.badge}
                         </span>
-                        <span class="absolute bottom-4 right-4 bg-inverse text-on-inverse w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300" aria-hidden="true">
+                        <span class="absolute bottom-4 end-4 bg-inverse text-on-inverse w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300" aria-hidden="true">
                             ${icon('eye', 'icon w-4 h-4 stroke-[2]')}
                         </span>
                     </div>
@@ -211,7 +212,7 @@ export function collectionCard(collection, { depth, image, sizes, eager = false 
                         </h3>
                         <p class="text-xs text-on-inverse-muted/90 font-light mt-2 leading-relaxed max-w-sm">${collection.summary}</p>
                         <p class="mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-on-inverse-muted">
-                            Découvrir la collection ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
+                            ${tr('Découvrir la collection')}${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
                         </p>
                     </div>
                 </article>`;

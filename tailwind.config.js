@@ -17,7 +17,9 @@ module.exports = {
     // Fichiers scannés pour ne générer QUE les classes réellement utilisées
     // (CSS final ~20 Ko au lieu des ~400 Ko du CDN Play).
     content: [
-        './index.html',              // pages générées…
+        './index.html',              // pages générées (français, langue pivot)…
+        './en/**/*.html',            // …et versions traduites
+        './ar/**/*.html',
         './collections/**/*.html',
         './atelier/**/*.html',
         './sur-mesure/**/*.html',

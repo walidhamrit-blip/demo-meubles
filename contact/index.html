@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="clair" class="scroll-smooth">
+<html lang="fr" dir="ltr" data-theme="clair" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <title>Showroom &amp; Atelier à Tripoli, Liban | Maison Tripoli</title>
     <meta name="description" content="Showroom et atelier Maison Tripoli à Tripoli : adresse, horaires, téléphone et formulaire de devis. Réponse sous 24 heures, livraison internationale.">
     <link rel="canonical" href="https://www.maisontripoli.com/contact/">
+
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Maison Tripoli">
     <meta name="theme-color" content="#231F1D">
@@ -298,7 +299,7 @@
                             Collections
                             <svg class="icon w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:rotate-180" aria-hidden="true" focusable="false"><use href="#i-chevron-down"></use></svg>
                         </a>
-                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute left-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
+                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute start-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
                         <li>
                             <a href="../collections/salons/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
                                 <span class="font-serif text-base normal-case tracking-normal text-ink">Salons &amp; banquettes</span>
@@ -334,25 +335,25 @@
                     <li>
                         <a href="../atelier/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             L'Atelier
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../sur-mesure/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Sur-Mesure
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../projets/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Projets
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../contact/" aria-current="page" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Showroom
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                 </ul>
@@ -361,12 +362,8 @@
 
             <div class="text-center">
                 <a href="../" class="group block" aria-label="Maison Tripoli — retour à l'accueil">
-                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">
-                        Maison Tripoli
-                    </span>
-                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">
-                        Atelier Mobilier • 1948
-                    </span>
+                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">Maison Tripoli</span>
+                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">Atelier Mobilier • 1948</span>
                 </a>
             </div>
 
@@ -379,9 +376,7 @@
                 </button>
 
                 <a href="../contact/"
-                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">
-                    Prendre rendez-vous
-                </a>
+                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">Prendre rendez-vous</a>
 
                 <button type="button"
                         id="cartToggleBtn"
@@ -392,6 +387,35 @@
                     <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-baggage-claim"></use></svg>
                     <span id="cartCountBadge" class="text-xs font-serif italic text-accent-ink" aria-hidden="true">(0)</span>
                 </button>
+
+                <nav class="language-switch" aria-label="Changer de langue">
+        <ul class="flex items-center gap-0.5">
+            <li>
+            <a href="../contact/"
+               hreflang="fr"
+               lang="fr"
+               aria-current="true"
+               title="Français"
+               class="language-link language-link--current">FR</a>
+        </li>
+            <li>
+            <a href="../en/"
+               hreflang="en"
+               lang="en"
+               
+               title="English — page d’accueil"
+               class="language-link">EN</a>
+        </li>
+            <li>
+            <a href="../ar/"
+               hreflang="ar"
+               lang="ar"
+               
+               title="العربية — page d’accueil"
+               class="language-link">ع</a>
+        </li>
+        </ul>
+    </nav>
 
                 <div class="hidden sm:block"><div class="flex items-center gap-1" role="group" aria-label="Thème d’affichage">
         <button type="button" class="theme-btn" data-theme-set="clair" aria-pressed="false" title="Thème clair — sable">
@@ -461,9 +485,39 @@
                         <svg class="icon w-4 h-4 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
                         Rechercher une pièce
                     </button>
-                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">
-                        Visite privée au showroom
-                    </button>
+                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">Visite privée au showroom</button>
+                </div>
+
+                <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold">Langue</span>
+                    <nav class="language-switch" aria-label="Changer de langue — menu mobile">
+        <ul class="flex items-center gap-0.5">
+            <li>
+            <a href="../contact/"
+               hreflang="fr"
+               lang="fr"
+               aria-current="true"
+               title="Français"
+               class="language-link language-link--current">FR</a>
+        </li>
+            <li>
+            <a href="../en/"
+               hreflang="en"
+               lang="en"
+               
+               title="English — page d’accueil"
+               class="language-link">EN</a>
+        </li>
+            <li>
+            <a href="../ar/"
+               hreflang="ar"
+               lang="ar"
+               
+               title="العربية — page d’accueil"
+               class="language-link">ع</a>
+        </li>
+        </ul>
+    </nav>
                 </div>
 
                 <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
@@ -489,7 +543,7 @@
 
     <main id="main" class="flex-1">
 <section class="pt-16 pb-14 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="contact-title">
-            <nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
+            <nav data-breadcrumb aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
                 <ol class="flex flex-wrap items-center gap-2">
                     <li class="flex items-center gap-2">
                     
@@ -505,14 +559,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-7">
                     <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Nous rendre visite</p>
-                    <h1 id="contact-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
-                        Showroom &amp; Atelier à Tripoli, Liban
-                    </h1>
+                    <h1 id="contact-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">Showroom &amp; Atelier à Tripoli, Liban</h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
-                        Nous vous accueillons au cœur historique de l'artisanat tripolitain. Venez voir les pièces grandeur réelle, toucher les matières et rencontrer les artisans qui fabriqueront votre mobilier.
-                    </p>
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">Nous vous accueillons au cœur historique de l'artisanat tripolitain. Venez voir les pièces grandeur réelle, toucher les matières et rencontrer les artisans qui fabriqueront votre mobilier.</p>
                 </div>
             </div>
         </section>
@@ -575,9 +625,7 @@
                     <div class="bg-inverse text-on-inverse p-8">
                         <p class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold">Projets à l'étranger</p>
                         <p class="font-serif text-xl font-light mt-3">Vous ne pouvez pas vous déplacer ?</p>
-                        <p class="text-xs text-on-inverse-muted font-light mt-3 leading-relaxed">
-                            Nous conduisons les projets internationaux à distance : plans cotés, prototypes de teinte, échantillons expédiés et suivi photographique de la fabrication à chaque étape.
-                        </p>
+                        <p class="text-xs text-on-inverse-muted font-light mt-3 leading-relaxed">Nous conduisons les projets internationaux à distance : plans cotés, prototypes de teinte, échantillons expédiés et suivi photographique de la fabrication à chaque étape.</p>
                         <p class="mt-6">
                             <a href="../sur-mesure/" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-on-inverse-soft border-b border-line-soft pb-2 hover:text-accent-ink hover:border-accent transition">
                                 <span>Voir la méthode sur-mesure</span>
@@ -623,12 +671,8 @@
                             <textarea id="contactMessage" name="message" rows="4" placeholder="Dimensions, lieu du projet, pièces souhaitées…"
                                       class="w-full bg-surface-2 border border-line-strong px-4 py-3 text-xs focus:outline-none focus:border-ink"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-4 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition duration-300">
-                            Transmettre la requête
-                        </button>
-                        <p class="text-[10px] text-muted leading-relaxed">
-                            Les informations transmises sont utilisées uniquement pour traiter votre demande.
-                            <a href="../mentions-legales/" class="underline underline-offset-2 hover:text-ink">Politique de confidentialité</a>.
+                        <button type="submit" class="w-full py-4 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition duration-300">Transmettre la requête</button>
+                        <p class="text-[10px] text-muted leading-relaxed">Les informations transmises sont utilisées uniquement pour traiter votre demande.<a href="../mentions-legales/" class="underline underline-offset-2 hover:text-ink">Politique de confidentialité</a>.
                         </p>
                     </form>
 
@@ -682,16 +726,12 @@
             <div class="max-w-xl mx-auto">
                 <p class="text-[11px] uppercase tracking-[0.3em] text-accent-ink block mb-2">Correspondance privée</p>
                 <h2 id="newsletter-title" class="font-serif text-2xl sm:text-3xl font-light text-ink mb-3">Recevez nos nouvelles éditions</h2>
-                <p class="text-xs text-muted mb-6 leading-relaxed">
-                    Aperçus confidentiels de nos nouvelles lignes de mobilier, invitations aux vernissages et chroniques sur l'architecture libanaise.
-                </p>
+                <p class="text-xs text-muted mb-6 leading-relaxed">Aperçus confidentiels de nos nouvelles lignes de mobilier, invitations aux vernissages et chroniques sur l'architecture libanaise.</p>
                 <form id="newsletterForm" class="flex flex-col sm:flex-row gap-2">
                     <label for="newsletterEmail" class="sr-only">Votre adresse e-mail</label>
                     <input type="email" id="newsletterEmail" name="email" required autocomplete="email" inputmode="email" placeholder="Votre adresse e-mail"
                            class="w-full bg-surface border border-line-strong px-4 py-3 text-xs focus:outline-none focus:border-ink">
-                    <button type="submit" class="px-8 py-3 bg-inverse text-on-inverse text-xs uppercase tracking-widest hover:bg-accent hover:text-on-accent transition shrink-0">
-                        S'inscrire
-                    </button>
+                    <button type="submit" class="px-8 py-3 bg-inverse text-on-inverse text-xs uppercase tracking-widest hover:bg-accent hover:text-on-accent transition shrink-0">S'inscrire</button>
                 </form>
                 <p id="newsletterStatus" class="mt-3 text-xs text-emerald-800" role="status" aria-live="polite"></p>
             </div>
@@ -763,9 +803,7 @@
 
             <div class="lg:col-span-2 space-y-4">
                 <p class="font-serif text-2xl tracking-[0.2em] uppercase font-light text-white">Maison Tripoli</p>
-                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">
-                    Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.
-                </p>
+                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.</p>
                 <ul class="flex gap-2 pt-2 text-on-inverse-muted">
                     <li>
                         <a href="https://www.instagram.com/maisontripoli" target="_blank" rel="noopener noreferrer me" class="inline-flex p-2 hover:text-white transition" aria-label="Suivre Maison Tripoli sur Instagram (nouvelle fenêtre)">
@@ -831,7 +869,7 @@
 
     <!-- COUCHE — Recherche au catalogue -->
     <div id="searchModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-surface/[0.98] backdrop-blur-md flex-col justify-center items-center px-6 py-16" hidden>
-        <button type="button" data-close-dialog class="absolute top-8 right-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
+        <button type="button" data-close-dialog class="absolute top-8 end-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
             <svg class="icon w-7 h-7 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
         </button>
         <div class="max-w-2xl w-full text-center">
@@ -846,14 +884,12 @@
     <!-- COUCHE — Prise de rendez-vous au showroom -->
     <div id="consultationModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="consultationTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm items-center justify-center p-4" hidden>
         <div class="bg-surface max-w-lg w-full p-6 sm:p-8 border border-line-strong shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button type="button" data-close-dialog class="absolute top-5 right-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
+            <button type="button" data-close-dialog class="absolute top-5 end-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
                 <svg class="icon w-5 h-5 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
             </button>
             <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service personnalisé</p>
             <h2 id="consultationTitle" class="font-serif text-2xl text-ink font-normal mt-1 mb-2">Visite privée au showroom</h2>
-            <p class="text-xs text-muted mb-6">
-                Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.
-            </p>
+            <p class="text-xs text-muted mb-6">Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.</p>
 
             <form id="consultationForm" class="space-y-4 text-xs">
                 <div>
@@ -876,16 +912,14 @@
                         <option>Collaboration professionnelle (architecte)</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">
-                    Confirmer la demande
-                </button>
+                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">Confirmer la demande</button>
                 <p id="consultationStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
             </form>
         </div>
     </div>
 
     <!-- TIROIR — Sélection et demande de devis -->
-    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 right-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
+    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 end-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
         <div class="p-6 border-b border-line-strong flex items-center justify-between">
             <div>
                 <h2 id="cartTitle" class="font-serif text-xl text-ink font-normal">Mon devis &amp; sélection</h2>
@@ -910,11 +944,8 @@
                 <span id="cartSubtotal" class="font-serif text-lg font-medium">0 $</span>
             </p>
             <p class="text-[10px] text-muted leading-tight">
-                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.
-            </p>
-            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">
-                Finaliser la demande de devis
-            </button>
+                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.</p>
+            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">Finaliser la demande de devis</button>
             <p id="cartStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
         </div>
     </div>

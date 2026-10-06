@@ -270,8 +270,12 @@ for (const page of PAGES) {
     }
     if (!/class="skip-link"/.test(body)) warn(page, 'lien d’évitement (skip link) absent');
 
-    const isRoot = path.dirname(page) === '.';
-    if (!isRoot && !is404 && !/aria-label="Fil d[’']Ariane"/.test(body)) {
+    const isRoot = /^(index\.html|[a-z]{2}\/index\.html)$/.test(page);
+    // Le libellé est traduit sur les pages en anglais et en arabe : on
+    // s'appuie sur le repère stable `data-breadcrumb`, avec repli sur le
+    // libellé français pour les pages historiques.
+    const hasBreadcrumb = /data-breadcrumb|aria-label="Fil d[’']Ariane"/.test(body);
+    if (!isRoot && !is404 && !hasBreadcrumb) {
         fail(page, 'fil d’Ariane absent sur une page de niveau inférieur');
     } else if (!isRoot && !is404) {
         pass('fil d’Ariane présent');

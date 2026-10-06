@@ -5,9 +5,13 @@
    (lieu + type de mobilier), avec lien vers la collection concernée.
    ========================================================================= */
 
-import { href } from '../lib/paths.mjs';
+import {
+    currentDepth as DEPTH,
+    href,
+} from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
 import { collectionBySlug } from '../content/collections.mjs';
+import { tr } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -20,8 +24,6 @@ import {
 import { ctaBand } from '../templates/sections.mjs';
 
 const PATH = '/projets/';
-const DEPTH = 1;
-
 const projects = [
     {
         name: 'Penthouse Sursock',
@@ -98,21 +100,17 @@ export default function projets() {
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">In situ</p>
-                    <h1 id="projets-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
-                        Demeures Réalisées : Projets de Mobilier In Situ
-                    </h1>
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">${tr('In situ')}</p>
+                    <h1 id="projets-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">${tr('Demeures Réalisées : Projets de Mobilier In Situ')}</h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
-                        Du penthouse beyrouthin au chalet d'altitude, du restaurant du vieux port à la villa de Dubaï : six chantiers livrés par nos ateliers, avec le détail de ce que nous y avons fabriqué.
-                    </p>
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">${tr("Du penthouse beyrouthin au chalet d'altitude, du restaurant du vieux port à la villa de Dubaï : six chantiers livrés par nos ateliers, avec le détail de ce que nous y avons fabriqué.")}</p>
                 </div>
             </div>
         </section>
 
         <section class="pb-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="residences-title">
-            <h2 id="residences-title" class="sr-only">Liste des résidences et chantiers livrés</h2>
+            <h2 id="residences-title" class="sr-only">${tr('Liste des résidences et chantiers livrés')}</h2>
             <div class="space-y-16">
                 ${projects
                     .map(
@@ -164,22 +162,16 @@ export default function projets() {
                 })}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-14">
                     <article class="space-y-4">
-                        <h3 class="font-serif text-xl text-ink font-normal">Étude &amp; plans</h3>
-                        <p class="text-sm text-muted font-light leading-relaxed">
-                            Relevé de cotes, plans d'exécution cotés et calepinage des matières. Nous vérifions la faisabilité technique avant tout engagement de délai.
-                        </p>
+                        <h3 class="font-serif text-xl text-ink font-normal">${tr('Étude &amp; plans')}</h3>
+                        <p class="text-sm text-muted font-light leading-relaxed">${tr("Relevé de cotes, plans d'exécution cotés et calepinage des matières. Nous vérifions la faisabilité technique avant tout engagement de délai.")}</p>
                     </article>
                     <article class="space-y-4">
-                        <h3 class="font-serif text-xl text-ink font-normal">Fabrication par lots</h3>
-                        <p class="text-sm text-muted font-light leading-relaxed">
-                            Les commandes multi-pièces sont produites par lots numérotés, avec un plan de pose par pièce : les équipes de chantier installent sans erreur et sans retouche.
-                        </p>
+                        <h3 class="font-serif text-xl text-ink font-normal">${tr('Fabrication par lots')}</h3>
+                        <p class="text-sm text-muted font-light leading-relaxed">${tr('Les commandes multi-pièces sont produites par lots numérotés, avec un plan de pose par pièce : les équipes de chantier installent sans erreur et sans retouche.')}</p>
                     </article>
                     <article class="space-y-4">
-                        <h3 class="font-serif text-xl text-ink font-normal">Livraison &amp; pose</h3>
-                        <p class="text-sm text-muted font-light leading-relaxed">
-                            Caisses bois sur mesure, transport sous gants blancs, montage et réglages sur place. Nous repartons avec les chutes et les emballages, et vous avec la garantie signée.
-                        </p>
+                        <h3 class="font-serif text-xl text-ink font-normal">${tr('Livraison &amp; pose')}</h3>
+                        <p class="text-sm text-muted font-light leading-relaxed">${tr('Caisses bois sur mesure, transport sous gants blancs, montage et réglages sur place. Nous repartons avec les chutes et les emballages, et vous avec la garantie signée.')}</p>
                     </article>
                 </div>
             </div>

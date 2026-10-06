@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="clair" class="scroll-smooth">
+<html lang="fr" dir="ltr" data-theme="clair" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <title>Mobilier Sur-Mesure pour Architectes | Maison Tripoli</title>
     <meta name="description" content="Mobilier, boiseries et agencement sur mesure à Tripoli : plans cotés, prototypes de teinte, fabrication en atelier et pose sous gants blancs. Devis sous 48 heures.">
     <link rel="canonical" href="https://www.maisontripoli.com/sur-mesure/">
+
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Maison Tripoli">
     <meta name="theme-color" content="#231F1D">
@@ -365,7 +366,7 @@
                             Collections
                             <svg class="icon w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:rotate-180" aria-hidden="true" focusable="false"><use href="#i-chevron-down"></use></svg>
                         </a>
-                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute left-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
+                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute start-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
                         <li>
                             <a href="../collections/salons/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
                                 <span class="font-serif text-base normal-case tracking-normal text-ink">Salons &amp; banquettes</span>
@@ -401,25 +402,25 @@
                     <li>
                         <a href="../atelier/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             L'Atelier
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../sur-mesure/" aria-current="page" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Sur-Mesure
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../projets/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Projets
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
                         <a href="../contact/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Showroom
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 start-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                 </ul>
@@ -428,12 +429,8 @@
 
             <div class="text-center">
                 <a href="../" class="group block" aria-label="Maison Tripoli — retour à l'accueil">
-                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">
-                        Maison Tripoli
-                    </span>
-                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">
-                        Atelier Mobilier • 1948
-                    </span>
+                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">Maison Tripoli</span>
+                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">Atelier Mobilier • 1948</span>
                 </a>
             </div>
 
@@ -446,9 +443,7 @@
                 </button>
 
                 <a href="../contact/"
-                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">
-                    Prendre rendez-vous
-                </a>
+                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">Prendre rendez-vous</a>
 
                 <button type="button"
                         id="cartToggleBtn"
@@ -459,6 +454,35 @@
                     <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-baggage-claim"></use></svg>
                     <span id="cartCountBadge" class="text-xs font-serif italic text-accent-ink" aria-hidden="true">(0)</span>
                 </button>
+
+                <nav class="language-switch" aria-label="Changer de langue">
+        <ul class="flex items-center gap-0.5">
+            <li>
+            <a href="../sur-mesure/"
+               hreflang="fr"
+               lang="fr"
+               aria-current="true"
+               title="Français"
+               class="language-link language-link--current">FR</a>
+        </li>
+            <li>
+            <a href="../en/"
+               hreflang="en"
+               lang="en"
+               
+               title="English — page d’accueil"
+               class="language-link">EN</a>
+        </li>
+            <li>
+            <a href="../ar/"
+               hreflang="ar"
+               lang="ar"
+               
+               title="العربية — page d’accueil"
+               class="language-link">ع</a>
+        </li>
+        </ul>
+    </nav>
 
                 <div class="hidden sm:block"><div class="flex items-center gap-1" role="group" aria-label="Thème d’affichage">
         <button type="button" class="theme-btn" data-theme-set="clair" aria-pressed="false" title="Thème clair — sable">
@@ -528,9 +552,39 @@
                         <svg class="icon w-4 h-4 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
                         Rechercher une pièce
                     </button>
-                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">
-                        Visite privée au showroom
-                    </button>
+                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">Visite privée au showroom</button>
+                </div>
+
+                <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold">Langue</span>
+                    <nav class="language-switch" aria-label="Changer de langue — menu mobile">
+        <ul class="flex items-center gap-0.5">
+            <li>
+            <a href="../sur-mesure/"
+               hreflang="fr"
+               lang="fr"
+               aria-current="true"
+               title="Français"
+               class="language-link language-link--current">FR</a>
+        </li>
+            <li>
+            <a href="../en/"
+               hreflang="en"
+               lang="en"
+               
+               title="English — page d’accueil"
+               class="language-link">EN</a>
+        </li>
+            <li>
+            <a href="../ar/"
+               hreflang="ar"
+               lang="ar"
+               
+               title="العربية — page d’accueil"
+               class="language-link">ع</a>
+        </li>
+        </ul>
+    </nav>
                 </div>
 
                 <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
@@ -556,7 +610,7 @@
 
     <main id="main" class="flex-1">
 <section class="pt-16 pb-14 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="surmesure-title">
-            <nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
+            <nav data-breadcrumb aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
                 <ol class="flex flex-wrap items-center gap-2">
                     <li class="flex items-center gap-2">
                     
@@ -572,14 +626,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-7">
                     <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service architectes &amp; projets privés</p>
-                    <h1 id="surmesure-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
-                        Mobilier &amp; Agencement Sur-Mesure, du Plan à la Pose
-                    </h1>
+                    <h1 id="surmesure-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">Mobilier &amp; Agencement Sur-Mesure, du Plan à la Pose</h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
-                        Villa, appartement, suite hôtelière ou résidence secondaire : nous prenons en charge l'aménagement complet — mobilier, boiseries, pierre et éclairage — dans un même langage de matières.
-                    </p>
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">Villa, appartement, suite hôtelière ou résidence secondaire : nous prenons en charge l'aménagement complet — mobilier, boiseries, pierre et éclairage — dans un même langage de matières.</p>
                 </div>
             </div>
 
@@ -702,27 +752,19 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
                 <article class="bg-surface-2 border border-line p-8 space-y-4">
                     <h3 class="font-serif text-xl text-ink font-normal">Villas &amp; résidences</h3>
-                    <p class="text-sm text-muted font-light leading-relaxed">
-                        Salons de réception, salles à manger, suites parentales et boiseries d'entrée. Projets de 80 à 600 m², du Liban au Golfe.
-                    </p>
+                    <p class="text-sm text-muted font-light leading-relaxed">Salons de réception, salles à manger, suites parentales et boiseries d'entrée. Projets de 80 à 600 m², du Liban au Golfe.</p>
                 </article>
                 <article class="bg-surface-2 border border-line p-8 space-y-4">
                     <h3 class="font-serif text-xl text-ink font-normal">Hôtellerie &amp; resorts</h3>
-                    <p class="text-sm text-muted font-light leading-relaxed">
-                        Mobilier de chambres en série numérotée, têtes de lit à la cote, mobilier de lobby et de restaurant, avec plan de pose par chambre.
-                    </p>
+                    <p class="text-sm text-muted font-light leading-relaxed">Mobilier de chambres en série numérotée, têtes de lit à la cote, mobilier de lobby et de restaurant, avec plan de pose par chambre.</p>
                 </article>
                 <article class="bg-surface-2 border border-line p-8 space-y-4">
                     <h3 class="font-serif text-xl text-ink font-normal">Bureaux &amp; direction</h3>
-                    <p class="text-sm text-muted font-light leading-relaxed">
-                        Bureaux d'apparat, murs de rangement, bibliothèques toute hauteur et salles de réunion habillées de bois et de cuir.
-                    </p>
+                    <p class="text-sm text-muted font-light leading-relaxed">Bureaux d'apparat, murs de rangement, bibliothèques toute hauteur et salles de réunion habillées de bois et de cuir.</p>
                 </article>
                 <article class="bg-surface-2 border border-line p-8 space-y-4">
                     <h3 class="font-serif text-xl text-ink font-normal">Pièces d'exception</h3>
-                    <p class="text-sm text-muted font-light leading-relaxed">
-                        Escaliers, portes intérieures, dressings et pièces uniques dessinées en collaboration avec nos maîtres artisans.
-                    </p>
+                    <p class="text-sm text-muted font-light leading-relaxed">Escaliers, portes intérieures, dressings et pièces uniques dessinées en collaboration avec nos maîtres artisans.</p>
                 </article>
             </div>
         </section>
@@ -888,9 +930,7 @@
 
             <div class="lg:col-span-2 space-y-4">
                 <p class="font-serif text-2xl tracking-[0.2em] uppercase font-light text-white">Maison Tripoli</p>
-                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">
-                    Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.
-                </p>
+                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.</p>
                 <ul class="flex gap-2 pt-2 text-on-inverse-muted">
                     <li>
                         <a href="https://www.instagram.com/maisontripoli" target="_blank" rel="noopener noreferrer me" class="inline-flex p-2 hover:text-white transition" aria-label="Suivre Maison Tripoli sur Instagram (nouvelle fenêtre)">
@@ -956,7 +996,7 @@
 
     <!-- COUCHE — Recherche au catalogue -->
     <div id="searchModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-surface/[0.98] backdrop-blur-md flex-col justify-center items-center px-6 py-16" hidden>
-        <button type="button" data-close-dialog class="absolute top-8 right-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
+        <button type="button" data-close-dialog class="absolute top-8 end-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
             <svg class="icon w-7 h-7 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
         </button>
         <div class="max-w-2xl w-full text-center">
@@ -971,14 +1011,12 @@
     <!-- COUCHE — Prise de rendez-vous au showroom -->
     <div id="consultationModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="consultationTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm items-center justify-center p-4" hidden>
         <div class="bg-surface max-w-lg w-full p-6 sm:p-8 border border-line-strong shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button type="button" data-close-dialog class="absolute top-5 right-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
+            <button type="button" data-close-dialog class="absolute top-5 end-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
                 <svg class="icon w-5 h-5 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
             </button>
             <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service personnalisé</p>
             <h2 id="consultationTitle" class="font-serif text-2xl text-ink font-normal mt-1 mb-2">Visite privée au showroom</h2>
-            <p class="text-xs text-muted mb-6">
-                Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.
-            </p>
+            <p class="text-xs text-muted mb-6">Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.</p>
 
             <form id="consultationForm" class="space-y-4 text-xs">
                 <div>
@@ -1001,16 +1039,14 @@
                         <option>Collaboration professionnelle (architecte)</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">
-                    Confirmer la demande
-                </button>
+                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">Confirmer la demande</button>
                 <p id="consultationStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
             </form>
         </div>
     </div>
 
     <!-- TIROIR — Sélection et demande de devis -->
-    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 right-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
+    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 end-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
         <div class="p-6 border-b border-line-strong flex items-center justify-between">
             <div>
                 <h2 id="cartTitle" class="font-serif text-xl text-ink font-normal">Mon devis &amp; sélection</h2>
@@ -1035,11 +1071,8 @@
                 <span id="cartSubtotal" class="font-serif text-lg font-medium">0 $</span>
             </p>
             <p class="text-[10px] text-muted leading-tight">
-                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.
-            </p>
-            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">
-                Finaliser la demande de devis
-            </button>
+                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.</p>
+            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">Finaliser la demande de devis</button>
             <p id="cartStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
         </div>
     </div>

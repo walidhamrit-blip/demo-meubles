@@ -10,7 +10,9 @@
    ========================================================================= */
 
 /** Maisons, fournisseurs et corps de métier partenaires. */
-export const partnerHouses = [
+import { tr } from './i18n.mjs';
+
+const PARTNER_HOUSES = [
     'Rubelli',
     'Pierre Frey',
     'Loro Piana',
@@ -22,8 +24,7 @@ export const partnerHouses = [
     'Laiton patiné &amp; bronze',
 ];
 
-/** Savoir-faire et services de la Maison. */
-export const houseServices = [
+const HOUSE_SERVICES = [
     'Ébénisterie sur-mesure',
     'Menuiserie d’art',
     'Agencement &amp; boiseries',
@@ -34,3 +35,13 @@ export const houseServices = [
     'Prototypes de teinte &amp; nomenclatures matières',
     'Livraison, pose &amp; installation internationale',
 ];
+
+/* Les libellés sont traduits au moment du rendu : les rubans sont construits
+   page par page, donc dans la langue de la page en cours. */
+export function partnerHouses() {
+    return PARTNER_HOUSES.map((entry) => tr(entry));
+}
+
+export function houseServices() {
+    return HOUSE_SERVICES.map((entry) => tr(entry));
+}

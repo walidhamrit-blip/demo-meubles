@@ -9,26 +9,53 @@
    ⚠️ Les longueurs de `title` (50–60 car.) et `description` (120–160 car.)
       sont contrôlées par `npm run audit`.
    ========================================================================= */
+import { tr } from './i18n.mjs';
 
 export const collections = [
     {
         slug: 'salons',
         path: '/collections/salons/',
-        navLabel: 'Salons &amp; banquettes',
-        breadcrumbLabel: 'Salons &amp; banquettes',
-        eyebrow: 'Assises &amp; réception',
-        h1: 'Salons &amp; Banquettes en Noyer Massif, Sculptés à Tripoli',
-        title: 'Salons &amp; Canapés en Noyer Massif à Tripoli | Maison Tripoli',
-        description:
-            "Canapés, banquettes et fauteuils façonnés main à Tripoli : noyer massif, lin bouclé et cuir pleine fleur. Sur mesure, livraison internationale.",
+        get navLabel() {
+            return tr(
+                'Salons &amp; banquettes',
+            );
+        },
+        get breadcrumbLabel() {
+            return tr(
+                'Salons &amp; banquettes',
+            );
+        },
+        get eyebrow() {
+            return tr(
+                'Assises &amp; réception',
+            );
+        },
+        get h1() {
+            return tr(
+                'Salons &amp; Banquettes en Noyer Massif, Sculptés à Tripoli',
+            );
+        },
+        get title() {
+            return tr(
+                'Salons &amp; Canapés en Noyer Massif à Tripoli | Maison Tripoli',
+            );
+        },
+        get description() {
+            return tr(
+                "Canapés, banquettes et fauteuils façonnés main à Tripoli : noyer massif, lin bouclé et cuir pleine fleur. Sur mesure, livraison internationale.",
+            );
+        },
         metaKeywords: [
             'canapé sur mesure Tripoli',
             'salon en noyer massif Liban',
             'banquette velours sur mesure',
             'fauteuil club cuir Tripoli',
         ],
-        summary:
-            "Canapés modulaires, banquettes de réception et fauteuils clubs dessinés pour les grands salons, dans le noyer massif et le cuir pleine fleur de nos ateliers.",
+        get summary() {
+            return tr(
+                "Canapés modulaires, banquettes de réception et fauteuils clubs dessinés pour les grands salons, dans le noyer massif et le cuir pleine fleur de nos ateliers.",
+            );
+        },
         highlights: [
             { icon: 'check', label: 'Structure en noyer massif séché 18 mois' },
             { icon: 'check', label: 'Modules et dimensions ajustables au centimètre' },
@@ -41,7 +68,11 @@ export const collections = [
         sections: [
             {
                 id: 'savoir-faire',
-                eyebrow: 'Savoir-faire',
+                get eyebrow() {
+                    return tr(
+                        'Savoir-faire',
+                    );
+                },
                 heading: "L'assise, du bois brut au garnissage",
                 paragraphs: [
                     "Le noyer est sélectionné en grume, débité puis séché lentement dans nos granges du Nord-Liban pendant dix-huit mois. Vient ensuite l'assemblage à queue d'aronde et tenon-mortaise, sans vis apparente, qui garantit la tenue du cadre sur plusieurs décennies.",
@@ -56,7 +87,11 @@ export const collections = [
             },
             {
                 id: 'ajuster',
-                eyebrow: 'Sur-mesure',
+                get eyebrow() {
+                    return tr(
+                        'Sur-mesure',
+                    );
+                },
                 heading: 'Ajuster le salon à votre volume, pas l’inverse',
                 paragraphs: [
                     "Un salon d'angle dans une pièce en L, une banquette filante sous une fenêtre à arcades, deux fauteuils clubs face à une cheminée : nous partons de vos cotes et de vos usages. Un plan de calepinage vous est transmis avant fabrication, avec l'implantation des modules, les passages et les dégagements.",
@@ -88,21 +123,47 @@ export const collections = [
     {
         slug: 'salles-a-manger',
         path: '/collections/salles-a-manger/',
-        navLabel: 'Salles à manger',
-        breadcrumbLabel: 'Salles à manger',
-        eyebrow: 'Tables &amp; réception',
-        h1: 'Tables de Réception &amp; Salles à Manger en Bois Massif',
-        title: 'Tables de Réception &amp; Salles à Manger | Maison Tripoli',
-        description:
-            "Tables de réception en chêne et travertin, tables d'appoint et sellets en pierre naturelle : mobilier de salle à manger fabriqué à Tripoli. Devis en 24 h.",
+        get navLabel() {
+            return tr(
+                'Salles à manger',
+            );
+        },
+        get breadcrumbLabel() {
+            return tr(
+                'Salles à manger',
+            );
+        },
+        get eyebrow() {
+            return tr(
+                'Tables &amp; réception',
+            );
+        },
+        get h1() {
+            return tr(
+                'Tables de Réception &amp; Salles à Manger en Bois Massif',
+            );
+        },
+        get title() {
+            return tr(
+                'Tables de Réception &amp; Salles à Manger | Maison Tripoli',
+            );
+        },
+        get description() {
+            return tr(
+                "Tables de réception en chêne et travertin, tables d'appoint et sellets en pierre naturelle : mobilier de salle à manger fabriqué à Tripoli. Devis en 24 h.",
+            );
+        },
         metaKeywords: [
             'table de réception sur mesure',
             'table salle à manger chêne massif',
             'plateau travertin sur mesure Liban',
             'table sur plan architecte Tripoli',
         ],
-        summary:
-            "Tables de réception monolithiques, tables d'appoint cérusées et plateaux de pierre naturelle, dimensionnés pour vos repas et vos volumes.",
+        get summary() {
+            return tr(
+                "Tables de réception monolithiques, tables d'appoint cérusées et plateaux de pierre naturelle, dimensionnés pour vos repas et vos volumes.",
+            );
+        },
         highlights: [
             { icon: 'check', label: 'Plateaux massifs jusqu’à 320 cm sans joint' },
             { icon: 'check', label: 'Travertin et marbre découpés au Nord-Liban' },
@@ -115,7 +176,11 @@ export const collections = [
         sections: [
             {
                 id: 'matieres',
-                eyebrow: 'Matières',
+                get eyebrow() {
+                    return tr(
+                        'Matières',
+                    );
+                },
                 heading: 'Chêne, travertin et marbre du bassin levantin',
                 paragraphs: [
                     "Le chêne de nos plateaux provient de fûts sélectionnés pour la régularité de leur veinage, débités en plots larges afin d'éviter les joints disgracieux au centre de la table. Le chêne blanchi, cérusé ou fumé est travaillé à la main dans l'atelier.",
@@ -130,7 +195,11 @@ export const collections = [
             },
             {
                 id: 'projets',
-                eyebrow: 'Projets',
+                get eyebrow() {
+                    return tr(
+                        'Projets',
+                    );
+                },
                 heading: 'Du plan d’architecte au plateau posé',
                 paragraphs: [
                     "Vous nous transmettez un plan, un relevé ou une intention : nous produisons les dessins d'exécution, le calepinage des dalles et une proposition de piétement. Une maquette à l'échelle peut être réalisée pour les configurations complexes ou les volumes atypiques.",
@@ -162,21 +231,47 @@ export const collections = [
     {
         slug: 'chambres',
         path: '/collections/chambres/',
-        navLabel: 'Chambres &amp; suites',
-        breadcrumbLabel: 'Chambres &amp; suites de nuit',
-        eyebrow: 'Suites &amp; repos',
-        h1: 'Chambres &amp; Suites de Nuit sur-Mesure à Tripoli',
-        title: 'Chambres &amp; Lits sur-Mesure à Tripoli | Maison Tripoli',
-        description:
-            "Lits, têtes de lit capitonnées et boiseries de chambre sur mesure, façonnés à Tripoli en chêne fumé et lin. Étude sur plan ou relevé de cotes sur place.",
+        get navLabel() {
+            return tr(
+                'Chambres &amp; suites',
+            );
+        },
+        get breadcrumbLabel() {
+            return tr(
+                'Chambres &amp; suites de nuit',
+            );
+        },
+        get eyebrow() {
+            return tr(
+                'Suites &amp; repos',
+            );
+        },
+        get h1() {
+            return tr(
+                'Chambres &amp; Suites de Nuit sur-Mesure à Tripoli',
+            );
+        },
+        get title() {
+            return tr(
+                'Chambres &amp; Lits sur-Mesure à Tripoli | Maison Tripoli',
+            );
+        },
+        get description() {
+            return tr(
+                "Lits, têtes de lit capitonnées et boiseries de chambre sur mesure, façonnés à Tripoli en chêne fumé et lin. Étude sur plan ou relevé de cotes sur place.",
+            );
+        },
         metaKeywords: [
             'lit sur mesure Tripoli',
             'tête de lit capitonnée Liban',
             'boiseries de chambre sur mesure',
             'chambre sur mesure architecte',
         ],
-        summary:
-            "Lits king size, têtes de lit capitonnées et boiseries murales dessinés aux cotes exactes de votre chambre, jusqu’aux sous-combles et pans coupés.",
+        get summary() {
+            return tr(
+                "Lits king size, têtes de lit capitonnées et boiseries murales dessinés aux cotes exactes de votre chambre, jusqu’aux sous-combles et pans coupés.",
+            );
+        },
         highlights: [
             { icon: 'check', label: 'Têtes de lit réalisées à la cote de la pièce' },
             { icon: 'check', label: 'Boiseries murales et chevets intégrés' },
@@ -189,7 +284,11 @@ export const collections = [
         sections: [
             {
                 id: 'confort',
-                eyebrow: 'Confort',
+                get eyebrow() {
+                    return tr(
+                        'Confort',
+                    );
+                },
                 heading: 'Capitonnage, matières et respiration du sommeil', 
                 paragraphs: [
                     "Une tête de lit capitonnée se compose d'un cadre de bois massif, d'une mousse technique et d'un garnissage textile. Nous écartons les mousses trop fermes qui rendent l'appui inconfortable en lecture, et privilégions des densités différenciées selon la hauteur d'appui.",
@@ -204,7 +303,11 @@ export const collections = [
             },
             {
                 id: 'projet-chambre',
-                eyebrow: 'Méthode',
+                get eyebrow() {
+                    return tr(
+                        'Méthode',
+                    );
+                },
                 heading: 'Un projet de chambre en quatre étapes',
                 paragraphs: [
                     "Première étape : le relevé. Nous nous déplaçons au Liban ou travaillons sur plan vérifié pour les projets à l'étranger. Deuxième étape : le dessin d'aménagement, avec élévations cotées et implantation des chevets, prises et éclairages.",
@@ -236,21 +339,47 @@ export const collections = [
     {
         slug: 'rangements',
         path: '/collections/rangements/',
-        navLabel: 'Rangements &amp; bureaux',
-        breadcrumbLabel: 'Rangements, enfilades &amp; bureaux',
-        eyebrow: 'Menuiserie &amp; rangement',
-        h1: 'Enfilades, Commodes &amp; Bureaux en Bois Massif',
-        title: 'Enfilades, Commodes &amp; Bureaux à Tripoli | Maison Tripoli',
-        description:
-            "Enfilades cannelées, consoles et bureaux d'apparat en noyer et ébène massifs, laqués et cirés à la main dans notre atelier de Tripoli, au Liban.",
+        get navLabel() {
+            return tr(
+                'Rangements &amp; bureaux',
+            );
+        },
+        get breadcrumbLabel() {
+            return tr(
+                'Rangements, enfilades &amp; bureaux',
+            );
+        },
+        get eyebrow() {
+            return tr(
+                'Menuiserie &amp; rangement',
+            );
+        },
+        get h1() {
+            return tr(
+                'Enfilades, Commodes &amp; Bureaux en Bois Massif',
+            );
+        },
+        get title() {
+            return tr(
+                'Enfilades, Commodes &amp; Bureaux à Tripoli | Maison Tripoli',
+            );
+        },
+        get description() {
+            return tr(
+                "Enfilades cannelées, consoles et bureaux d'apparat en noyer et ébène massifs, laqués et cirés à la main dans notre atelier de Tripoli, au Liban.",
+            );
+        },
         metaKeywords: [
             'enfilade sur mesure Liban',
             'commode noyer massif Tripoli',
             'bureau sur mesure ébène',
             'menuiserie d’art Tripoli',
         ],
-        summary:
-            "Enfilades cannelées, consoles d’entrée et bureaux d’apparat : la menuiserie d’art de nos maîtres ébénistes, du tiroir à fond de velours à la façade cannelée main.",
+        get summary() {
+            return tr(
+                "Enfilades cannelées, consoles d’entrée et bureaux d’apparat : la menuiserie d’art de nos maîtres ébénistes, du tiroir à fond de velours à la façade cannelée main.",
+            );
+        },
         highlights: [
             { icon: 'check', label: 'Façades cannelées fraisées à la main' },
             { icon: 'check', label: 'Charnières amorties et tiroirs à fond de velours' },
@@ -263,7 +392,11 @@ export const collections = [
         sections: [
             {
                 id: 'menuiserie',
-                eyebrow: "Menuiserie d'art",
+                get eyebrow() {
+                    return tr(
+                        "Menuiserie d'art",
+                    );
+                },
                 heading: 'La cannelure, la laque et le marbre',
                 paragraphs: [
                     "Une façade cannelée se travaille avec des fraises profilées réglées à la main : chaque cannelure est fraisée, ébarbée puis poncée individuellement avant assemblage. C'est cette régularité du pas qui donne à l'enfilade sa lecture architecturale et son ombre portée.",
@@ -278,7 +411,11 @@ export const collections = [
             },
             {
                 id: 'agencement',
-                eyebrow: 'Agencement',
+                get eyebrow() {
+                    return tr(
+                        'Agencement',
+                    );
+                },
                 heading: 'Du meuble isolé au mur de rangement',
                 paragraphs: [
                     "Au-delà de la pièce isolée, nous réalisons des murs de rangement complets : bibliothèques toute hauteur, niches éclairées, portes escamotables qui masquent un bureau ou un dressing. Le calepinage est dessiné pour que chaque porte s'aligne avec les lignes de la pièce.",
@@ -310,21 +447,47 @@ export const collections = [
     {
         slug: 'eclairage-objets',
         path: '/collections/eclairage-objets/',
-        navLabel: "Éclairage &amp; objets d'art",
-        breadcrumbLabel: "Éclairage &amp; objets d'art",
-        eyebrow: 'Laiton &amp; pierre',
-        h1: "Éclairage d'Art &amp; Objets en Laiton et Travertin",
-        title: "Lustres en Laiton &amp; Objets d'Art à Tripoli | Maison Tripoli",
-        description:
-            "Lustres en laiton massif martelé du Souk des Cuivres, sellets et objets en travertin : pièces d'art façonnées main dans notre atelier de Tripoli, Liban.",
+        get navLabel() {
+            return tr(
+                "Éclairage &amp; objets d'art",
+            );
+        },
+        get breadcrumbLabel() {
+            return tr(
+                "Éclairage &amp; objets d'art",
+            );
+        },
+        get eyebrow() {
+            return tr(
+                'Laiton &amp; pierre',
+            );
+        },
+        get h1() {
+            return tr(
+                "Éclairage d'Art &amp; Objets en Laiton et Travertin",
+            );
+        },
+        get title() {
+            return tr(
+                "Lustres en Laiton &amp; Objets d'Art à Tripoli | Maison Tripoli",
+            );
+        },
+        get description() {
+            return tr(
+                "Lustres en laiton massif martelé du Souk des Cuivres, sellets et objets en travertin : pièces d'art façonnées main dans notre atelier de Tripoli, Liban.",
+            );
+        },
         metaKeywords: [
             'lustre laiton massif Liban',
             'luminaire artisanal Tripoli',
             'objet décoratif travertin',
             'pièce unique laiton martelé',
         ],
-        summary:
-            "Lustres en laiton massif martelé du Souk des Cuivres, sellets en travertin et pièces d’art : la touche finale qui fait lire un intérieur comme une composition.",
+        get summary() {
+            return tr(
+                "Lustres en laiton massif martelé du Souk des Cuivres, sellets en travertin et pièces d’art : la touche finale qui fait lire un intérieur comme une composition.",
+            );
+        },
         highlights: [
             { icon: 'check', label: 'Laiton massif martelé et patiné main' },
             { icon: 'check', label: 'Électrification aux normes CE / IEC' },
@@ -337,7 +500,11 @@ export const collections = [
         sections: [
             {
                 id: 'dinanderie',
-                eyebrow: 'Dinanderie',
+                get eyebrow() {
+                    return tr(
+                        'Dinanderie',
+                    );
+                },
                 heading: 'Le laiton, du Souk des Cuivres à votre plafond',
                 paragraphs: [
                     "Le laiton est mis en forme au marteau sur des formes de bois, puis recuit pour retrouver sa ductilité avant d'être retravaillé. Le ciselage se fait à froid, à l'aide de poinçons et de burins : c'est cette étape qui creuse les facettes et fabrique la diffusion lumineuse si particulière des lustres de Tripoli.",
@@ -352,7 +519,11 @@ export const collections = [
             },
             {
                 id: 'objets',
-                eyebrow: 'Objets',
+                get eyebrow() {
+                    return tr(
+                        'Objets',
+                    );
+                },
                 heading: 'Sellets, plateaux et pièces de collection',
                 paragraphs: [
                     "À côté des luminaires, nous taillons des objets de présentation : sellets monolithes en travertin, plateaux en marbre noir, socles pour céramiques ou sculptures. Ces pièces sont découpées dans des chutes de nos plateaux de table, ce qui leur donne une parenté de matière avec le mobilier de la pièce.",

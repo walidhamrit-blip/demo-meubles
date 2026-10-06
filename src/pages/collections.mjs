@@ -10,11 +10,12 @@
    (CollectionPage + ItemList de Product + BreadcrumbList + FAQPage).
    ========================================================================= */
 
-import { href } from '../lib/paths.mjs';
+import { currentDepth, href } from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
 import { collections } from '../content/collections.mjs';
 import { collectionImages } from '../content/imagery.mjs';
 import { productsByCollection, priceRange } from '../content/products.mjs';
+import { tr, localized } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -44,7 +45,7 @@ import {
    ========================================================================== */
 
 function hubBody() {
-    const depth = 1;
+    const depth = currentDepth;
 
     const cards = collections
         .map(
@@ -60,25 +61,21 @@ function hubBody() {
         .join('\n                ');
 
     return `<section class="pt-16 pb-12 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="hub-title">
-            ${breadcrumbs([{ label: 'Accueil', path: '/' }, { label: 'Collections' }], depth)}
+            ${breadcrumbs([{ label: 'Accueil', path: '/' }, { label: tr('Collections') }], depth)}
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Catalogue 2025</p>
-                    <h1 id="hub-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-tight">
-                        Collections de Mobilier d'Art Fabriquées à Tripoli
-                    </h1>
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">${tr('Catalogue 2025')}</p>
+                    <h1 id="hub-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-tight">${tr("Collections de Mobilier d'Art Fabriquées à Tripoli")}</h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-muted text-sm leading-relaxed font-light">
-                        Cinq familles de mobilier, un seul atelier. Chaque collection est déclinable en dimensions, en essences et en textiles : vous ne choisissez pas un modèle dans un catalogue, vous en fixez les cotes avec nos menuisiers.
-                    </p>
+                    <p class="text-muted text-sm leading-relaxed font-light">${tr('Cinq familles de mobilier, un seul atelier. Chaque collection est déclinable en dimensions, en essences et en textiles : vous ne choisissez pas un modèle dans un catalogue, vous en fixez les cotes avec nos menuisiers.')}</p>
                 </div>
             </div>
         </section>
 
         <section class="pb-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="hub-list-title">
-            <h2 id="hub-list-title" class="sr-only">Les cinq collections de la Maison</h2>
+            <h2 id="hub-list-title" class="sr-only">${tr('Les cinq collections de la Maison')}</h2>
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 ${cards}
             </ul>
@@ -88,7 +85,7 @@ function hubBody() {
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
                     eyebrow: 'Bien choisir',
-                    title: 'Trois critères avant de commander',
+                    title: tr('Trois critères avant de commander'),
                     id: 'choisir-title',
                     align: 'center',
                 })}
@@ -96,24 +93,18 @@ function hubBody() {
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-14">
                     <article class="space-y-4">
                         <span class="inline-flex w-11 h-11 items-center justify-center border border-accent text-accent-ink">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
-                        <h3 class="font-serif text-xl text-ink font-normal">Le volume disponible</h3>
-                        <p class="text-sm text-muted leading-relaxed font-light">
-                            Un salon exige 90 cm de recul devant l'assise, une table de réception 60 cm de largeur utile par convive. Nous vérifions votre plan avant de fixer les dimensions, pour éviter la pièce juste — et l'erreur coûteuse.
-                        </p>
+                        <h3 class="font-serif text-xl text-ink font-normal">${tr('Le volume disponible')}</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light">${tr("Un salon exige 90 cm de recul devant l'assise, une table de réception 60 cm de largeur utile par convive. Nous vérifions votre plan avant de fixer les dimensions, pour éviter la pièce juste — et l'erreur coûteuse.")}</p>
                     </article>
                     <article class="space-y-4">
                         <span class="inline-flex w-11 h-11 items-center justify-center border border-accent text-accent-ink">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
-                        <h3 class="font-serif text-xl text-ink font-normal">L'usage réel de la pièce</h3>
-                        <p class="text-sm text-muted leading-relaxed font-light">
-                            Une table de famille qui accueille quatorze convives n'appelle pas le même plateau qu'une table de travail. Nous adaptons l'essence, l'épaisseur et la finition — huilée pour le contact, laquée pour l'apparat.
-                        </p>
+                        <h3 class="font-serif text-xl text-ink font-normal">${tr("L'usage réel de la pièce")}</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light">${tr("Une table de famille qui accueille quatorze convives n'appelle pas le même plateau qu'une table de travail. Nous adaptons l'essence, l'épaisseur et la finition — huilée pour le contact, laquée pour l'apparat.")}</p>
                     </article>
                     <article class="space-y-4">
                         <span class="inline-flex w-11 h-11 items-center justify-center border border-accent text-accent-ink">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
-                        <h3 class="font-serif text-xl text-ink font-normal">La cohérence des matières</h3>
-                        <p class="text-sm text-muted leading-relaxed font-light">
-                            Une maison se lit comme un ensemble : le noyer du salon peut reprendre dans la bibliothèque, le travertin de la table dans les sellets de la chambre. Nos ateliers conservent les nuanciers pour harmoniser vos commandes successives.
-                        </p>
+                        <h3 class="font-serif text-xl text-ink font-normal">${tr('La cohérence des matières')}</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light">${tr('Une maison se lit comme un ensemble : le noyer du salon peut reprendre dans la bibliothèque, le travertin de la table dans les sellets de la chambre. Nos ateliers conservent les nuanciers pour harmoniser vos commandes successives.')}</p>
                     </article>
                 </div>
             </div>
@@ -121,25 +112,32 @@ function hubBody() {
 
         ${ctaBand({
             depth,
-            eyebrow: 'Service sur-mesure',
-            title: 'Vous ne trouvez pas la dimension exacte ?',
-            text: "Nous fabriquons chaque pièce à la cote, sur mesure. Transmettez-nous votre plan ou vos dimensions : nous vous répondons sous 24 heures avec une proposition chiffrée.",
-            primary: { label: 'Réserver une visite privée', dialogId: 'consultationModal' },
-            secondary: { label: 'Découvrir le sur-mesure', path: '/sur-mesure/' },
+            eyebrow: tr('Service sur-mesure'),
+            title: tr('Vous ne trouvez pas la dimension exacte ?'),
+            text: tr('Nous fabriquons chaque pièce à la cote, sur mesure. Transmettez-nous votre plan ou vos dimensions : nous vous répondons sous 24 heures avec une proposition chiffrée.'),
+            primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
+            secondary: { label: tr('Découvrir le sur-mesure'), path: '/sur-mesure/' },
         })}
 
         ${newsletterSection()}`;
 }
 
 export function hubPage() {
-    const depth = 1;
+    const depth = currentDepth;
 
     return {
         path: '/collections/',
         depth,
-        title: 'Collections de Mobilier d’Art à Tripoli | Maison Tripoli',
-        description:
-            "Salons, salles à manger, chambres, rangements et éclairage : les cinq collections de mobilier d'art fabriquées dans notre atelier de Tripoli.",
+        title: localized({
+            fr: 'Collections de Mobilier d’Art à Tripoli | Maison Tripoli',
+            en: 'Art Furniture Collections in Tripoli | Maison Tripoli',
+            ar: 'مجموعات الأثاث الفني في طرابلس | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: "Salons, salles à manger, chambres, rangements et éclairage : les cinq collections de mobilier d'art fabriquées dans notre atelier de Tripoli.",
+            en: 'Seating, dining, bedrooms, storage and lighting: the five art furniture collections made in our Tripoli workshop. Solid walnut, marble and bespoke sizing.',
+            ar: 'جلسات وطاولات طعام وغرف نوم وتخزين وإضاءة: مجموعات الأثاث الفني الخمس المصنوعة في ورشتنا في طرابلس. خشب جوز صلب ورخام ومقاسات حسب الطلب.',
+        }),
         includeQuickView: false,
         body: hubBody(),
         jsonLd: [
@@ -178,7 +176,7 @@ export function hubPage() {
    ========================================================================== */
 
 function collectionBody(collection) {
-    const depth = 2;
+    const depth = currentDepth;
     const products = productsByCollection(collection.slug);
 
     const highlights = `<ul class="space-y-3 text-xs tracking-wider uppercase text-ink-strong/90">
@@ -218,28 +216,28 @@ function collectionBody(collection) {
                     </div>
                     <div class="mt-10 flex flex-col sm:flex-row gap-4">
                         ${buttonDialog({ label: 'Demander un devis', dialogId: 'consultationModal', variant: 'dark' })}
-                        ${buttonLink({ label: 'Visiter le showroom', path: '/contact/', depth, variant: 'outline' })}
+                        ${buttonLink({ label: tr('Visiter le showroom'), path: '/contact/', depth, variant: 'outline' })}
                     </div>
                 </div>
 
-                <aside class="lg:col-span-5 bg-surface-2 border border-line p-8" aria-label="Caractéristiques de la collection">
-                    <h2 class="font-serif text-xl text-ink font-normal mb-5">Ce qui distingue cette collection</h2>
+                <aside class="lg:col-span-5 bg-surface-2 border border-line p-8" aria-label="${tr('Caractéristiques de la collection')}">
+                    <h2 class="font-serif text-xl text-ink font-normal mb-5">${tr('Ce qui distingue cette collection')}</h2>
                     ${highlights}
                     <div class="mt-8 pt-6 border-t border-line-strong">
-                        <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold mb-4">Finitions disponibles</p>
+                        <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold mb-4">${tr('Finitions disponibles')}</p>
                         ${finishStrip('dark')}
                     </div>
                     <dl class="mt-8 pt-6 border-t border-line-strong space-y-3 text-xs">
                         <div class="flex justify-between gap-4">
-                            <dt class="text-muted uppercase tracking-wider">Pièces au catalogue</dt>
+                            <dt class="text-muted uppercase tracking-wider">${tr('Pièces au catalogue')}</dt>
                             <dd class="font-medium text-ink-strong">${products.length}</dd>
                         </div>
                         <div class="flex justify-between gap-4">
-                            <dt class="text-muted uppercase tracking-wider">Fabrication</dt>
-                            <dd class="font-medium text-ink-strong">Atelier de Tripoli</dd>
+                            <dt class="text-muted uppercase tracking-wider">${tr('Fabrication')}</dt>
+                            <dd class="font-medium text-ink-strong">${tr('Atelier de Tripoli')}</dd>
                         </div>
                         <div class="flex justify-between gap-4">
-                            <dt class="text-muted uppercase tracking-wider">Garantie structure</dt>
+                            <dt class="text-muted uppercase tracking-wider">${tr('Garantie structure')}</dt>
                             <dd class="font-medium text-ink-strong">30 ans</dd>
                         </div>
                     </dl>
@@ -254,9 +252,7 @@ function collectionBody(collection) {
                     title: 'Les pièces de la collection',
                     id: 'pieces-title',
                 })}
-                <p class="text-xs text-muted font-light max-w-sm">
-                    Toutes les pièces sont déclinables en dimensions, essences et textiles. Sélectionnez une pièce pour en consulter la fiche détaillée.
-                </p>
+                <p class="text-xs text-muted font-light max-w-sm">${tr('Toutes les pièces sont déclinables en dimensions, essences et textiles. Sélectionnez une pièce pour en consulter la fiche détaillée.')}</p>
             </div>
             ${productGrid(products, depth)}
         </section>`;
@@ -280,9 +276,7 @@ function collectionBody(collection) {
             <div class="mt-14">
                 ${faqBlock(collection.faq)}
             </div>
-            <p class="mt-10 text-center text-xs text-muted font-light">
-                Une autre question ?
-                <a href="${href('/contact/', { depth })}" class="underline underline-offset-4 hover:text-ink">Écrivez à l'atelier</a>,
+            <p class="mt-10 text-center text-xs text-muted font-light">${tr('Une autre question ?')}<a href="${href('/contact/', { depth })}" class="underline underline-offset-4 hover:text-ink">${tr("Écrivez à l'atelier")}</a>,
                 nous répondons sous 24 heures.
             </p>
         </section>`;
@@ -298,7 +292,7 @@ function collectionBody(collection) {
 }
 
 export function collectionPage(collection) {
-    const depth = 2;
+    const depth = currentDepth;
     const products = productsByCollection(collection.slug);
     const range = priceRange(collection.slug);
 

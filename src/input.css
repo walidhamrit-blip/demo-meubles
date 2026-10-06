@@ -350,6 +350,33 @@ body.has-dialog-open {
     border-color: rgb(var(--mt-ink));
 }
 
+/* Sélecteur de langue : trois liens courts, l'actif étant souligné */
+.language-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(var(--mt-muted));
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.language-link:hover {
+    color: rgb(var(--mt-ink));
+    border-bottom-color: rgb(var(--mt-line-strong));
+}
+
+.language-link--current {
+    color: rgb(var(--mt-ink));
+    font-weight: 600;
+    border-bottom-color: rgb(var(--mt-accent));
+}
+
 /* Bouton WhatsApp flottant — vert officiel de la marque, texte foncé pour
    rester lisible (le blanc sur #25D366 ne passe pas le seuil AA). */
 .whatsapp-fab {

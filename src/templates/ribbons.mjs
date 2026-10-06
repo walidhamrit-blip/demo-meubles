@@ -21,6 +21,7 @@
    ========================================================================= */
 
 import { partnerHouses, houseServices } from '../content/ribbons.mjs';
+import { tr } from '../content/i18n.mjs';
 
 const MODIFIER = {
     brands: 'marquee-track--brands',
@@ -59,7 +60,7 @@ function ribbon({ items, kind, label }) {
 /** Ruban 1 — maisons et fournisseurs partenaires (défilement vers la gauche). */
 export function partnerRibbon() {
     return ribbon({
-        items: partnerHouses,
+        items: partnerHouses(),
         kind: 'brands',
         label: 'Maisons et fournisseurs avec lesquels travaille l’atelier',
     });
@@ -68,7 +69,7 @@ export function partnerRibbon() {
 /** Ruban 2 — savoir-faire et services de la Maison (défilement vers la droite). */
 export function serviceRibbon() {
     return ribbon({
-        items: houseServices,
+        items: houseServices(),
         kind: 'services',
         label: 'Savoir-faire et services de la Maison Tripoli',
     });

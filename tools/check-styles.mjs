@@ -29,6 +29,7 @@ const NON_UTILITY = new Set([
     'icon',
     'icon-sprite',
     'skip-link',
+    'language-switch', // conteneur du sélecteur de langue (les liens portent .language-link)
     'is-open',
     'has-dialog-open',
     'lucide',
