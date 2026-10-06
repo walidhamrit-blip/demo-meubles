@@ -81,34 +81,34 @@ export default function surMesure() {
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Service architectes &amp; projets privés</p>
-                    <h1 id="surmesure-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-espresso font-light mt-3 leading-[1.1]">
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service architectes &amp; projets privés</p>
+                    <h1 id="surmesure-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
                         Mobilier &amp; Agencement Sur-Mesure, du Plan à la Pose
                     </h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-warmgray text-sm sm:text-base leading-relaxed font-light">
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
                         Villa, appartement, suite hôtelière ou résidence secondaire : nous prenons en charge l'aménagement complet — mobilier, boiseries, pierre et éclairage — dans un même langage de matières.
                     </p>
                 </div>
             </div>
 
-            <ul class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-14 pt-10 border-t border-sand-300">
+            <ul class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-14 pt-10 border-t border-line-strong">
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">10+</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">Pays livrés</span>
+                    <span class="block font-serif text-3xl text-ink">10+</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">Pays livrés</span>
                 </li>
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">2 sem.</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">D'étude technique</span>
+                    <span class="block font-serif text-3xl text-ink">2 sem.</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">D'étude technique</span>
                 </li>
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">1:1</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">Prototypes possibles</span>
+                    <span class="block font-serif text-3xl text-ink">1:1</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">Prototypes possibles</span>
                 </li>
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">30 ans</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">Garantie structure</span>
+                    <span class="block font-serif text-3xl text-ink">30 ans</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">Garantie structure</span>
                 </li>
             </ul>
         </section>`,
@@ -117,7 +117,7 @@ export default function surMesure() {
         `<section class="pb-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="realisation-title">
             <h2 id="realisation-title" class="sr-only">Exemple de réalisation sur-mesure</h2>
             <figure>
-                <div class="aspect-[16/9] bg-sand-200 overflow-hidden">
+                <div class="aspect-[16/9] bg-surface-3 overflow-hidden">
                     ${responsiveImage({
                         src: editorialImages.surMesureInterieur.src,
                         alt: editorialImages.surMesureInterieur.alt,
@@ -127,7 +127,7 @@ export default function surMesure() {
                         height: 900,
                     })}
                 </div>
-                <figcaption class="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2 text-[11px] uppercase tracking-widest text-warmgray">
+                <figcaption class="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2 text-[11px] uppercase tracking-widest text-muted">
                     <span>Résidence Villa El-Mina — mobilier et boiseries intégrés</span>
                     <span>Architecture d'intérieur 2024</span>
                 </figcaption>
@@ -135,7 +135,7 @@ export default function surMesure() {
         </section>`,
 
         /* ------------------------------------------------------ Méthode en 5 étapes */
-        `<section id="methode" class="py-24 bg-sand-100 border-y border-sand-200 px-6 lg:px-12" aria-labelledby="methode-title">
+        `<section id="methode" class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="methode-title">
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
                     eyebrow: 'Méthode',
@@ -147,10 +147,10 @@ export default function surMesure() {
                     ${methodology
                         .map(
                             (step, index) => `<li class="flex flex-col gap-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze font-serif text-bronze" aria-hidden="true">${index + 1}</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">${step.title}</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light flex-1">${step.text}</p>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-bronze">${step.duration}</p>
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">${index + 1}</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">${step.title}</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light flex-1">${step.text}</p>
+                        <p class="text-[11px] uppercase tracking-[0.2em] text-accent-ink">${step.duration}</p>
                     </li>`,
                         )
                         .join('\n                    ')}
@@ -187,27 +187,27 @@ export default function surMesure() {
                 align: 'center',
             })}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Villas &amp; résidences</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Villas &amp; résidences</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Salons de réception, salles à manger, suites parentales et boiseries d'entrée. Projets de 80 à 600 m², du Liban au Golfe.
                     </p>
                 </article>
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Hôtellerie &amp; resorts</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Hôtellerie &amp; resorts</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Mobilier de chambres en série numérotée, têtes de lit à la cote, mobilier de lobby et de restaurant, avec plan de pose par chambre.
                     </p>
                 </article>
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Bureaux &amp; direction</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Bureaux &amp; direction</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Bureaux d'apparat, murs de rangement, bibliothèques toute hauteur et salles de réunion habillées de bois et de cuir.
                     </p>
                 </article>
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Pièces d'exception</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Pièces d'exception</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Escaliers, portes intérieures, dressings et pièces uniques dessinées en collaboration avec nos maîtres artisans.
                     </p>
                 </article>
@@ -215,7 +215,7 @@ export default function surMesure() {
         </section>`,
 
         /* ------------------------------------------------------------------- FAQ */
-        `<section class="py-24 bg-sand-100 border-y border-sand-200 px-6 lg:px-12" aria-labelledby="faq-surmesure-title">
+        `<section class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="faq-surmesure-title">
             <div class="max-w-4xl mx-auto">
                 ${sectionHeading({
                     eyebrow: 'Questions fréquentes',
@@ -241,7 +241,7 @@ export default function surMesure() {
                 ${collections
                     .map(
                         (collection) => `<li>
-                    <a href="${href(collection.path, { depth: DEPTH })}" class="inline-flex items-center gap-2 px-5 py-3 border border-sand-300 text-xs uppercase tracking-[0.18em] text-charcoal hover:border-bronze hover:text-bronze transition">
+                    <a href="${href(collection.path, { depth: DEPTH })}" class="inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-xs uppercase tracking-[0.18em] text-ink-strong hover:border-accent hover:text-accent-ink transition">
                         ${collection.navLabel}
                     </a>
                 </li>`,

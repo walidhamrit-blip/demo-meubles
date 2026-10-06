@@ -64,13 +64,13 @@ function hubBody() {
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Catalogue 2025</p>
-                    <h1 id="hub-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-espresso font-light mt-3 leading-tight">
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Catalogue 2025</p>
+                    <h1 id="hub-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-tight">
                         Collections de Mobilier d'Art Fabriquées à Tripoli
                     </h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-warmgray text-sm leading-relaxed font-light">
+                    <p class="text-muted text-sm leading-relaxed font-light">
                         Cinq familles de mobilier, un seul atelier. Chaque collection est déclinable en dimensions, en essences et en textiles : vous ne choisissez pas un modèle dans un catalogue, vous en fixez les cotes avec nos menuisiers.
                     </p>
                 </div>
@@ -84,7 +84,7 @@ function hubBody() {
             </ul>
         </section>
 
-        <section class="py-24 bg-sand-100 border-y border-sand-200 px-6 lg:px-12" aria-labelledby="choisir-title">
+        <section class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="choisir-title">
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
                     eyebrow: 'Bien choisir',
@@ -95,23 +95,23 @@ function hubBody() {
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-14">
                     <article class="space-y-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze text-bronze">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">Le volume disponible</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light">
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent text-accent-ink">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">Le volume disponible</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light">
                             Un salon exige 90 cm de recul devant l'assise, une table de réception 60 cm de largeur utile par convive. Nous vérifions votre plan avant de fixer les dimensions, pour éviter la pièce juste — et l'erreur coûteuse.
                         </p>
                     </article>
                     <article class="space-y-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze text-bronze">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">L'usage réel de la pièce</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light">
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent text-accent-ink">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">L'usage réel de la pièce</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light">
                             Une table de famille qui accueille quatorze convives n'appelle pas le même plateau qu'une table de travail. Nous adaptons l'essence, l'épaisseur et la finition — huilée pour le contact, laquée pour l'apparat.
                         </p>
                     </article>
                     <article class="space-y-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze text-bronze">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">La cohérence des matières</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light">
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent text-accent-ink">${icon('check', 'icon w-5 h-5 stroke-[1.5]')}</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">La cohérence des matières</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light">
                             Une maison se lit comme un ensemble : le noyer du salon peut reprendre dans la bibliothèque, le travertin de la table dans les sellets de la chambre. Nos ateliers conservent les nuanciers pour harmoniser vos commandes successives.
                         </p>
                     </article>
@@ -181,11 +181,11 @@ function collectionBody(collection) {
     const depth = 2;
     const products = productsByCollection(collection.slug);
 
-    const highlights = `<ul class="space-y-3 text-xs tracking-wider uppercase text-charcoal/90">
+    const highlights = `<ul class="space-y-3 text-xs tracking-wider uppercase text-ink-strong/90">
                     ${collection.highlights
                         .map(
                             (item) => `<li class="flex items-center gap-3">
-                        ${icon(item.icon, 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        ${icon(item.icon, 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                         <span>${item.label}</span>
                     </li>`,
                         )
@@ -204,15 +204,15 @@ function collectionBody(collection) {
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">${collection.eyebrow}</p>
-                    <h1 id="collection-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-espresso font-light mt-3 leading-[1.1]">
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">${collection.eyebrow}</p>
+                    <h1 id="collection-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
                         ${collection.h1}
                     </h1>
                     <div class="mt-8 space-y-5">
                         ${collection.intro
                             .map(
                                 (paragraph) =>
-                                    `<p class="text-sm sm:text-base text-warmgray leading-relaxed font-light">${paragraph}</p>`,
+                                    `<p class="text-sm sm:text-base text-muted leading-relaxed font-light">${paragraph}</p>`,
                             )
                             .join('\n                        ')}
                     </div>
@@ -222,39 +222,39 @@ function collectionBody(collection) {
                     </div>
                 </div>
 
-                <aside class="lg:col-span-5 bg-sand-100 border border-sand-200 p-8" aria-label="Caractéristiques de la collection">
-                    <h2 class="font-serif text-xl text-espresso font-normal mb-5">Ce qui distingue cette collection</h2>
+                <aside class="lg:col-span-5 bg-surface-2 border border-line p-8" aria-label="Caractéristiques de la collection">
+                    <h2 class="font-serif text-xl text-ink font-normal mb-5">Ce qui distingue cette collection</h2>
                     ${highlights}
-                    <div class="mt-8 pt-6 border-t border-sand-300">
-                        <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold mb-4">Finitions disponibles</p>
+                    <div class="mt-8 pt-6 border-t border-line-strong">
+                        <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold mb-4">Finitions disponibles</p>
                         ${finishStrip('dark')}
                     </div>
-                    <dl class="mt-8 pt-6 border-t border-sand-300 space-y-3 text-xs">
+                    <dl class="mt-8 pt-6 border-t border-line-strong space-y-3 text-xs">
                         <div class="flex justify-between gap-4">
-                            <dt class="text-warmgray uppercase tracking-wider">Pièces au catalogue</dt>
-                            <dd class="font-medium text-charcoal">${products.length}</dd>
+                            <dt class="text-muted uppercase tracking-wider">Pièces au catalogue</dt>
+                            <dd class="font-medium text-ink-strong">${products.length}</dd>
                         </div>
                         <div class="flex justify-between gap-4">
-                            <dt class="text-warmgray uppercase tracking-wider">Fabrication</dt>
-                            <dd class="font-medium text-charcoal">Atelier de Tripoli</dd>
+                            <dt class="text-muted uppercase tracking-wider">Fabrication</dt>
+                            <dd class="font-medium text-ink-strong">Atelier de Tripoli</dd>
                         </div>
                         <div class="flex justify-between gap-4">
-                            <dt class="text-warmgray uppercase tracking-wider">Garantie structure</dt>
-                            <dd class="font-medium text-charcoal">30 ans</dd>
+                            <dt class="text-muted uppercase tracking-wider">Garantie structure</dt>
+                            <dd class="font-medium text-ink-strong">30 ans</dd>
                         </div>
                     </dl>
                 </aside>
             </div>
         </section>`;
 
-    const grid = `<section class="py-20 px-6 lg:px-12 max-w-7xl mx-auto border-t border-sand-200" aria-labelledby="pieces-title">
+    const grid = `<section class="py-20 px-6 lg:px-12 max-w-7xl mx-auto border-t border-line" aria-labelledby="pieces-title">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
                 ${sectionHeading({
                     eyebrow: `Édition 2025 — ${products.length} pièces`,
                     title: 'Les pièces de la collection',
                     id: 'pieces-title',
                 })}
-                <p class="text-xs text-warmgray font-light max-w-sm">
+                <p class="text-xs text-muted font-light max-w-sm">
                     Toutes les pièces sont déclinables en dimensions, essences et textiles. Sélectionnez une pièce pour en consulter la fiche détaillée.
                 </p>
             </div>
@@ -280,9 +280,9 @@ function collectionBody(collection) {
             <div class="mt-14">
                 ${faqBlock(collection.faq)}
             </div>
-            <p class="mt-10 text-center text-xs text-warmgray font-light">
+            <p class="mt-10 text-center text-xs text-muted font-light">
                 Une autre question ?
-                <a href="${href('/contact/', { depth })}" class="underline underline-offset-4 hover:text-espresso">Écrivez à l'atelier</a>,
+                <a href="${href('/contact/', { depth })}" class="underline underline-offset-4 hover:text-ink">Écrivez à l'atelier</a>,
                 nous répondons sous 24 heures.
             </p>
         </section>`;

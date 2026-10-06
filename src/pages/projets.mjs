@@ -98,13 +98,13 @@ export default function projets() {
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">In situ</p>
-                    <h1 id="projets-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-espresso font-light mt-3 leading-[1.1]">
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">In situ</p>
+                    <h1 id="projets-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
                         Demeures Réalisées : Projets de Mobilier In Situ
                     </h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-warmgray text-sm sm:text-base leading-relaxed font-light">
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
                         Du penthouse beyrouthin au chalet d'altitude, du restaurant du vieux port à la villa de Dubaï : six chantiers livrés par nos ateliers, avec le détail de ce que nous y avons fabriqué.
                     </p>
                 </div>
@@ -122,7 +122,7 @@ export default function projets() {
 
                             return `<article class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                     <figure class="lg:col-span-7 ${reversed ? 'lg:order-2' : ''}">
-                        <div class="aspect-[4/3] bg-sand-200 overflow-hidden group">
+                        <div class="aspect-[4/3] bg-surface-3 overflow-hidden group">
                             ${responsiveImage({
                                 src: project.src,
                                 alt: project.alt,
@@ -136,12 +136,12 @@ export default function projets() {
                         </div>
                     </figure>
                     <div class="lg:col-span-5 ${reversed ? 'lg:order-1' : ''} space-y-5">
-                        <p class="text-[10px] uppercase tracking-[0.3em] text-bronze font-semibold">${project.location} — ${project.year}</p>
-                        <h3 class="font-serif text-2xl sm:text-3xl text-espresso font-light">${project.name}</h3>
-                        <p class="text-xs uppercase tracking-[0.2em] text-warmgray">${project.scope}</p>
-                        <p class="text-sm text-warmgray leading-relaxed font-light">${project.description}</p>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold">${project.location} — ${project.year}</p>
+                        <h3 class="font-serif text-2xl sm:text-3xl text-ink font-light">${project.name}</h3>
+                        <p class="text-xs uppercase tracking-[0.2em] text-muted">${project.scope}</p>
+                        <p class="text-sm text-muted leading-relaxed font-light">${project.description}</p>
                         <p class="pt-2">
-                            <a href="${href(collection.path, { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition">
+                            <a href="${href(collection.path, { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-ink border-b border-ink pb-2 hover:text-accent-ink hover:border-accent transition">
                                 <span>Collection ${collection.navLabel}</span>
                                 ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
                             </a>
@@ -154,7 +154,7 @@ export default function projets() {
             </div>
         </section>
 
-        <section class="py-24 bg-sand-100 border-y border-sand-200 px-6 lg:px-12" aria-labelledby="chantier-title">
+        <section class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="chantier-title">
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
                     eyebrow: 'Chantier',
@@ -164,20 +164,20 @@ export default function projets() {
                 })}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-14">
                     <article class="space-y-4">
-                        <h3 class="font-serif text-xl text-espresso font-normal">Étude &amp; plans</h3>
-                        <p class="text-sm text-warmgray font-light leading-relaxed">
+                        <h3 class="font-serif text-xl text-ink font-normal">Étude &amp; plans</h3>
+                        <p class="text-sm text-muted font-light leading-relaxed">
                             Relevé de cotes, plans d'exécution cotés et calepinage des matières. Nous vérifions la faisabilité technique avant tout engagement de délai.
                         </p>
                     </article>
                     <article class="space-y-4">
-                        <h3 class="font-serif text-xl text-espresso font-normal">Fabrication par lots</h3>
-                        <p class="text-sm text-warmgray font-light leading-relaxed">
+                        <h3 class="font-serif text-xl text-ink font-normal">Fabrication par lots</h3>
+                        <p class="text-sm text-muted font-light leading-relaxed">
                             Les commandes multi-pièces sont produites par lots numérotés, avec un plan de pose par pièce : les équipes de chantier installent sans erreur et sans retouche.
                         </p>
                     </article>
                     <article class="space-y-4">
-                        <h3 class="font-serif text-xl text-espresso font-normal">Livraison &amp; pose</h3>
-                        <p class="text-sm text-warmgray font-light leading-relaxed">
+                        <h3 class="font-serif text-xl text-ink font-normal">Livraison &amp; pose</h3>
+                        <p class="text-sm text-muted font-light leading-relaxed">
                             Caisses bois sur mesure, transport sous gants blancs, montage et réglages sur place. Nous repartons avec les chutes et les emballages, et vous avec la garantie signée.
                         </p>
                     </article>

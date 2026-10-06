@@ -47,6 +47,18 @@ async function loadPage(pagePath) {
         runScripts: 'dangerously',
         pretendToBeVisual: true,
         url: `https://www.maisontripoli.com/${pagePath.replace(/index\.html$/, '')}`,
+        // jsdom n'implémente pas matchMedia : il doit être disponible AVANT
+        // l'exécution du script en ligne du <head> qui choisit le thème.
+        beforeParse(window) {
+            window.matchMedia = (query) => ({
+                matches: false,
+                media: query,
+                addEventListener() {},
+                removeEventListener() {},
+                addListener() {},
+                removeListener() {},
+            });
+        },
     });
 
     const { window } = dom;
@@ -255,6 +267,95 @@ console.log('\n4. Navigation partagée par toutes les pages');
     check(
         'page courante annoncée (aria-current)',
         document.querySelector('header a[aria-current="page"]') !== null,
+    );
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+
+/* ========================================================================
+   5. Thèmes, contact WhatsApp et rubans défilants
+   ======================================================================== */
+console.log('\n5. Thèmes, WhatsApp et rubans');
+{
+    const { document, errors, click, window } = await loadPage('index.html');
+
+    // --- Sélecteur de thème -------------------------------------------------
+    const themeButtons = document.querySelectorAll('[data-theme-set]');
+    const themeNames = new Set([...themeButtons].map((button) => button.getAttribute('data-theme-set')));
+    check(
+        'trois thèmes proposés (dont deux sombres), en-tête et tiroir mobile',
+        themeButtons.length === 6 && themeNames.size === 3,
+        `${themeButtons.length} pastille(s) / ${themeNames.size} thème(s)`,
+    );
+    check(
+        'thème clair actif par défaut',
+        ['clair', 'ebene', 'noyer'].includes(document.documentElement.getAttribute('data-theme')),
+        document.documentElement.getAttribute('data-theme'),
+    );
+
+    click('[data-theme-set="noyer"]');
+    check(
+        'bascule vers le thème Noyer',
+        document.documentElement.getAttribute('data-theme') === 'noyer',
+        document.documentElement.getAttribute('data-theme'),
+    );
+    check(
+        'état des pastilles synchronisé (aria-pressed)',
+        document.querySelector('[data-theme-set="noyer"]').getAttribute('aria-pressed') === 'true' &&
+            document.querySelector('[data-theme-set="clair"]').getAttribute('aria-pressed') === 'false',
+    );
+    check(
+        'choix mémorisé pour les visites suivantes',
+        window.localStorage.getItem('mt-theme') === 'noyer',
+        String(window.localStorage.getItem('mt-theme')),
+    );
+
+    click('[data-theme-set="ebene"]');
+    check(
+        'bascule vers le thème Ébène',
+        document.documentElement.getAttribute('data-theme') === 'ebene',
+    );
+
+    // --- Bouton WhatsApp ----------------------------------------------------
+    const whatsapp = document.querySelector('a.whatsapp-fab');
+    check('bouton WhatsApp présent', whatsapp !== null);
+    check('lien WhatsApp valide', /^https:\/\/wa\.me\/\d{6,}\?text=/.test(whatsapp.getAttribute('href')), whatsapp.getAttribute('href'));
+    check(
+        'lien sortant sécurisé et étiqueté',
+        /noopener/.test(whatsapp.getAttribute('rel')) &&
+            (whatsapp.getAttribute('aria-label') || '').length > 20,
+    );
+
+    // --- Rubans défilants ---------------------------------------------------
+    const tracks = document.querySelectorAll('.marquee-track');
+    check('deux rubans présents', tracks.length === 2, `${tracks.length} ruban(s)`);
+    check(
+        'sens de défilement opposés',
+        tracks[0].classList.contains('marquee-track--brands') &&
+            tracks[1].classList.contains('marquee-track--services') &&
+            !tracks[0].classList.contains('marquee-track--reverse') &&
+            !tracks[1].classList.contains('marquee-track--reverse'),
+    );
+
+    const brandsTrack = document.querySelector('.marquee-track--brands');
+    const brands = [...brandsTrack.querySelectorAll('.marquee-item')];
+    const services = [...document.querySelectorAll('.marquee-track--services .marquee-item')];
+    check(
+        'ruban 1 : maisons et fournisseurs partenaires',
+        brands.length >= 8 && brands.some((item) => item.textContent.includes('Rubelli')),
+        `${brands.length} mentions`,
+    );
+    check(
+        'ruban 2 : services de la Maison',
+        services.length >= 8 && services.some((item) => item.textContent.includes('Ébénisterie')),
+        `${services.length} mentions`,
+    );
+    check(
+        'copie de bouclage masquée aux lecteurs d’écran',
+        brands.filter((item) => item.getAttribute('aria-hidden') === 'true').length === brands.length / 2 &&
+            services.filter((item) => item.getAttribute('aria-hidden') === 'true').length === services.length / 2,
     );
 
     check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));

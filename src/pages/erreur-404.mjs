@@ -17,59 +17,59 @@ const root = (target) => `${site.basePath}${target}`;
 
 export default function erreur404() {
     const body = `<section class="py-24 px-6 lg:px-12 max-w-3xl mx-auto text-center" aria-labelledby="error-title">
-            <p class="text-xs uppercase tracking-[0.3em] text-bronze font-semibold mb-4">Erreur 404</p>
-            <h1 id="error-title" class="font-serif text-4xl sm:text-6xl text-espresso font-light leading-tight mb-6">
+            <p class="text-xs uppercase tracking-[0.3em] text-accent-ink font-semibold mb-4">Erreur 404</p>
+            <h1 id="error-title" class="font-serif text-4xl sm:text-6xl text-ink font-light leading-tight mb-6">
                 Cette pièce n'est plus au catalogue
             </h1>
-            <p class="text-warmgray text-sm leading-relaxed font-light mb-10">
+            <p class="text-muted text-sm leading-relaxed font-light mb-10">
                 La page demandée est introuvable ou a été déplacée. Nos collections, l'atelier de Tripoli et le service sur-mesure restent accessibles depuis l'accueil.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="${root('/')}" class="w-full sm:w-auto px-8 py-3.5 bg-espresso text-sand-50 text-xs uppercase tracking-[0.22em] font-medium hover:bg-bronze transition duration-300">
+                <a href="${root('/')}" class="w-full sm:w-auto px-8 py-3.5 bg-inverse text-on-inverse text-xs uppercase tracking-[0.22em] font-medium hover:bg-accent hover:text-on-accent transition duration-300">
                     Retour à l'accueil
                 </a>
-                <a href="${root('/collections/')}" class="w-full sm:w-auto px-8 py-3.5 border border-espresso text-espresso text-xs uppercase tracking-[0.22em] font-medium hover:bg-sand-200 transition duration-300">
+                <a href="${root('/collections/')}" class="w-full sm:w-auto px-8 py-3.5 border border-ink text-ink text-xs uppercase tracking-[0.22em] font-medium hover:bg-surface-3 transition duration-300">
                     Voir les collections
                 </a>
             </div>
 
-            <div class="mt-16 pt-10 border-t border-sand-300 text-left">
-                <h2 class="font-serif text-xl text-espresso font-normal mb-5">Pages les plus consultées</h2>
+            <div class="mt-16 pt-10 border-t border-line-strong text-left">
+                <h2 class="font-serif text-xl text-ink font-normal mb-5">Pages les plus consultées</h2>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
                     <li>
-                        <a href="${root('/collections/salons/')}" class="inline-flex items-center gap-3 text-warmgray hover:text-bronze transition">
-                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        <a href="${root('/collections/salons/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
+                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                             Salons &amp; banquettes
                         </a>
                     </li>
                     <li>
-                        <a href="${root('/collections/salles-a-manger/')}" class="inline-flex items-center gap-3 text-warmgray hover:text-bronze transition">
-                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        <a href="${root('/collections/salles-a-manger/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
+                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                             Salles à manger &amp; tables
                         </a>
                     </li>
                     <li>
-                        <a href="${root('/collections/chambres/')}" class="inline-flex items-center gap-3 text-warmgray hover:text-bronze transition">
-                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        <a href="${root('/collections/chambres/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
+                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                             Chambres &amp; suites
                         </a>
                     </li>
                     <li>
-                        <a href="${root('/sur-mesure/')}" class="inline-flex items-center gap-3 text-warmgray hover:text-bronze transition">
-                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        <a href="${root('/sur-mesure/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
+                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                             Service sur-mesure
                         </a>
                     </li>
                     <li>
-                        <a href="${root('/projets/')}" class="inline-flex items-center gap-3 text-warmgray hover:text-bronze transition">
-                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        <a href="${root('/projets/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
+                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                             Demeures réalisées
                         </a>
                     </li>
                     <li>
-                        <a href="${root('/contact/')}" class="inline-flex items-center gap-3 text-warmgray hover:text-bronze transition">
-                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-bronze')}
+                        <a href="${root('/contact/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
+                            ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
                             Showroom &amp; contact
                         </a>
                     </li>

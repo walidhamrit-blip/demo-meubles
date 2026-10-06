@@ -57,12 +57,11 @@ export function responsiveImage({
 
 export function buttonLink({ label, path, depth, variant = 'primary', icon: iconId, className = '' }) {
     const styles = {
-        primary:
-            'bg-sand-50 text-espresso hover:bg-bronze hover:text-white shadow-sm',
-        dark: 'bg-espresso text-sand-50 hover:bg-bronze',
-        bronze: 'bg-bronze text-white hover:bg-white hover:text-espresso',
-        outline: 'border border-espresso text-espresso hover:bg-sand-200',
-        outlineLight: 'border border-sand-200/60 text-sand-50 hover:bg-white/10 backdrop-blur-sm',
+        primary: 'bg-paper text-on-paper hover:bg-accent hover:text-on-accent shadow-sm',
+        dark: 'bg-inverse text-on-inverse hover:bg-accent hover:text-on-accent',
+        bronze: 'bg-accent text-on-accent hover:bg-paper hover:text-on-paper',
+        outline: 'border border-ink text-ink hover:bg-surface-3',
+        outlineLight: 'border border-on-inverse/30 text-on-inverse hover:bg-white/10 backdrop-blur-sm',
     };
 
     if (!styles[variant]) {
@@ -79,10 +78,10 @@ export function buttonLink({ label, path, depth, variant = 'primary', icon: icon
 /** Bouton d'action ouvrant une couche (modale / tiroir). */
 export function buttonDialog({ label, dialogId, variant = 'dark', className = '' }) {
     const styles = {
-        dark: 'bg-espresso text-sand-50 hover:bg-bronze',
-        outline: 'border border-espresso text-espresso hover:bg-sand-200',
-        light: 'border border-sand-200/60 text-sand-50 hover:bg-white/10 backdrop-blur-sm',
-        outlineLight: 'border border-sand-200/60 text-sand-50 hover:bg-white/10 backdrop-blur-sm',
+        dark: 'bg-inverse text-on-inverse hover:bg-accent hover:text-on-accent',
+        outline: 'border border-ink text-ink hover:bg-surface-3',
+        light: 'border border-on-inverse/30 text-on-inverse hover:bg-white/10 backdrop-blur-sm',
+        outlineLight: 'border border-on-inverse/30 text-on-inverse hover:bg-white/10 backdrop-blur-sm',
     };
     if (!styles[variant]) {
         throw new Error(`buttonDialog : variante inconnue « ${variant} » (disponibles : ${Object.keys(styles).join(', ')})`);
@@ -95,8 +94,8 @@ export function buttonDialog({ label, dialogId, variant = 'dark', className = ''
 
 export function sectionHeading({ eyebrow, title, id, align = 'left', tone = 'dark', as = 'h2' }) {
     const alignment = align === 'center' ? 'text-center max-w-2xl mx-auto' : '';
-    const eyebrowColor = tone === 'light' ? 'text-bronze' : 'text-bronze';
-    const titleColor = tone === 'light' ? 'text-sand-100' : 'text-espresso';
+    const eyebrowColor = tone === 'light' ? 'text-accent-ink' : 'text-accent-ink';
+    const titleColor = tone === 'light' ? 'text-on-inverse-soft' : 'text-ink';
 
     return `<div class="${alignment}">
                 ${eyebrow ? `<p class="${eyebrowColor} text-xs uppercase tracking-[0.25em] font-semibold">${eyebrow}</p>` : ''}
@@ -115,17 +114,17 @@ export function breadcrumbs(items, depth) {
         .map((item, index) => {
             const isLast = index === items.length - 1;
             const content = isLast
-                ? `<span aria-current="page" class="${index === 0 ? 'text-charcoal' : 'text-charcoal'}">${item.label}</span>`
-                : `<a href="${href(item.path, { depth })}" class="hover:text-bronze transition">${item.label}</a>`;
+                ? `<span aria-current="page" class="${index === 0 ? 'text-ink-strong' : 'text-ink-strong'}">${item.label}</span>`
+                : `<a href="${href(item.path, { depth })}" class="hover:text-accent-ink transition">${item.label}</a>`;
 
             return `<li class="flex items-center gap-2">
-                    ${index > 0 ? '<span aria-hidden="true" class="text-sand-400">/</span>' : ''}
+                    ${index > 0 ? '<span aria-hidden="true" class="text-on-inverse-faint">/</span>' : ''}
                     ${content}
                 </li>`;
         })
         .join('\n                    ');
 
-    return `<nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-warmgray mb-8">
+    return `<nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
                 <ol class="flex flex-wrap items-center gap-2">
                     ${list}
                 </ol>
@@ -157,7 +156,7 @@ export function productCard(product, depth) {
         : `${product.price.toLocaleString('fr-FR')} $`;
 
     return `<article class="product-item group relative flex flex-col" data-collection="${product.collection}">
-                    <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <div class="relative overflow-hidden bg-surface-3 aspect-[4/5] mb-5">
                         ${responsiveImage({
                             src: product.image,
                             alt: product.alt,
@@ -166,23 +165,23 @@ export function productCard(product, depth) {
                             width: 1000,
                             height: 1250,
                         })}
-                        <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        <span class="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-ink">
                             ${product.badge}
                         </span>
-                        <span class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300" aria-hidden="true">
+                        <span class="absolute bottom-4 right-4 bg-inverse text-on-inverse w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300" aria-hidden="true">
                             ${icon('eye', 'icon w-4 h-4 stroke-[2]')}
                         </span>
                     </div>
-                    <div class="flex flex-1 justify-between items-start gap-3 text-espresso">
+                    <div class="flex flex-1 justify-between items-start gap-3 text-ink">
                         <div>
-                            <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">
+                            <h3 class="font-serif text-xl font-normal group-hover:text-accent-ink transition">
                                 <button type="button" class="text-left cursor-pointer after:absolute after:inset-0 after:content-['']" data-quickview="${product.slug}">
                                     ${product.name}
                                 </button>
                             </h3>
-                            <p class="text-xs text-warmgray mt-1 font-light">${product.materials}</p>
+                            <p class="text-xs text-muted mt-1 font-light">${product.materials}</p>
                         </div>
-                        <p class="font-serif text-lg text-charcoal whitespace-nowrap">${priceLabel}</p>
+                        <p class="font-serif text-lg text-ink-strong whitespace-nowrap">${priceLabel}</p>
                     </div>
                 </article>`;
 }
@@ -191,7 +190,7 @@ export function productCard(product, depth) {
 
 /** Vignette de collection utilisée sur l'accueil et le hub. */
 export function collectionCard(collection, { depth, image, sizes, eager = false }) {
-    return `<article class="group relative overflow-hidden bg-sand-200 aspect-[4/5]">
+    return `<article class="group relative overflow-hidden bg-surface-3 aspect-[4/5]">
                     ${responsiveImage({
                         src: image.src,
                         alt: image.alt,
@@ -202,16 +201,16 @@ export function collectionCard(collection, { depth, image, sizes, eager = false 
                         priority: eager,
                         className: `w-full h-full object-cover transition-transform duration-700 group-hover:scale-105`,
                     })}
-                    <div class="absolute inset-0 bg-gradient-to-t from-espresso/90 via-espresso/25 to-transparent" aria-hidden="true"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-sand-50">
-                        <p class="text-[10px] tracking-[0.3em] uppercase text-sand-300">${collection.eyebrow}</p>
+                    <div class="absolute inset-0 bg-gradient-to-t from-inverse/90 via-inverse/25 to-transparent" aria-hidden="true"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-on-inverse">
+                        <p class="text-[10px] tracking-[0.3em] uppercase text-on-inverse-muted">${collection.eyebrow}</p>
                         <h3 class="font-serif text-2xl sm:text-3xl font-light mt-2">
                             <a href="${href(collection.path, { depth })}" class="after:absolute after:inset-0 after:content-['']">
                                 ${collection.navLabel}
                             </a>
                         </h3>
-                        <p class="text-xs text-sand-200/90 font-light mt-2 leading-relaxed max-w-sm">${collection.summary}</p>
-                        <p class="mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-sand-300">
+                        <p class="text-xs text-on-inverse-muted/90 font-light mt-2 leading-relaxed max-w-sm">${collection.summary}</p>
+                        <p class="mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-on-inverse-muted">
                             Découvrir la collection ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
                         </p>
                     </div>
@@ -232,12 +231,12 @@ const FINISHES = [
 
 /** Rangée de finitions (statique, sans JavaScript) pour les pages de collection. */
 export function finishStrip(tone = 'dark') {
-    const labelColor = tone === 'light' ? 'text-sand-300' : 'text-warmgray';
+    const labelColor = tone === 'light' ? 'text-on-inverse-muted' : 'text-muted';
 
     return `<ul class="flex flex-wrap items-center gap-x-6 gap-y-4">
                 ${FINISHES.map(
                     (finish) => `<li class="flex items-center gap-3">
-                    <span class="w-8 h-8 rounded-full border border-sand-300/60 shadow-inner shrink-0 ${finish.swatch}" aria-hidden="true"></span>
+                    <span class="w-8 h-8 rounded-full border border-line-strong/60 shadow-inner shrink-0 ${finish.swatch}" aria-hidden="true"></span>
                     <span class="text-[11px] uppercase tracking-wider ${labelColor} font-medium">${finish.name}</span>
                 </li>`,
                 ).join('\n                ')}
@@ -248,17 +247,17 @@ export function finishStrip(tone = 'dark') {
 
 /** FAQ accessible sans JavaScript (<details> natif) — balisage FAQPage associé. */
 export function faqBlock(items) {
-    return `<div class="divide-y divide-sand-300 border-y border-sand-300">
+    return `<div class="divide-y divide-line-strong border-y border-line-strong">
                 ${items
                     .map(
                         (item) => `<details class="group py-6">
                     <summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
-                        <h3 class="font-serif text-lg sm:text-xl text-espresso font-normal">${item.q}</h3>
-                        <span class="shrink-0 mt-1 text-bronze transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                        <h3 class="font-serif text-lg sm:text-xl text-ink font-normal">${item.q}</h3>
+                        <span class="shrink-0 mt-1 text-accent-ink transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
                             ${icon('plus', 'icon w-5 h-5 stroke-[1.5]')}
                         </span>
                     </summary>
-                    <p class="mt-4 text-sm text-warmgray leading-relaxed font-light max-w-3xl">${item.a}</p>
+                    <p class="mt-4 text-sm text-muted leading-relaxed font-light max-w-3xl">${item.a}</p>
                 </details>`,
                     )
                     .join('\n                ')}

@@ -259,7 +259,7 @@
             if (collectionPaths[product.collection]) {
                 var anchor = document.createElement('a');
                 anchor.href = collectionPaths[product.collection];
-                anchor.className = 'underline underline-offset-4 hover:text-bronze';
+                anchor.className = 'underline underline-offset-4 hover:text-accent-ink';
                 anchor.textContent = 'Voir la collection ' + (collectionLabels[product.collection] || '');
                 collectionLink.appendChild(anchor);
             }
@@ -293,16 +293,16 @@
 
     function buildEmptyCartState() {
         var wrapper = document.createElement('div');
-        wrapper.className = 'text-center py-16 text-warmgray';
+        wrapper.className = 'text-center py-16 text-muted';
 
-        wrapper.appendChild(createIcon('inbox', 'icon w-10 h-10 mx-auto stroke-[1] mb-3 text-sand-400'));
+        wrapper.appendChild(createIcon('inbox', 'icon w-10 h-10 mx-auto stroke-[1] mb-3 text-on-inverse-faint'));
 
         var title = document.createElement('p');
         title.className = 'text-xs uppercase tracking-widest';
         title.textContent = 'Votre sélection est vide';
 
         var hint = document.createElement('p');
-        hint.className = 'text-[11px] text-warmgray/80 mt-1';
+        hint.className = 'text-[11px] text-muted/80 mt-1';
         hint.textContent = 'Parcourez nos collections signatures pour ajouter vos pièces.';
 
         wrapper.appendChild(title);
@@ -329,7 +329,7 @@
             total += item.price;
 
             var row = document.createElement('div');
-            row.className = 'flex items-center gap-4 py-3 border-b border-sand-200 text-xs';
+            row.className = 'flex items-center gap-4 py-3 border-b border-line text-xs';
 
             var image = document.createElement('img');
             image.src = item.image + '?auto=format&fit=crop&w=200&q=70';
@@ -338,17 +338,17 @@
             image.height = 56;
             image.loading = 'lazy';
             image.decoding = 'async';
-            image.className = 'w-14 h-14 object-cover border border-sand-300';
+            image.className = 'w-14 h-14 object-cover border border-line-strong';
 
             var details = document.createElement('div');
             details.className = 'flex-1';
 
             var title = document.createElement('h3');
-            title.className = 'font-serif text-sm font-medium text-espresso';
+            title.className = 'font-serif text-sm font-medium text-ink';
             title.textContent = item.name;
 
             var price = document.createElement('span');
-            price.className = 'text-warmgray';
+            price.className = 'text-muted';
             price.textContent = priceLabel(item);
 
             details.appendChild(title);
@@ -356,7 +356,7 @@
 
             var remove = document.createElement('button');
             remove.type = 'button';
-            remove.className = 'text-warmgray hover:text-red-700 p-2';
+            remove.className = 'text-muted hover:text-red-700 p-2';
             remove.setAttribute('aria-label', 'Retirer ' + item.name + ' de ma sélection');
             remove.appendChild(createIcon('trash-2', 'icon w-4 h-4 stroke-[2]'));
             remove.addEventListener('click', function () {
@@ -410,7 +410,7 @@
         var button = document.createElement('button');
         button.type = 'button';
         button.className =
-            'w-full text-left flex items-center justify-between gap-4 p-3 hover:bg-sand-100 cursor-pointer border-b border-sand-200';
+            'w-full text-left flex items-center justify-between gap-4 p-3 hover:bg-surface-2 cursor-pointer border-b border-line';
         button.setAttribute('aria-label', 'Voir la fiche de ' + product.name + ', ' + priceLabel(product));
 
         var left = document.createElement('span');
@@ -428,11 +428,11 @@
         var text = document.createElement('span');
 
         var title = document.createElement('span');
-        title.className = 'block font-serif text-base text-espresso';
+        title.className = 'block font-serif text-base text-ink';
         title.textContent = product.name;
 
         var badge = document.createElement('span');
-        badge.className = 'block text-[10px] uppercase tracking-wider text-warmgray';
+        badge.className = 'block text-[10px] uppercase tracking-wider text-muted';
         badge.textContent = (collectionLabels[product.collection] || '') + ' • ' + product.badge;
 
         text.appendChild(title);
@@ -441,7 +441,7 @@
         left.appendChild(text);
 
         var price = document.createElement('span');
-        price.className = 'font-serif text-charcoal whitespace-nowrap';
+        price.className = 'font-serif text-ink-strong whitespace-nowrap';
         price.textContent = priceLabel(product);
 
         button.appendChild(left);
@@ -480,7 +480,7 @@
 
         if (!matches.length) {
             var empty = document.createElement('p');
-            empty.className = 'text-warmgray italic text-center';
+            empty.className = 'text-muted italic text-center';
             empty.textContent =
                 'Aucun modèle ne correspond à cette recherche. Essayez « noyer », « table » ou « salon ».';
             results.appendChild(empty);
@@ -572,6 +572,81 @@
             },
             { passive: true },
         );
+    }
+
+    /* ---------------------------------------------------------------------
+       Thème d'affichage (clair / Ébène / Noyer)
+       ---------------------------------------------------------------------
+       Le thème initial est posé par le script en ligne du <head> (aucun
+       clignotement au chargement). Ici : bascule, mémorisation, synchronisation
+       de l'état des pastilles et de la couleur de barre du navigateur.
+
+       La couleur `theme-color` est lue depuis la palette CSS (--mt-surface) :
+       une seule source de vérité, donc aucune valeur dupliquée en JavaScript.
+       --------------------------------------------------------------------- */
+    var THEME_KEY = 'mt-theme';
+    var THEME_NAMES = ['clair', 'ebene', 'noyer'];
+
+    function activeTheme() {
+        var current = document.documentElement.getAttribute('data-theme');
+        return THEME_NAMES.indexOf(current) === -1 ? 'clair' : current;
+    }
+
+    function syncThemeControls() {
+        var current = activeTheme();
+        $all('[data-theme-set]').forEach(function (button) {
+            button.setAttribute('aria-pressed', String(button.getAttribute('data-theme-set') === current));
+        });
+    }
+
+    function syncThemeColor() {
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (!meta) return;
+        var surface = window.getComputedStyle(document.documentElement).getPropertyValue('--mt-surface').trim();
+        if (surface) meta.setAttribute('content', 'rgb(' + surface + ')');
+    }
+
+    function setTheme(name, persist) {
+        if (THEME_NAMES.indexOf(name) === -1) return;
+        document.documentElement.setAttribute('data-theme', name);
+        if (persist !== false) {
+            try {
+                window.localStorage.setItem(THEME_KEY, name);
+            } catch (error) {
+                /* Navigation privée : le thème reste appliqué pour la session */
+            }
+        }
+        syncThemeControls();
+        syncThemeColor();
+    }
+
+    function initTheme() {
+        setTheme(activeTheme(), false);
+
+        document.addEventListener('click', function (event) {
+            var button = event.target.closest('[data-theme-set]');
+            if (button) setTheme(button.getAttribute('data-theme-set'));
+        });
+
+        // Tant que l'utilisateur n'a pas choisi explicitement, on suit le système
+        if (window.matchMedia) {
+            var scheme = window.matchMedia('(prefers-color-scheme: dark)');
+            var followSystem = function (event) {
+                var stored = null;
+                try {
+                    stored = window.localStorage.getItem(THEME_KEY);
+                } catch (error) {
+                    stored = null;
+                }
+                if (THEME_NAMES.indexOf(stored) === -1) setTheme(event.matches ? 'ebene' : 'clair', false);
+            };
+
+            if (typeof scheme.addEventListener === 'function') {
+                scheme.addEventListener('change', followSystem);
+            } else if (typeof scheme.addListener === 'function') {
+                scheme.addListener(followSystem);
+            }
+        }
     }
 
     /* ---------------------------------------------------------------------
@@ -676,6 +751,7 @@
        Initialisation
        --------------------------------------------------------------------- */
     function init() {
+        initTheme();
         initScrollEffects();
         initEventListeners();
         updateCartCount();

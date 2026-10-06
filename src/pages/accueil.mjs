@@ -25,7 +25,7 @@ const PATH = '/';
 const DEPTH = 0;
 
 function hero() {
-    return `<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center bg-espresso overflow-hidden" aria-labelledby="hero-title">
+    return `<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center bg-inverse overflow-hidden" aria-labelledby="hero-title">
             <div class="absolute inset-0 z-0">
                 ${responsiveImage({
                     src: heroImage.src,
@@ -38,18 +38,18 @@ function hero() {
                     className:
                         'w-full h-full object-cover object-center opacity-70 filter brightness-[0.88] scale-105',
                 })}
-                <div class="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/40 to-black/30" aria-hidden="true"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/40 to-black/30" aria-hidden="true"></div>
             </div>
 
-            <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-sand-50 py-20">
-                <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-sand-300 mb-4 border-b border-sand-300/40 pb-2">
+            <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-on-inverse py-20">
+                <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-on-inverse-muted mb-4 border-b border-line-strong/40 pb-2">
                     Le grand savoir-faire libanais
                 </p>
                 <h1 id="hero-title" class="font-serif text-3xl sm:text-6xl md:text-7xl font-light tracking-wide leading-[1.1] mb-6">
                     Mobilier d'Art &amp; Haute Ébénisterie<br>
                     <span class="italic font-normal">Sculptés à Tripoli depuis 1948</span>
                 </h1>
-                <p class="max-w-xl mx-auto text-sm sm:text-base text-sand-200/90 font-light leading-relaxed mb-10 tracking-wide">
+                <p class="max-w-xl mx-auto text-sm sm:text-base text-on-inverse-muted/90 font-light leading-relaxed mb-10 tracking-wide">
                     Depuis plus de 70 ans, nos maîtres ébénistes allient le marbre du Levant, le noyer massif et les velours d'exception pour habiller les demeures les plus raffinées.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -58,22 +58,22 @@ function hero() {
                 </div>
             </div>
 
-            <a href="#collections" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-sand-300/70 hover:text-sand-100 transition animate-bounce" aria-label="Faire défiler vers les collections">
+            <a href="#collections" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-on-inverse-muted/70 hover:text-on-inverse-soft transition animate-bounce" aria-label="Faire défiler vers les collections">
                 ${icon('chevron-down', 'icon w-6 h-6 stroke-[1.5]')}
             </a>
         </section>`;
 }
 
 function quote() {
-    return `<section class="py-24 px-6 md:px-12 bg-sand-100 border-b border-sand-200" aria-label="Parole de maître ébéniste">
+    return `<section class="py-24 px-6 md:px-12 bg-surface-2 border-b border-line" aria-label="Parole de maître ébéniste">
             <figure class="max-w-4xl mx-auto text-center">
-                <div class="w-12 h-px bg-bronze mx-auto mb-8" aria-hidden="true"></div>
+                <div class="w-12 h-px bg-accent mx-auto mb-8" aria-hidden="true"></div>
                 <blockquote>
-                    <p class="font-serif text-2xl sm:text-3xl md:text-4xl text-espresso font-light leading-snug italic mb-6">
+                    <p class="font-serif text-2xl sm:text-3xl md:text-4xl text-ink font-light leading-snug italic mb-6">
                         « Tripoli est le berceau séculaire du bois noble. Nous ne construisons pas de simples meubles ; nous forgeons des pièces de famille destinées à traverser les générations. »
                     </p>
                 </blockquote>
-                <figcaption class="text-xs uppercase tracking-[0.3em] text-bronze font-medium">
+                <figcaption class="text-xs uppercase tracking-[0.3em] text-accent-ink font-medium">
                     Maître Fadi Kabbara — Directeur de création, <cite class="not-italic">Atelier de Tripoli</cite>
                 </figcaption>
             </figure>
@@ -82,13 +82,13 @@ function quote() {
 
 function collectionsShowcase() {
     return `<section id="collections" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="collections-title">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 pb-6 border-b border-sand-300">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 pb-6 border-b border-line-strong">
                 ${sectionHeading({
                     eyebrow: 'Catalogue — édition 2025',
                     title: 'Cinq collections, un même atelier',
                     id: 'collections-title',
                 })}
-                <a href="${href('/collections/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition shrink-0">
+                <a href="${href('/collections/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-ink border-b border-ink pb-2 hover:text-accent-ink hover:border-accent transition shrink-0">
                     Voir toutes les collections
                     ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
                 </a>
@@ -105,12 +105,12 @@ function collectionsShowcase() {
                         }),
                     )
                     .join('\n                ')}
-                <div class="hidden lg:flex flex-col justify-center bg-espresso text-sand-50 p-10 aspect-[4/5]">
-                    <p class="text-[10px] tracking-[0.3em] uppercase text-bronze font-semibold">Sur-mesure intégral</p>
+                <div class="hidden lg:flex flex-col justify-center bg-inverse text-on-inverse p-10 aspect-[4/5]">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-accent-ink font-semibold">Sur-mesure intégral</p>
                     <p class="font-serif text-2xl sm:text-3xl font-light mt-3 leading-tight">
                         Un projet complet, du calepinage à la pose
                     </p>
-                    <p class="text-xs text-sand-300 font-light mt-4 leading-relaxed">
+                    <p class="text-xs text-on-inverse-muted font-light mt-4 leading-relaxed">
                         Boiseries, mobilier, éclairage et pierre : nous dessinons l'ensemble et fabriquons dans un même langage de matières.
                     </p>
                     <div class="mt-8">
@@ -125,7 +125,7 @@ function atelierTeaser() {
     return `<section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="atelier-teaser-title">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                 <figure class="lg:col-span-6 relative">
-                    <div class="aspect-[4/5] bg-sand-200 overflow-hidden relative">
+                    <div class="aspect-[4/5] bg-surface-3 overflow-hidden relative">
                         ${responsiveImage({
                             src: editorialImages.atelierArtisan.src,
                             alt: editorialImages.atelierArtisan.alt,
@@ -135,9 +135,9 @@ function atelierTeaser() {
                             height: editorialImages.atelierArtisan.height,
                         })}
                     </div>
-                    <figcaption class="hidden sm:block absolute -bottom-8 -right-8 bg-espresso text-sand-100 p-8 max-w-xs shadow-xl">
+                    <figcaption class="hidden sm:block absolute -bottom-8 -right-8 bg-inverse text-on-inverse-soft p-8 max-w-xs shadow-xl">
                         <span class="block font-serif text-3xl italic font-light mb-1">Tripoli, Liban</span>
-                        <p class="text-xs text-sand-300 font-light leading-relaxed">
+                        <p class="text-xs text-on-inverse-muted font-light leading-relaxed">
                             Capitale historique des corporations d'artisans d'art, où chaque ruelle du vieux souk perpétue le travail du bois noble.
                         </p>
                     </figcaption>
@@ -149,27 +149,27 @@ function atelierTeaser() {
                         title: 'Une dynastie de menuisiers au cœur de la Méditerranée',
                         id: 'atelier-teaser-title',
                     })}
-                    <p class="text-warmgray text-sm sm:text-base leading-relaxed font-light">
-                        Bien au-delà d'un centre de production, la ville de <strong class="font-medium text-charcoal">Tripoli (Al-Fayha'a)</strong> incarne l'épicentre du mobilier haut de gamme au Moyen-Orient. Nos ateliers transmettent toujours l'assemblage en queue d'aronde, le panneautage à plate-bande et la marqueterie.
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
+                        Bien au-delà d'un centre de production, la ville de <strong class="font-medium text-ink-strong">Tripoli (Al-Fayha'a)</strong> incarne l'épicentre du mobilier haut de gamme au Moyen-Orient. Nos ateliers transmettent toujours l'assemblage en queue d'aronde, le panneautage à plate-bande et la marqueterie.
                     </p>
-                    <dl class="grid grid-cols-2 gap-8 pt-4 border-t border-sand-300">
+                    <dl class="grid grid-cols-2 gap-8 pt-4 border-t border-line-strong">
                         <div>
                             <dt class="sr-only">Taux de fabrication locale</dt>
                             <dd>
-                                <span class="font-serif text-3xl text-espresso block">100 %</span>
-                                <span class="text-xs uppercase tracking-wider text-warmgray">Fabrication locale à Tripoli</span>
+                                <span class="font-serif text-3xl text-ink block">100 %</span>
+                                <span class="text-xs uppercase tracking-wider text-muted">Fabrication locale à Tripoli</span>
                             </dd>
                         </div>
                         <div>
                             <dt class="sr-only">Durée de garantie sur l'ébénisterie</dt>
                             <dd>
-                                <span class="font-serif text-3xl text-espresso block">30 ans</span>
-                                <span class="text-xs uppercase tracking-wider text-warmgray">Garantie sur l'ébénisterie</span>
+                                <span class="font-serif text-3xl text-ink block">30 ans</span>
+                                <span class="text-xs uppercase tracking-wider text-muted">Garantie sur l'ébénisterie</span>
                             </dd>
                         </div>
                     </dl>
                     <div class="pt-2">
-                        <a href="${href('/atelier/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition">
+                        <a href="${href('/atelier/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-ink border-b border-ink pb-2 hover:text-accent-ink hover:border-accent transition">
                             <span>Découvrir l'atelier &amp; la démarche RSE</span>
                             ${icon('arrow-up-right', 'icon w-4 h-4 stroke-[2]')}
                         </a>
@@ -188,7 +188,7 @@ function projetsTeaser() {
                     id: 'projets-teaser-title',
                     align: 'center',
                 })}
-                <p class="text-warmgray text-xs sm:text-sm mt-3 font-light">
+                <p class="text-muted text-xs sm:text-sm mt-3 font-light">
                     Immersion dans les résidences contemporaines habillées par les ateliers de la Maison.
                 </p>
             </div>
@@ -196,7 +196,7 @@ function projetsTeaser() {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 ${projectImages
                     .map(
-                        (project) => `<figure class="group relative overflow-hidden aspect-[3/4] bg-sand-200">
+                        (project) => `<figure class="group relative overflow-hidden aspect-[3/4] bg-surface-3">
                     ${responsiveImage({
                         src: project.src,
                         alt: project.alt,
@@ -205,11 +205,11 @@ function projetsTeaser() {
                         width: 800,
                         height: 1067,
                     })}
-                    <figcaption class="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent flex items-end p-8 text-sand-50 opacity-90 group-hover:opacity-100 transition">
+                    <figcaption class="absolute inset-0 bg-gradient-to-t from-inverse/80 via-transparent to-transparent flex items-end p-8 text-on-inverse opacity-90 group-hover:opacity-100 transition">
                         <span>
-                            <span class="block text-[10px] tracking-widest uppercase text-sand-300">${project.location}</span>
+                            <span class="block text-[10px] tracking-widest uppercase text-on-inverse-muted">${project.location}</span>
                             <span class="block font-serif text-2xl font-normal mt-1">${project.name}</span>
-                            <span class="block text-xs text-sand-300 font-light mt-1">${project.caption}</span>
+                            <span class="block text-xs text-on-inverse-muted font-light mt-1">${project.caption}</span>
                         </span>
                     </figcaption>
                 </figure>`,
@@ -218,7 +218,7 @@ function projetsTeaser() {
             </div>
 
             <div class="mt-14 text-center">
-                <a href="${href('/projets/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition">
+                <a href="${href('/projets/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-ink border-b border-ink pb-2 hover:text-accent-ink hover:border-accent transition">
                     <span>Voir tous les projets livrés</span>
                     ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
                 </a>

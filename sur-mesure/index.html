@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr" data-theme="clair" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,20 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Maison Tripoli">
     <meta name="theme-color" content="#231F1D">
+    <script>
+        /* Applique le thème choisi AVANT le premier rendu : évite tout
+           clignotement. Choix mémorisé dans localStorage ; à défaut, la
+           préférence du système est respectée. */
+        (function () {
+            var themes = ['clair', 'ebene', 'noyer'];
+            var choice = null;
+            try { choice = window.localStorage.getItem('mt-theme'); } catch (error) { choice = null; }
+            if (themes.indexOf(choice) === -1) {
+                choice = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'ebene' : 'clair';
+            }
+            document.documentElement.setAttribute('data-theme', choice);
+        })();
+    </script>
     <meta name="format-detection" content="telephone=yes">
     <meta name="geo.region" content="LB-AS">
     <meta name="geo.placename" content="Tripoli, Liban">
@@ -279,7 +293,7 @@
     }
     </script>
 </head>
-<body class="bg-sand-50 text-charcoal font-sans antialiased flex flex-col min-h-screen">
+<body class="bg-surface text-ink-strong font-sans antialiased flex flex-col min-h-screen">
 
     <!-- Sprite d'icônes SVG inline (généré par tools/build-icons.mjs) -->
     <!-- ICONS:START — généré par tools/build-icons.mjs, ne pas éditer à la main -->
@@ -301,30 +315,43 @@
       <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
       <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></symbol>
       <symbol id="i-trash-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></symbol>
       <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
     </svg>
     <!-- ICONS:END -->
 
     <a class="skip-link" href="#main">Aller au contenu principal</a>
 
+    <!-- Contact direct — lien sortant balisé, sans impact sur la mise en page
+         (position fixe) ni sur le référencement (texte réel, rel="noopener") -->
+    <a href="https://wa.me/96170123456?text=Bonjour%20Maison%20Tripoli%2C%20je%20souhaite%20un%20renseignement%20sur%20vos%20pi%C3%A8ces."
+       class="whatsapp-fab no-print"
+       target="_blank"
+       rel="noopener noreferrer"
+       title="Écrire à l’atelier sur WhatsApp"
+       aria-label="Écrire à l’atelier sur WhatsApp — +961&nbsp;70&nbsp;123&nbsp;456">
+        <svg class="icon w-6 h-6" aria-hidden="true" focusable="false"><use href="#i-whatsapp"></use></svg>
+        <span class="hidden sm:inline text-[11px] uppercase tracking-[0.18em] font-semibold">WhatsApp</span>
+    </a>
+
 <!-- =====================================================================
          En-tête : navigation principale
          ===================================================================== -->
-    <div class="bg-espresso text-sand-200 text-xs py-2.5 px-4 tracking-[0.2em] uppercase text-center">
+    <div class="bg-inverse text-on-inverse-muted text-xs py-2.5 px-4 tracking-[0.2em] uppercase text-center">
         <p>
             <span>Atelier &amp; Showroom Tripoli • Rue des Ébénistes</span>
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-bronze mx-2 align-middle" aria-hidden="true"></span>
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-accent mx-2 align-middle" aria-hidden="true"></span>
             <span class="hidden md:inline">Fabrication artisanale &amp; sur-mesure • Expédition internationale</span>
         </p>
     </div>
 
-    <header id="navbar" class="sticky top-0 z-40 transition-shadow duration-500 bg-sand-50/95 backdrop-blur-md border-b border-sand-200">
+    <header id="navbar" class="sticky top-0 z-40 transition-shadow duration-500 bg-surface/95 backdrop-blur-md border-b border-line">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-16 lg:h-20 flex items-center justify-between gap-3">
 
             <div class="flex items-center gap-6 lg:gap-8">
                 <button type="button"
                         id="mobileMenuBtn"
-                        class="lg:hidden text-charcoal hover:text-bronze transition"
+                        class="lg:hidden text-ink-strong hover:text-accent-ink transition"
                         aria-label="Ouvrir le menu de navigation"
                         aria-expanded="false"
                         aria-controls="mobileDrawer">
@@ -332,67 +359,67 @@
                 </button>
 
                 <nav aria-label="Navigation principale">
-                    <ul class="hidden lg:flex items-center gap-x-8 text-xs uppercase tracking-[0.2em] font-medium text-charcoal/80">
+                    <ul class="hidden lg:flex items-center gap-x-8 text-xs uppercase tracking-[0.2em] font-medium text-ink-strong/80">
                     <li class="relative group">
-                        <a href="../collections/" aria-haspopup="true" class="inline-flex items-center gap-1.5 hover:text-bronze transition-colors py-2">
+                        <a href="../collections/" aria-haspopup="true" class="inline-flex items-center gap-1.5 hover:text-accent-ink transition-colors py-2">
                             Collections
                             <svg class="icon w-3.5 h-3.5 stroke-[2] transition-transform duration-300 group-hover:rotate-180" aria-hidden="true" focusable="false"><use href="#i-chevron-down"></use></svg>
                         </a>
-                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute left-0 top-full z-50 w-72 bg-sand-50 border border-sand-200 shadow-xl py-2 divide-y divide-sand-200">
+                        <ul class="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition duration-200 absolute left-0 top-full z-50 w-72 bg-surface border border-line shadow-xl py-2 divide-y divide-line">
                         <li>
-                            <a href="../collections/salons/" class="flex flex-col gap-1 px-5 py-3 hover:bg-sand-100 transition">
-                                <span class="font-serif text-base normal-case tracking-normal text-espresso">Salons &amp; banquettes</span>
-                                <span class="text-[10px] tracking-[0.15em] text-warmgray normal-case">Assises &amp; réception</span>
+                            <a href="../collections/salons/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
+                                <span class="font-serif text-base normal-case tracking-normal text-ink">Salons &amp; banquettes</span>
+                                <span class="text-[10px] tracking-[0.15em] text-muted normal-case">Assises &amp; réception</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../collections/salles-a-manger/" class="flex flex-col gap-1 px-5 py-3 hover:bg-sand-100 transition">
-                                <span class="font-serif text-base normal-case tracking-normal text-espresso">Salles à manger</span>
-                                <span class="text-[10px] tracking-[0.15em] text-warmgray normal-case">Tables &amp; réception</span>
+                            <a href="../collections/salles-a-manger/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
+                                <span class="font-serif text-base normal-case tracking-normal text-ink">Salles à manger</span>
+                                <span class="text-[10px] tracking-[0.15em] text-muted normal-case">Tables &amp; réception</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../collections/chambres/" class="flex flex-col gap-1 px-5 py-3 hover:bg-sand-100 transition">
-                                <span class="font-serif text-base normal-case tracking-normal text-espresso">Chambres &amp; suites</span>
-                                <span class="text-[10px] tracking-[0.15em] text-warmgray normal-case">Suites &amp; repos</span>
+                            <a href="../collections/chambres/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
+                                <span class="font-serif text-base normal-case tracking-normal text-ink">Chambres &amp; suites</span>
+                                <span class="text-[10px] tracking-[0.15em] text-muted normal-case">Suites &amp; repos</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../collections/rangements/" class="flex flex-col gap-1 px-5 py-3 hover:bg-sand-100 transition">
-                                <span class="font-serif text-base normal-case tracking-normal text-espresso">Rangements &amp; bureaux</span>
-                                <span class="text-[10px] tracking-[0.15em] text-warmgray normal-case">Menuiserie &amp; rangement</span>
+                            <a href="../collections/rangements/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
+                                <span class="font-serif text-base normal-case tracking-normal text-ink">Rangements &amp; bureaux</span>
+                                <span class="text-[10px] tracking-[0.15em] text-muted normal-case">Menuiserie &amp; rangement</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../collections/eclairage-objets/" class="flex flex-col gap-1 px-5 py-3 hover:bg-sand-100 transition">
-                                <span class="font-serif text-base normal-case tracking-normal text-espresso">Éclairage &amp; objets d'art</span>
-                                <span class="text-[10px] tracking-[0.15em] text-warmgray normal-case">Laiton &amp; pierre</span>
+                            <a href="../collections/eclairage-objets/" class="flex flex-col gap-1 px-5 py-3 hover:bg-surface-2 transition">
+                                <span class="font-serif text-base normal-case tracking-normal text-ink">Éclairage &amp; objets d'art</span>
+                                <span class="text-[10px] tracking-[0.15em] text-muted normal-case">Laiton &amp; pierre</span>
                             </a>
                         </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="../atelier/" class="hover:text-bronze transition-colors py-2 relative group">
+                        <a href="../atelier/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             L'Atelier
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="../sur-mesure/" aria-current="page" class="hover:text-bronze transition-colors py-2 relative group">
+                        <a href="../sur-mesure/" aria-current="page" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Sur-Mesure
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="../projets/" class="hover:text-bronze transition-colors py-2 relative group">
+                        <a href="../projets/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Projets
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="../contact/" class="hover:text-bronze transition-colors py-2 relative group">
+                        <a href="../contact/" class="hover:text-accent-ink transition-colors py-2 relative group">
                             Showroom
-                            <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
+                            <span class="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" aria-hidden="true"></span>
                         </a>
                     </li>
                 </ul>
@@ -401,10 +428,10 @@
 
             <div class="text-center">
                 <a href="../" class="group block" aria-label="Maison Tripoli — retour à l'accueil">
-                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-espresso">
+                    <span class="block font-serif text-xl sm:text-2xl lg:text-3xl tracking-[0.14em] sm:tracking-[0.18em] uppercase font-light text-ink">
                         Maison Tripoli
                     </span>
-                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-bronze -mt-1">
+                    <span class="block text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-accent-ink -mt-1">
                         Atelier Mobilier • 1948
                     </span>
                 </a>
@@ -413,82 +440,115 @@
             <div class="flex items-center space-x-4 sm:space-x-6">
                 <button type="button"
                         data-open-dialog="searchModal"
-                        class="text-charcoal/80 hover:text-bronze transition hidden sm:block p-2 -m-2"
+                        class="text-ink-strong/80 hover:text-accent-ink transition hidden sm:block p-2 -m-2"
                         aria-label="Rechercher une pièce au catalogue">
                     <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
                 </button>
 
                 <a href="../contact/"
-                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-espresso px-4 py-2 hover:bg-espresso hover:text-white transition duration-300">
+                   class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-ink px-4 py-2 hover:bg-inverse hover:text-white transition duration-300">
                     Prendre rendez-vous
                 </a>
 
                 <button type="button"
                         id="cartToggleBtn"
-                        class="relative text-charcoal/90 hover:text-bronze transition flex items-center gap-1.5 p-2 -m-2"
+                        class="relative text-ink-strong/90 hover:text-accent-ink transition flex items-center gap-1.5 p-2 -m-2"
                         aria-label="Ouvrir ma sélection et mon devis"
                         aria-expanded="false"
                         aria-controls="cartDrawer">
                     <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-baggage-claim"></use></svg>
-                    <span id="cartCountBadge" class="text-xs font-serif italic text-bronze" aria-hidden="true">(0)</span>
+                    <span id="cartCountBadge" class="text-xs font-serif italic text-accent-ink" aria-hidden="true">(0)</span>
                 </button>
+
+                <div class="hidden sm:block"><div class="flex items-center gap-1" role="group" aria-label="Thème d’affichage">
+        <button type="button" class="theme-btn" data-theme-set="clair" aria-pressed="false" title="Thème clair — sable">
+            <span class="sr-only">Thème clair — sable</span>
+            <span class="block w-4 h-4 rounded-full border border-line-strong bg-[#FAF8F5]" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="theme-btn" data-theme-set="ebene" aria-pressed="false" title="Thème sombre — Ébène">
+            <span class="sr-only">Thème sombre — Ébène</span>
+            <span class="block w-4 h-4 rounded-full border border-line-strong bg-[#121110]" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="theme-btn" data-theme-set="noyer" aria-pressed="false" title="Thème sombre — Noyer">
+            <span class="sr-only">Thème sombre — Noyer</span>
+            <span class="block w-4 h-4 rounded-full border border-line-strong bg-[#191310]" aria-hidden="true"></span>
+        </button>
+    </div></div>
             </div>
         </div>
 
-        <div id="mobileDrawer" class="lg:hidden bg-sand-100 border-b border-sand-300 px-6 py-8 max-h-[85vh] overflow-y-auto" hidden>
+        <div id="mobileDrawer" class="lg:hidden bg-surface-2 border-b border-line-strong px-6 py-8 max-h-[85vh] overflow-y-auto" hidden>
             <nav aria-label="Navigation mobile" class="flex flex-col gap-6">
                 <div>
-                    <p class="text-[10px] uppercase tracking-[0.3em] text-bronze font-semibold mb-3">Collections</p>
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold mb-3">Collections</p>
                     <ul class="flex flex-col gap-1 text-sm">
                     <li>
-                        <a href="../collections/salons/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-charcoal hover:text-bronze transition">
+                        <a href="../collections/salons/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-ink-strong hover:text-accent-ink transition">
                             <span>Salons &amp; banquettes</span>
-                            <svg class="icon w-4 h-4 stroke-[2] text-bronze" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+                            <svg class="icon w-4 h-4 stroke-[2] text-accent-ink" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
                         </a>
                     </li>
                     <li>
-                        <a href="../collections/salles-a-manger/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-charcoal hover:text-bronze transition">
+                        <a href="../collections/salles-a-manger/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-ink-strong hover:text-accent-ink transition">
                             <span>Salles à manger</span>
-                            <svg class="icon w-4 h-4 stroke-[2] text-bronze" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+                            <svg class="icon w-4 h-4 stroke-[2] text-accent-ink" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
                         </a>
                     </li>
                     <li>
-                        <a href="../collections/chambres/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-charcoal hover:text-bronze transition">
+                        <a href="../collections/chambres/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-ink-strong hover:text-accent-ink transition">
                             <span>Chambres &amp; suites</span>
-                            <svg class="icon w-4 h-4 stroke-[2] text-bronze" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+                            <svg class="icon w-4 h-4 stroke-[2] text-accent-ink" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
                         </a>
                     </li>
                     <li>
-                        <a href="../collections/rangements/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-charcoal hover:text-bronze transition">
+                        <a href="../collections/rangements/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-ink-strong hover:text-accent-ink transition">
                             <span>Rangements &amp; bureaux</span>
-                            <svg class="icon w-4 h-4 stroke-[2] text-bronze" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+                            <svg class="icon w-4 h-4 stroke-[2] text-accent-ink" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
                         </a>
                     </li>
                     <li>
-                        <a href="../collections/eclairage-objets/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-charcoal hover:text-bronze transition">
+                        <a href="../collections/eclairage-objets/" data-close-menu class="flex items-center justify-between gap-4 py-2 text-ink-strong hover:text-accent-ink transition">
                             <span>Éclairage &amp; objets d'art</span>
-                            <svg class="icon w-4 h-4 stroke-[2] text-bronze" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+                            <svg class="icon w-4 h-4 stroke-[2] text-accent-ink" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
                         </a>
                     </li>
                     </ul>
                 </div>
-                <div class="pt-5 border-t border-sand-300">
-                    <p class="text-[10px] uppercase tracking-[0.3em] text-bronze font-semibold mb-3">La Maison</p>
+                <div class="pt-5 border-t border-line-strong">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold mb-3">La Maison</p>
                     <ul class="flex flex-col gap-4 text-sm uppercase tracking-[0.2em]">
-                    <li><a href="../atelier/" data-close-menu class="text-charcoal hover:text-bronze transition">L'Atelier</a></li>
-                    <li><a href="../sur-mesure/" data-close-menu class="text-charcoal hover:text-bronze transition">Sur-Mesure</a></li>
-                    <li><a href="../projets/" data-close-menu class="text-charcoal hover:text-bronze transition">Projets</a></li>
-                    <li><a href="../contact/" data-close-menu class="text-charcoal hover:text-bronze transition">Showroom</a></li>
+                    <li><a href="../atelier/" data-close-menu class="text-ink-strong hover:text-accent-ink transition">L'Atelier</a></li>
+                    <li><a href="../sur-mesure/" data-close-menu class="text-ink-strong hover:text-accent-ink transition">Sur-Mesure</a></li>
+                    <li><a href="../projets/" data-close-menu class="text-ink-strong hover:text-accent-ink transition">Projets</a></li>
+                    <li><a href="../contact/" data-close-menu class="text-ink-strong hover:text-accent-ink transition">Showroom</a></li>
                     </ul>
                 </div>
-                <div class="pt-5 flex flex-col gap-3 border-t border-sand-300">
-                    <button type="button" data-open-dialog="searchModal" data-close-menu class="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest border border-espresso py-3 px-6">
+                <div class="pt-5 flex flex-col gap-3 border-t border-line-strong">
+                    <button type="button" data-open-dialog="searchModal" data-close-menu class="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest border border-ink py-3 px-6">
                         <svg class="icon w-4 h-4 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-search"></use></svg>
                         Rechercher une pièce
                     </button>
-                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-espresso text-sand-50 py-3 px-6 w-full text-center">
+                    <button type="button" data-open-dialog="consultationModal" data-close-menu class="text-xs uppercase tracking-widest bg-inverse text-on-inverse py-3 px-6 w-full text-center">
                         Visite privée au showroom
                     </button>
+                </div>
+
+                <div class="pt-5 border-t border-line-strong/40 flex items-center justify-between gap-4">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-accent-ink font-semibold">Thème</span>
+                    <div class="flex items-center gap-1" role="group" aria-label="Thème d’affichage">
+        <button type="button" class="theme-btn" data-theme-set="clair" aria-pressed="false" title="Thème clair — sable">
+            <span class="sr-only">Thème clair — sable</span>
+            <span class="block w-4 h-4 rounded-full border border-line-strong bg-[#FAF8F5]" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="theme-btn" data-theme-set="ebene" aria-pressed="false" title="Thème sombre — Ébène">
+            <span class="sr-only">Thème sombre — Ébène</span>
+            <span class="block w-4 h-4 rounded-full border border-line-strong bg-[#121110]" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="theme-btn" data-theme-set="noyer" aria-pressed="false" title="Thème sombre — Noyer">
+            <span class="sr-only">Thème sombre — Noyer</span>
+            <span class="block w-4 h-4 rounded-full border border-line-strong bg-[#191310]" aria-hidden="true"></span>
+        </button>
+    </div>
                 </div>
             </nav>
         </div>
@@ -496,49 +556,49 @@
 
     <main id="main" class="flex-1">
 <section class="pt-16 pb-14 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="surmesure-title">
-            <nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-warmgray mb-8">
+            <nav aria-label="Fil d'Ariane" class="text-[11px] uppercase tracking-[0.18em] text-muted mb-8">
                 <ol class="flex flex-wrap items-center gap-2">
                     <li class="flex items-center gap-2">
                     
-                    <a href="../" class="hover:text-bronze transition">Accueil</a>
+                    <a href="../" class="hover:text-accent-ink transition">Accueil</a>
                 </li>
                     <li class="flex items-center gap-2">
-                    <span aria-hidden="true" class="text-sand-400">/</span>
-                    <span aria-current="page" class="text-charcoal">Sur-mesure</span>
+                    <span aria-hidden="true" class="text-on-inverse-faint">/</span>
+                    <span aria-current="page" class="text-ink-strong">Sur-mesure</span>
                 </li>
                 </ol>
             </nav>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
                 <div class="lg:col-span-7">
-                    <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Service architectes &amp; projets privés</p>
-                    <h1 id="surmesure-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-espresso font-light mt-3 leading-[1.1]">
+                    <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service architectes &amp; projets privés</p>
+                    <h1 id="surmesure-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink font-light mt-3 leading-[1.1]">
                         Mobilier &amp; Agencement Sur-Mesure, du Plan à la Pose
                     </h1>
                 </div>
                 <div class="lg:col-span-5">
-                    <p class="text-warmgray text-sm sm:text-base leading-relaxed font-light">
+                    <p class="text-muted text-sm sm:text-base leading-relaxed font-light">
                         Villa, appartement, suite hôtelière ou résidence secondaire : nous prenons en charge l'aménagement complet — mobilier, boiseries, pierre et éclairage — dans un même langage de matières.
                     </p>
                 </div>
             </div>
 
-            <ul class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-14 pt-10 border-t border-sand-300">
+            <ul class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-14 pt-10 border-t border-line-strong">
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">10+</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">Pays livrés</span>
+                    <span class="block font-serif text-3xl text-ink">10+</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">Pays livrés</span>
                 </li>
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">2 sem.</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">D'étude technique</span>
+                    <span class="block font-serif text-3xl text-ink">2 sem.</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">D'étude technique</span>
                 </li>
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">1:1</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">Prototypes possibles</span>
+                    <span class="block font-serif text-3xl text-ink">1:1</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">Prototypes possibles</span>
                 </li>
                 <li>
-                    <span class="block font-serif text-3xl text-espresso">30 ans</span>
-                    <span class="block text-[11px] uppercase tracking-[0.2em] text-warmgray mt-1">Garantie structure</span>
+                    <span class="block font-serif text-3xl text-ink">30 ans</span>
+                    <span class="block text-[11px] uppercase tracking-[0.2em] text-muted mt-1">Garantie structure</span>
                 </li>
             </ul>
         </section>
@@ -546,7 +606,7 @@
         <section class="pb-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="realisation-title">
             <h2 id="realisation-title" class="sr-only">Exemple de réalisation sur-mesure</h2>
             <figure>
-                <div class="aspect-[16/9] bg-sand-200 overflow-hidden">
+                <div class="aspect-[16/9] bg-surface-3 overflow-hidden">
                     <img
                      src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1600&amp;q=72"
                      srcset="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=800&amp;q=72 800w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=75 1200w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1600&amp;q=72 1600w"
@@ -557,78 +617,78 @@
                      alt="Intérieur sur-mesure Maison Tripoli : boiseries intégrées, mobilier en noyer et travertin pour une résidence"
                      class="w-full h-full object-cover">
                 </div>
-                <figcaption class="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2 text-[11px] uppercase tracking-widest text-warmgray">
+                <figcaption class="mt-4 flex flex-col sm:flex-row sm:justify-between gap-2 text-[11px] uppercase tracking-widest text-muted">
                     <span>Résidence Villa El-Mina — mobilier et boiseries intégrés</span>
                     <span>Architecture d'intérieur 2024</span>
                 </figcaption>
             </figure>
         </section>
 
-        <section id="methode" class="py-24 bg-sand-100 border-y border-sand-200 px-6 lg:px-12" aria-labelledby="methode-title">
+        <section id="methode" class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="methode-title">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center max-w-2xl mx-auto">
-                <p class="text-bronze text-xs uppercase tracking-[0.25em] font-semibold">Méthode</p>
-                <h2 id="methode-title" class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2 leading-tight">Un projet sur-mesure en cinq étapes</h2>
+                <p class="text-accent-ink text-xs uppercase tracking-[0.25em] font-semibold">Méthode</p>
+                <h2 id="methode-title" class="font-serif text-3xl sm:text-5xl text-ink font-light mt-2 leading-tight">Un projet sur-mesure en cinq étapes</h2>
             </div>
                 <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mt-16">
                     <li class="flex flex-col gap-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze font-serif text-bronze" aria-hidden="true">1</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">Cadrage &amp; relevé</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light flex-1">Nous partons de votre plan, de vos inspirations et de vos contraintes d'usage. Au Liban, un relevé de cotes est réalisé sur place ; à l'étranger, nous travaillons sur plans vérifiés avec votre architecte.</p>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-bronze">3 à 5 jours</p>
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">1</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">Cadrage &amp; relevé</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light flex-1">Nous partons de votre plan, de vos inspirations et de vos contraintes d'usage. Au Liban, un relevé de cotes est réalisé sur place ; à l'étranger, nous travaillons sur plans vérifiés avec votre architecte.</p>
+                        <p class="text-[11px] uppercase tracking-[0.2em] text-accent-ink">3 à 5 jours</p>
                     </li>
                     <li class="flex flex-col gap-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze font-serif text-bronze" aria-hidden="true">2</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">Dessins &amp; calepinage</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light flex-1">Élévations cotées, plans d'implantation, calepinage des pierres et des bois. Chaque détail d'exécution est arrêté avant le lancement en atelier : c'est la garantie d'un chantier sans improvisation.</p>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-bronze">1 à 2 semaines</p>
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">2</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">Dessins &amp; calepinage</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light flex-1">Élévations cotées, plans d'implantation, calepinage des pierres et des bois. Chaque détail d'exécution est arrêté avant le lancement en atelier : c'est la garantie d'un chantier sans improvisation.</p>
+                        <p class="text-[11px] uppercase tracking-[0.2em] text-accent-ink">1 à 2 semaines</p>
                     </li>
                     <li class="flex flex-col gap-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze font-serif text-bronze" aria-hidden="true">3</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">Prototypes de teinte</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light flex-1">Un panneau témoin de 30 cm est réalisé dans l'essence et la finition retenues, puis validé par vous ou votre client. Pour les pièces d'apparat, un prototype à échelle 1 est possible.</p>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-bronze">1 semaine</p>
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">3</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">Prototypes de teinte</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light flex-1">Un panneau témoin de 30 cm est réalisé dans l'essence et la finition retenues, puis validé par vous ou votre client. Pour les pièces d'apparat, un prototype à échelle 1 est possible.</p>
+                        <p class="text-[11px] uppercase tracking-[0.2em] text-accent-ink">1 semaine</p>
                     </li>
                     <li class="flex flex-col gap-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze font-serif text-bronze" aria-hidden="true">4</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">Fabrication en atelier</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light flex-1">Débit, assemblage, garnissage, finition : chaque corps de métier intervient dans l'atelier de Tripoli. Un point d'avancement photographique vous est transmis à mi-parcours.</p>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-bronze">4 à 14 semaines</p>
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">4</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">Fabrication en atelier</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light flex-1">Débit, assemblage, garnissage, finition : chaque corps de métier intervient dans l'atelier de Tripoli. Un point d'avancement photographique vous est transmis à mi-parcours.</p>
+                        <p class="text-[11px] uppercase tracking-[0.2em] text-accent-ink">4 à 14 semaines</p>
                     </li>
                     <li class="flex flex-col gap-4">
-                        <span class="inline-flex w-11 h-11 items-center justify-center border border-bronze font-serif text-bronze" aria-hidden="true">5</span>
-                        <h3 class="font-serif text-xl text-espresso font-normal">Livraison &amp; pose</h3>
-                        <p class="text-sm text-warmgray leading-relaxed font-light flex-1">Emballage en caisse bois, livraison sous gants blancs et installation par nos artisans. Les réglages de portes, tiroirs et niveaux sont finalisés sur place, une semaine après la mise en place.</p>
-                        <p class="text-[11px] uppercase tracking-[0.2em] text-bronze">1 à 3 jours</p>
+                        <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">5</span>
+                        <h3 class="font-serif text-xl text-ink font-normal">Livraison &amp; pose</h3>
+                        <p class="text-sm text-muted leading-relaxed font-light flex-1">Emballage en caisse bois, livraison sous gants blancs et installation par nos artisans. Les réglages de portes, tiroirs et niveaux sont finalisés sur place, une semaine après la mise en place.</p>
+                        <p class="text-[11px] uppercase tracking-[0.2em] text-accent-ink">1 à 3 jours</p>
                     </li>
                 </ol>
             </div>
         </section>
 
-        <section class="bg-espresso text-sand-50 py-24 px-6 lg:px-12" aria-labelledby="architectes">
+        <section class="bg-inverse text-on-inverse py-24 px-6 lg:px-12" aria-labelledby="architectes">
             <div class="max-w-3xl mx-auto"><div class="space-y-6">
                 <div class="">
-                <p class="text-bronze text-xs uppercase tracking-[0.25em] font-semibold">Espace professionnels</p>
-                <h2 id="architectes" class="font-serif text-3xl sm:text-5xl text-sand-100 font-light mt-2 leading-tight">Un partenaire de fabrication pour les architectes</h2>
+                <p class="text-accent-ink text-xs uppercase tracking-[0.25em] font-semibold">Espace professionnels</p>
+                <h2 id="architectes" class="font-serif text-3xl sm:text-5xl text-on-inverse-soft font-light mt-2 leading-tight">Un partenaire de fabrication pour les architectes</h2>
             </div>
-                <p class="text-sm sm:text-base leading-relaxed font-light text-sand-300">Nous intervenons en tant que fabricant pour les agences d'architecture d'intérieur, les décorateurs et les promoteurs : nous ne concurrentons pas la conception, nous l'exécutons avec la précision d'un atelier.</p>
-                <p class="text-sm sm:text-base leading-relaxed font-light text-sand-300">Vous recevez les fichiers DWG et PDF cotés, les nomenclatures matière, les échantillons physiques pour vos présentations et les fiches techniques nécessaires aux appels d'offres. Un chef de projet unique suit votre dossier du premier plan à la réception du chantier.</p>
-                <dl class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5 pt-8 border-t border-sand-300/20">
+                <p class="text-sm sm:text-base leading-relaxed font-light text-on-inverse-muted">Nous intervenons en tant que fabricant pour les agences d'architecture d'intérieur, les décorateurs et les promoteurs : nous ne concurrentons pas la conception, nous l'exécutons avec la précision d'un atelier.</p>
+                <p class="text-sm sm:text-base leading-relaxed font-light text-on-inverse-muted">Vous recevez les fichiers DWG et PDF cotés, les nomenclatures matière, les échantillons physiques pour vos présentations et les fiches techniques nécessaires aux appels d'offres. Un chef de projet unique suit votre dossier du premier plan à la réception du chantier.</p>
+                <dl class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5 pt-8 border-t border-line-strong/20">
                 <div>
-                    <dt class="text-[10px] uppercase tracking-[0.2em] text-bronze font-semibold">Livrables</dt>
-                    <dd class="text-sm text-sand-200 mt-1 font-light">Plans DWG / PDF, nomenclatures, échantillons</dd>
+                    <dt class="text-[10px] uppercase tracking-[0.2em] text-accent-ink font-semibold">Livrables</dt>
+                    <dd class="text-sm text-on-inverse-muted mt-1 font-light">Plans DWG / PDF, nomenclatures, échantillons</dd>
                 </div>
                 <div>
-                    <dt class="text-[10px] uppercase tracking-[0.2em] text-bronze font-semibold">Séries</dt>
-                    <dd class="text-sm text-sand-200 mt-1 font-light">Pièces uniques ou séries numérotées</dd>
+                    <dt class="text-[10px] uppercase tracking-[0.2em] text-accent-ink font-semibold">Séries</dt>
+                    <dd class="text-sm text-on-inverse-muted mt-1 font-light">Pièces uniques ou séries numérotées</dd>
                 </div>
                 <div>
-                    <dt class="text-[10px] uppercase tracking-[0.2em] text-bronze font-semibold">Chantiers</dt>
-                    <dd class="text-sm text-sand-200 mt-1 font-light">Résidentiel, hôtellerie, bureaux, retail</dd>
+                    <dt class="text-[10px] uppercase tracking-[0.2em] text-accent-ink font-semibold">Chantiers</dt>
+                    <dd class="text-sm text-on-inverse-muted mt-1 font-light">Résidentiel, hôtellerie, bureaux, retail</dd>
                 </div>
                 <div>
-                    <dt class="text-[10px] uppercase tracking-[0.2em] text-bronze font-semibold">Coordination</dt>
-                    <dd class="text-sm text-sand-200 mt-1 font-light">Chef de projet dédié, points hebdomadaires</dd>
+                    <dt class="text-[10px] uppercase tracking-[0.2em] text-accent-ink font-semibold">Coordination</dt>
+                    <dd class="text-sm text-on-inverse-muted mt-1 font-light">Chef de projet dédié, points hebdomadaires</dd>
                 </div>
             </dl>
             </div></div>
@@ -636,80 +696,80 @@
 
         <section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="typologies-title">
             <div class="text-center max-w-2xl mx-auto">
-                <p class="text-bronze text-xs uppercase tracking-[0.25em] font-semibold">Typologies</p>
-                <h2 id="typologies-title" class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2 leading-tight">Les projets que nous équipons</h2>
+                <p class="text-accent-ink text-xs uppercase tracking-[0.25em] font-semibold">Typologies</p>
+                <h2 id="typologies-title" class="font-serif text-3xl sm:text-5xl text-ink font-light mt-2 leading-tight">Les projets que nous équipons</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Villas &amp; résidences</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Villas &amp; résidences</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Salons de réception, salles à manger, suites parentales et boiseries d'entrée. Projets de 80 à 600 m², du Liban au Golfe.
                     </p>
                 </article>
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Hôtellerie &amp; resorts</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Hôtellerie &amp; resorts</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Mobilier de chambres en série numérotée, têtes de lit à la cote, mobilier de lobby et de restaurant, avec plan de pose par chambre.
                     </p>
                 </article>
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Bureaux &amp; direction</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Bureaux &amp; direction</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Bureaux d'apparat, murs de rangement, bibliothèques toute hauteur et salles de réunion habillées de bois et de cuir.
                     </p>
                 </article>
-                <article class="bg-sand-100 border border-sand-200 p-8 space-y-4">
-                    <h3 class="font-serif text-xl text-espresso font-normal">Pièces d'exception</h3>
-                    <p class="text-sm text-warmgray font-light leading-relaxed">
+                <article class="bg-surface-2 border border-line p-8 space-y-4">
+                    <h3 class="font-serif text-xl text-ink font-normal">Pièces d'exception</h3>
+                    <p class="text-sm text-muted font-light leading-relaxed">
                         Escaliers, portes intérieures, dressings et pièces uniques dessinées en collaboration avec nos maîtres artisans.
                     </p>
                 </article>
             </div>
         </section>
 
-        <section class="py-24 bg-sand-100 border-y border-sand-200 px-6 lg:px-12" aria-labelledby="faq-surmesure-title">
+        <section class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="faq-surmesure-title">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center max-w-2xl mx-auto">
-                <p class="text-bronze text-xs uppercase tracking-[0.25em] font-semibold">Questions fréquentes</p>
-                <h2 id="faq-surmesure-title" class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2 leading-tight">Projets, délais et conditions</h2>
+                <p class="text-accent-ink text-xs uppercase tracking-[0.25em] font-semibold">Questions fréquentes</p>
+                <h2 id="faq-surmesure-title" class="font-serif text-3xl sm:text-5xl text-ink font-light mt-2 leading-tight">Projets, délais et conditions</h2>
             </div>
                 <div class="mt-14">
-                    <div class="divide-y divide-sand-300 border-y border-sand-300">
+                    <div class="divide-y divide-line-strong border-y border-line-strong">
                 <details class="group py-6">
                     <summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
-                        <h3 class="font-serif text-lg sm:text-xl text-espresso font-normal">Travaillez-vous avec les architectes d’intérieur et les décorateurs ?</h3>
-                        <span class="shrink-0 mt-1 text-bronze transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                        <h3 class="font-serif text-lg sm:text-xl text-ink font-normal">Travaillez-vous avec les architectes d’intérieur et les décorateurs ?</h3>
+                        <span class="shrink-0 mt-1 text-accent-ink transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
                             <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg>
                         </span>
                     </summary>
-                    <p class="mt-4 text-sm text-warmgray leading-relaxed font-light max-w-3xl">Oui, c'est une part importante de notre activité. Nous fournissons les fichiers techniques, les nomenclatures matières, les échantillons et les fiches de conformité nécessaires à la présentation au maître d'ouvrage, et nous nous coordonnons directement avec les autres corps d'état.</p>
+                    <p class="mt-4 text-sm text-muted leading-relaxed font-light max-w-3xl">Oui, c'est une part importante de notre activité. Nous fournissons les fichiers techniques, les nomenclatures matières, les échantillons et les fiches de conformité nécessaires à la présentation au maître d'ouvrage, et nous nous coordonnons directement avec les autres corps d'état.</p>
                 </details>
                 <details class="group py-6">
                     <summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
-                        <h3 class="font-serif text-lg sm:text-xl text-espresso font-normal">Quel est le budget d’un projet sur-mesure complet ?</h3>
-                        <span class="shrink-0 mt-1 text-bronze transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                        <h3 class="font-serif text-lg sm:text-xl text-ink font-normal">Quel est le budget d’un projet sur-mesure complet ?</h3>
+                        <span class="shrink-0 mt-1 text-accent-ink transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
                             <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg>
                         </span>
                     </summary>
-                    <p class="mt-4 text-sm text-warmgray leading-relaxed font-light max-w-3xl">Un projet intégral — boiseries, mobilier, pierre et éclairage — se situe généralement entre 45 000 et 250 000 dollars selon la surface et les matières. Une pièce isolée sur-mesure (table, enfilade, tête de lit) démarre autour de 1 500 dollars. Nous fournissons une estimation de cadrage dès le premier échange.</p>
+                    <p class="mt-4 text-sm text-muted leading-relaxed font-light max-w-3xl">Un projet intégral — boiseries, mobilier, pierre et éclairage — se situe généralement entre 45 000 et 250 000 dollars selon la surface et les matières. Une pièce isolée sur-mesure (table, enfilade, tête de lit) démarre autour de 1 500 dollars. Nous fournissons une estimation de cadrage dès le premier échange.</p>
                 </details>
                 <details class="group py-6">
                     <summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
-                        <h3 class="font-serif text-lg sm:text-xl text-espresso font-normal">Intervenez-vous en dehors du Liban ?</h3>
-                        <span class="shrink-0 mt-1 text-bronze transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                        <h3 class="font-serif text-lg sm:text-xl text-ink font-normal">Intervenez-vous en dehors du Liban ?</h3>
+                        <span class="shrink-0 mt-1 text-accent-ink transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
                             <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg>
                         </span>
                     </summary>
-                    <p class="mt-4 text-sm text-warmgray leading-relaxed font-light max-w-3xl">Oui. Nous livrons et posons en Europe, dans le Golfe et en Afrique du Nord. Les projets lointains sont encadrés par un chef de projet dédié, des points hebdomadaires en visioconférence et une supervision de pose sur site pour les chantiers les plus importants.</p>
+                    <p class="mt-4 text-sm text-muted leading-relaxed font-light max-w-3xl">Oui. Nous livrons et posons en Europe, dans le Golfe et en Afrique du Nord. Les projets lointains sont encadrés par un chef de projet dédié, des points hebdomadaires en visioconférence et une supervision de pose sur site pour les chantiers les plus importants.</p>
                 </details>
                 <details class="group py-6">
                     <summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
-                        <h3 class="font-serif text-lg sm:text-xl text-espresso font-normal">Comment se passe le règlement d’un projet sur-mesure ?</h3>
-                        <span class="shrink-0 mt-1 text-bronze transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                        <h3 class="font-serif text-lg sm:text-xl text-ink font-normal">Comment se passe le règlement d’un projet sur-mesure ?</h3>
+                        <span class="shrink-0 mt-1 text-accent-ink transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
                             <svg class="icon w-5 h-5 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg>
                         </span>
                     </summary>
-                    <p class="mt-4 text-sm text-warmgray leading-relaxed font-light max-w-3xl">Un acompte de 40 % valide le lancement de la fabrication après acceptation des plans, 40 % sont versés à mi-parcours et le solde à la livraison, avant pose finale. Les paiements s'effectuent par virement bancaire, en dollars, euros ou livres libanaises.</p>
+                    <p class="mt-4 text-sm text-muted leading-relaxed font-light max-w-3xl">Un acompte de 40 % valide le lancement de la fabrication après acceptation des plans, 40 % sont versés à mi-parcours et le solde à la livraison, avant pose finale. Les paiements s'effectuent par virement bancaire, en dollars, euros ou livres libanaises.</p>
                 </details>
             </div>
                 </div>
@@ -718,64 +778,120 @@
 
         <section class="py-20 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="surmesure-collections">
             <div class="text-center max-w-2xl mx-auto">
-                <p class="text-bronze text-xs uppercase tracking-[0.25em] font-semibold">Compléter un projet</p>
-                <h2 id="surmesure-collections" class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2 leading-tight">Parcourir le catalogue</h2>
+                <p class="text-accent-ink text-xs uppercase tracking-[0.25em] font-semibold">Compléter un projet</p>
+                <h2 id="surmesure-collections" class="font-serif text-3xl sm:text-5xl text-ink font-light mt-2 leading-tight">Parcourir le catalogue</h2>
             </div>
             <ul class="mt-12 flex flex-wrap justify-center gap-3">
                 <li>
-                    <a href="../collections/salons/" class="inline-flex items-center gap-2 px-5 py-3 border border-sand-300 text-xs uppercase tracking-[0.18em] text-charcoal hover:border-bronze hover:text-bronze transition">
+                    <a href="../collections/salons/" class="inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-xs uppercase tracking-[0.18em] text-ink-strong hover:border-accent hover:text-accent-ink transition">
                         Salons &amp; banquettes
                     </a>
                 </li>
                 <li>
-                    <a href="../collections/salles-a-manger/" class="inline-flex items-center gap-2 px-5 py-3 border border-sand-300 text-xs uppercase tracking-[0.18em] text-charcoal hover:border-bronze hover:text-bronze transition">
+                    <a href="../collections/salles-a-manger/" class="inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-xs uppercase tracking-[0.18em] text-ink-strong hover:border-accent hover:text-accent-ink transition">
                         Salles à manger
                     </a>
                 </li>
                 <li>
-                    <a href="../collections/chambres/" class="inline-flex items-center gap-2 px-5 py-3 border border-sand-300 text-xs uppercase tracking-[0.18em] text-charcoal hover:border-bronze hover:text-bronze transition">
+                    <a href="../collections/chambres/" class="inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-xs uppercase tracking-[0.18em] text-ink-strong hover:border-accent hover:text-accent-ink transition">
                         Chambres &amp; suites
                     </a>
                 </li>
                 <li>
-                    <a href="../collections/rangements/" class="inline-flex items-center gap-2 px-5 py-3 border border-sand-300 text-xs uppercase tracking-[0.18em] text-charcoal hover:border-bronze hover:text-bronze transition">
+                    <a href="../collections/rangements/" class="inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-xs uppercase tracking-[0.18em] text-ink-strong hover:border-accent hover:text-accent-ink transition">
                         Rangements &amp; bureaux
                     </a>
                 </li>
                 <li>
-                    <a href="../collections/eclairage-objets/" class="inline-flex items-center gap-2 px-5 py-3 border border-sand-300 text-xs uppercase tracking-[0.18em] text-charcoal hover:border-bronze hover:text-bronze transition">
+                    <a href="../collections/eclairage-objets/" class="inline-flex items-center gap-2 px-5 py-3 border border-line-strong text-xs uppercase tracking-[0.18em] text-ink-strong hover:border-accent hover:text-accent-ink transition">
                         Éclairage &amp; objets d'art
                     </a>
                 </li>
             </ul>
         </section>
 
-        <section class="py-20 px-6 lg:px-12 bg-espresso text-sand-50" aria-labelledby="cta-title">
+        <section class="py-20 px-6 lg:px-12 bg-inverse text-on-inverse" aria-labelledby="cta-title">
             <div class="max-w-4xl mx-auto text-center space-y-6">
-                <p class="text-xs uppercase tracking-[0.3em] text-bronze font-semibold">Lancer un projet</p>
-                <h2 id="cta-title" class="font-serif text-3xl sm:text-4xl font-light leading-tight text-sand-100">Exposez-nous votre projet, nous chiffrons sous 48 heures</h2>
-                <p class="text-sm leading-relaxed font-light max-w-2xl mx-auto text-sand-300">Plans, inspirations, photomontages ou simple description : notre bureau d'études vous répond avec une première estimation et un calendrier de fabrication réaliste.</p>
+                <p class="text-xs uppercase tracking-[0.3em] text-accent-ink font-semibold">Lancer un projet</p>
+                <h2 id="cta-title" class="font-serif text-3xl sm:text-4xl font-light leading-tight text-on-inverse-soft">Exposez-nous votre projet, nous chiffrons sous 48 heures</h2>
+                <p class="text-sm leading-relaxed font-light max-w-2xl mx-auto text-on-inverse-muted">Plans, inspirations, photomontages ou simple description : notre bureau d'études vous répond avec une première estimation et un calendrier de fabrication réaliste.</p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-                    <button type="button" data-open-dialog="consultationModal" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 border border-sand-200/60 text-sand-50 hover:bg-white/10 backdrop-blur-sm ">Prendre rendez-vous</button>
-                    <a href="../contact/" class="inline-flex items-center justify-center gap-3 px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 bg-bronze text-white hover:bg-white hover:text-espresso ">Nous écrire</a>
+                    <button type="button" data-open-dialog="consultationModal" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 border border-on-inverse/30 text-on-inverse hover:bg-white/10 backdrop-blur-sm ">Prendre rendez-vous</button>
+                    <a href="../contact/" class="inline-flex items-center justify-center gap-3 px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 bg-accent text-on-accent hover:bg-paper hover:text-on-paper ">Nous écrire</a>
                 </div>
             </div>
         </section>
     </main>
 
 <!-- =====================================================================
+         Ruban défilant — Maisons et fournisseurs avec lesquels travaille l’atelier
+         ===================================================================== -->
+    <section class="no-print border-y border-line bg-surface-2 py-6 overflow-hidden" aria-label="Maisons et fournisseurs avec lesquels travaille l’atelier">
+        <div class="marquee">
+            <ul class="marquee-track marquee-track--brands list-none m-0 p-0">
+                    <li class="marquee-item">Rubelli</li>
+                    <li class="marquee-item">Pierre Frey</li>
+                    <li class="marquee-item">Loro Piana</li>
+                    <li class="marquee-item">Marbre noir Marquina</li>
+                    <li class="marquee-item">Marbriers du Nord-Liban</li>
+                    <li class="marquee-item">Tanneries partenaires</li>
+                    <li class="marquee-item">Tisserands partenaires</li>
+                    <li class="marquee-item">Travertin du bassin levantin</li>
+                    <li class="marquee-item">Laiton patiné &amp; bronze</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Rubelli</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Pierre Frey</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Loro Piana</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Marbre noir Marquina</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Marbriers du Nord-Liban</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Tanneries partenaires</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Tisserands partenaires</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Travertin du bassin levantin</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Laiton patiné &amp; bronze</li>
+            </ul>
+        </div>
+    </section>
+
+<!-- =====================================================================
+         Ruban défilant — Savoir-faire et services de la Maison Tripoli
+         ===================================================================== -->
+    <section class="no-print border-y border-line bg-surface-2 py-6 overflow-hidden" aria-label="Savoir-faire et services de la Maison Tripoli">
+        <div class="marquee">
+            <ul class="marquee-track marquee-track--services list-none m-0 p-0">
+                    <li class="marquee-item">Ébénisterie sur-mesure</li>
+                    <li class="marquee-item">Menuiserie d’art</li>
+                    <li class="marquee-item">Agencement &amp; boiseries</li>
+                    <li class="marquee-item">Marbrerie levantine</li>
+                    <li class="marquee-item">Éclairage sur-mesure</li>
+                    <li class="marquee-item">Restauration de mobilier</li>
+                    <li class="marquee-item">Relevé sur site &amp; dessins d’exécution</li>
+                    <li class="marquee-item">Prototypes de teinte &amp; nomenclatures matières</li>
+                    <li class="marquee-item">Livraison, pose &amp; installation internationale</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Ébénisterie sur-mesure</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Menuiserie d’art</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Agencement &amp; boiseries</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Marbrerie levantine</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Éclairage sur-mesure</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Restauration de mobilier</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Relevé sur site &amp; dessins d’exécution</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Prototypes de teinte &amp; nomenclatures matières</li>
+                    <li class="marquee-item" aria-hidden="true" data-marquee-clone>Livraison, pose &amp; installation internationale</li>
+            </ul>
+        </div>
+    </section>
+
+<!-- =====================================================================
          Pied de page
          ===================================================================== -->
-    <footer class="bg-espresso text-sand-200 py-16 px-6 lg:px-12 text-xs border-t border-sand-300/20">
+    <footer class="bg-inverse text-on-inverse-muted py-16 px-6 lg:px-12 text-xs border-t border-line-strong/20">
         <h2 class="sr-only">Informations complémentaires et liens utiles</h2>
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-sand-400/20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-line-faint/20">
 
             <div class="lg:col-span-2 space-y-4">
                 <p class="font-serif text-2xl tracking-[0.2em] uppercase font-light text-white">Maison Tripoli</p>
-                <p class="text-sand-400 text-xs leading-relaxed max-w-sm">
+                <p class="text-on-inverse-faint text-xs leading-relaxed max-w-sm">
                     Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.
                 </p>
-                <ul class="flex gap-2 pt-2 text-sand-300">
+                <ul class="flex gap-2 pt-2 text-on-inverse-muted">
                     <li>
                         <a href="https://www.instagram.com/maisontripoli" target="_blank" rel="noopener noreferrer me" class="inline-flex p-2 hover:text-white transition" aria-label="Suivre Maison Tripoli sur Instagram (nouvelle fenêtre)">
                             <svg class="icon w-4 h-4 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-instagram"></use></svg>
@@ -796,39 +912,39 @@
 
             <nav aria-labelledby="footer-collections">
                 <h3 id="footer-collections" class="uppercase tracking-[0.2em] font-medium text-white mb-4">Collections</h3>
-                <ul class="space-y-2.5 text-sand-400">
-                    <li><a href="../collections/salons/" class="hover:text-sand-100 transition">Salons &amp; banquettes</a></li>
-                    <li><a href="../collections/salles-a-manger/" class="hover:text-sand-100 transition">Salles à manger</a></li>
-                    <li><a href="../collections/chambres/" class="hover:text-sand-100 transition">Chambres &amp; suites</a></li>
-                    <li><a href="../collections/rangements/" class="hover:text-sand-100 transition">Rangements &amp; bureaux</a></li>
-                    <li><a href="../collections/eclairage-objets/" class="hover:text-sand-100 transition">Éclairage &amp; objets d'art</a></li>
+                <ul class="space-y-2.5 text-on-inverse-faint">
+                    <li><a href="../collections/salons/" class="hover:text-on-inverse-soft transition">Salons &amp; banquettes</a></li>
+                    <li><a href="../collections/salles-a-manger/" class="hover:text-on-inverse-soft transition">Salles à manger</a></li>
+                    <li><a href="../collections/chambres/" class="hover:text-on-inverse-soft transition">Chambres &amp; suites</a></li>
+                    <li><a href="../collections/rangements/" class="hover:text-on-inverse-soft transition">Rangements &amp; bureaux</a></li>
+                    <li><a href="../collections/eclairage-objets/" class="hover:text-on-inverse-soft transition">Éclairage &amp; objets d'art</a></li>
                 </ul>
             </nav>
 
             <nav aria-labelledby="footer-maison">
                 <h3 id="footer-maison" class="uppercase tracking-[0.2em] font-medium text-white mb-4">La Maison</h3>
-                <ul class="space-y-2.5 text-sand-400">
-                    <li><a href="../atelier/" class="hover:text-sand-100 transition">L'histoire de Tripoli</a></li>
-                    <li><a href="../atelier/#savoir-faire" class="hover:text-sand-100 transition">Nos maîtres ébénistes</a></li>
-                    <li><a href="../sur-mesure/" class="hover:text-sand-100 transition">Service sur-mesure</a></li>
-                    <li><a href="../sur-mesure/#architectes" class="hover:text-sand-100 transition">Espace professionnels</a></li>
-                    <li><a href="../projets/" class="hover:text-sand-100 transition">Demeures réalisées</a></li>
+                <ul class="space-y-2.5 text-on-inverse-faint">
+                    <li><a href="../atelier/" class="hover:text-on-inverse-soft transition">L'histoire de Tripoli</a></li>
+                    <li><a href="../atelier/#savoir-faire" class="hover:text-on-inverse-soft transition">Nos maîtres ébénistes</a></li>
+                    <li><a href="../sur-mesure/" class="hover:text-on-inverse-soft transition">Service sur-mesure</a></li>
+                    <li><a href="../sur-mesure/#architectes" class="hover:text-on-inverse-soft transition">Espace professionnels</a></li>
+                    <li><a href="../projets/" class="hover:text-on-inverse-soft transition">Demeures réalisées</a></li>
                 </ul>
             </nav>
 
             <div>
                 <h3 class="uppercase tracking-[0.2em] font-medium text-white mb-4">Tripoli Atelier</h3>
-                <address class="not-italic text-sand-400 space-y-2 leading-relaxed">
+                <address class="not-italic text-on-inverse-faint space-y-2 leading-relaxed">
                     <span class="block">Boulevard Fouad Chehab, Quartier des Ateliers d'Art</span>
                     <span class="block">Tripoli, République libanaise</span>
-                    <a href="mailto:contact@maisontripoli.com" class="block pt-2 text-sand-200 hover:text-white transition">contact@maisontripoli.com</a>
+                    <a href="mailto:contact@maisontripoli.com" class="block pt-2 text-on-inverse-muted hover:text-white transition">contact@maisontripoli.com</a>
                     <a href="tel:+9616442890" class="block hover:text-white transition">+961&nbsp;6&nbsp;442&nbsp;890</a>
                 </address>
             </div>
 
         </div>
 
-        <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-sand-400 gap-4">
+        <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-on-inverse-faint gap-4">
             <p>© 2025 Maison Tripoli — Mobilier &amp; art de vivre, Tripoli, Liban.</p>
             <ul class="flex flex-wrap justify-center gap-6">
                 <li><a href="../mentions-legales/" class="hover:text-white transition">Mentions légales</a></li>
@@ -839,53 +955,53 @@
     </footer>
 
     <!-- COUCHE — Recherche au catalogue -->
-    <div id="searchModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-sand-50/[0.98] backdrop-blur-md flex-col justify-center items-center px-6 py-16" hidden>
-        <button type="button" data-close-dialog class="absolute top-8 right-8 text-charcoal hover:text-bronze p-2" aria-label="Fermer la recherche">
+    <div id="searchModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-surface/[0.98] backdrop-blur-md flex-col justify-center items-center px-6 py-16" hidden>
+        <button type="button" data-close-dialog class="absolute top-8 right-8 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la recherche">
             <svg class="icon w-7 h-7 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
         </button>
         <div class="max-w-2xl w-full text-center">
-            <h2 id="searchTitle" class="text-xs uppercase tracking-[0.3em] text-bronze block mb-4 font-normal">Recherche au catalogue</h2>
+            <h2 id="searchTitle" class="text-xs uppercase tracking-[0.3em] text-accent-ink block mb-4 font-normal">Recherche au catalogue</h2>
             <label for="searchInput" class="sr-only">Rechercher une pièce, une matière ou une collection</label>
             <input type="search" id="searchInput" name="q" autocomplete="off" placeholder="Tapez « Noyer », « Canapé », « Table »…"
-                   class="w-full text-2xl sm:text-4xl font-serif border-b border-charcoal bg-transparent pb-4 text-center focus:outline-none text-espresso placeholder:text-warmgray/60">
+                   class="w-full text-2xl sm:text-4xl font-serif border-b border-ink-strong bg-transparent pb-4 text-center focus:outline-none text-ink placeholder:text-muted/60">
             <div id="searchResults" class="mt-8 text-xs text-left max-h-60 overflow-y-auto space-y-3" role="status" aria-live="polite"></div>
         </div>
     </div>
 
     <!-- COUCHE — Prise de rendez-vous au showroom -->
     <div id="consultationModal" data-dialog role="dialog" aria-modal="true" aria-labelledby="consultationTitle" aria-hidden="true" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm items-center justify-center p-4" hidden>
-        <div class="bg-sand-50 max-w-lg w-full p-6 sm:p-8 border border-sand-300 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button type="button" data-close-dialog class="absolute top-5 right-5 text-charcoal hover:text-bronze p-2" aria-label="Fermer la fenêtre de rendez-vous">
+        <div class="bg-surface max-w-lg w-full p-6 sm:p-8 border border-line-strong shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button type="button" data-close-dialog class="absolute top-5 right-5 text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer la fenêtre de rendez-vous">
                 <svg class="icon w-5 h-5 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
             </button>
-            <p class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Service personnalisé</p>
-            <h2 id="consultationTitle" class="font-serif text-2xl text-espresso font-normal mt-1 mb-2">Visite privée au showroom</h2>
-            <p class="text-xs text-warmgray mb-6">
+            <p class="text-xs uppercase tracking-[0.25em] text-accent-ink font-semibold">Service personnalisé</p>
+            <h2 id="consultationTitle" class="font-serif text-2xl text-ink font-normal mt-1 mb-2">Visite privée au showroom</h2>
+            <p class="text-xs text-muted mb-6">
                 Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.
             </p>
 
             <form id="consultationForm" class="space-y-4 text-xs">
                 <div>
-                    <label for="visitName" class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Votre nom &amp; prénom</label>
-                    <input type="text" id="visitName" name="name" required autocomplete="name" class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                    <label for="visitName" class="block uppercase tracking-wider text-[10px] text-muted mb-1">Votre nom &amp; prénom</label>
+                    <input type="text" id="visitName" name="name" required autocomplete="name" class="w-full bg-surface-2 border border-line-strong px-4 py-2.5 text-xs focus:outline-none focus:border-ink">
                 </div>
                 <div>
-                    <label for="visitPhone" class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Numéro mobile (WhatsApp)</label>
-                    <input type="tel" id="visitPhone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+961…" class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                    <label for="visitPhone" class="block uppercase tracking-wider text-[10px] text-muted mb-1">Numéro mobile (WhatsApp)</label>
+                    <input type="tel" id="visitPhone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+961…" class="w-full bg-surface-2 border border-line-strong px-4 py-2.5 text-xs focus:outline-none focus:border-ink">
                 </div>
                 <div>
-                    <label for="visitDate" class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Date souhaitée</label>
-                    <input type="date" id="visitDate" name="date" required class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                    <label for="visitDate" class="block uppercase tracking-wider text-[10px] text-muted mb-1">Date souhaitée</label>
+                    <input type="date" id="visitDate" name="date" required class="w-full bg-surface-2 border border-line-strong px-4 py-2.5 text-xs focus:outline-none focus:border-ink">
                 </div>
                 <div>
-                    <label for="visitSubject" class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Objet de la visite</label>
-                    <select id="visitSubject" name="subject" class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                    <label for="visitSubject" class="block uppercase tracking-wider text-[10px] text-muted mb-1">Objet de la visite</label>
+                    <select id="visitSubject" name="subject" class="w-full bg-surface-2 border border-line-strong px-4 py-2.5 text-xs focus:outline-none focus:border-ink">
                         <option>Achat de mobilier pour particulier</option>
                         <option>Projet villa / appartement complet</option>
                         <option>Collaboration professionnelle (architecte)</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full py-3.5 bg-espresso text-sand-50 uppercase tracking-[0.2em] text-xs font-medium hover:bg-bronze transition mt-4">
+                <button type="submit" class="w-full py-3.5 bg-inverse text-on-inverse uppercase tracking-[0.2em] text-xs font-medium hover:bg-accent hover:text-on-accent transition mt-4">
                     Confirmer la demande
                 </button>
                 <p id="consultationStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
@@ -894,34 +1010,34 @@
     </div>
 
     <!-- TIROIR — Sélection et demande de devis -->
-    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 right-0 max-w-md w-full bg-sand-50 shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-sand-300 flex-col" hidden>
-        <div class="p-6 border-b border-sand-300 flex items-center justify-between">
+    <div id="cartDrawer" data-dialog role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" class="fixed inset-y-0 right-0 max-w-md w-full bg-surface shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-line-strong flex-col" hidden>
+        <div class="p-6 border-b border-line-strong flex items-center justify-between">
             <div>
-                <h2 id="cartTitle" class="font-serif text-xl text-espresso font-normal">Mon devis &amp; sélection</h2>
-                <p class="text-[10px] uppercase tracking-widest text-bronze">Maison Tripoli Concierge</p>
+                <h2 id="cartTitle" class="font-serif text-xl text-ink font-normal">Mon devis &amp; sélection</h2>
+                <p class="text-[10px] uppercase tracking-widest text-accent-ink">Maison Tripoli Concierge</p>
             </div>
-            <button type="button" data-close-dialog class="text-charcoal hover:text-bronze p-2" aria-label="Fermer ma sélection">
+            <button type="button" data-close-dialog class="text-ink-strong hover:text-accent-ink p-2" aria-label="Fermer ma sélection">
                 <svg class="icon w-5 h-5 stroke-[2]" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
             </button>
         </div>
 
         <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4">
-            <div class="text-center py-16 text-warmgray">
-                <svg class="icon w-10 h-10 mx-auto stroke-[1] mb-3 text-sand-400" aria-hidden="true" focusable="false"><use href="#i-inbox"></use></svg>
+            <div class="text-center py-16 text-muted">
+                <svg class="icon w-10 h-10 mx-auto stroke-[1] mb-3 text-on-inverse-faint" aria-hidden="true" focusable="false"><use href="#i-inbox"></use></svg>
                 <p class="text-xs uppercase tracking-widest">Votre sélection est vide</p>
-                <p class="text-[11px] text-warmgray/80 mt-1">Parcourez nos collections signatures pour ajouter vos pièces.</p>
+                <p class="text-[11px] text-muted/80 mt-1">Parcourez nos collections signatures pour ajouter vos pièces.</p>
             </div>
         </div>
 
-        <div class="p-6 border-t border-sand-300 bg-sand-100 space-y-4">
-            <p class="flex justify-between text-xs uppercase tracking-wider text-charcoal">
+        <div class="p-6 border-t border-line-strong bg-surface-2 space-y-4">
+            <p class="flex justify-between text-xs uppercase tracking-wider text-ink-strong">
                 <span>Total estimatif :</span>
                 <span id="cartSubtotal" class="font-serif text-lg font-medium">0 $</span>
             </p>
-            <p class="text-[10px] text-warmgray leading-tight">
+            <p class="text-[10px] text-muted leading-tight">
                 * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.
             </p>
-            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-espresso text-sand-50 text-xs uppercase tracking-[0.2em] font-medium hover:bg-bronze transition">
+            <button type="button" id="quoteRequestBtn" class="w-full py-4 bg-inverse text-on-inverse text-xs uppercase tracking-[0.2em] font-medium hover:bg-accent hover:text-on-accent transition">
                 Finaliser la demande de devis
             </button>
             <p id="cartStatus" class="text-xs text-emerald-800 text-center" role="status" aria-live="polite"></p>
