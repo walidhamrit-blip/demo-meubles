@@ -215,7 +215,7 @@ function collectionBody(collection) {
                             .join('\n                        ')}
                     </div>
                     <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                        ${buttonDialog({ label: 'Demander un devis', dialogId: 'consultationModal', variant: 'dark' })}
+                        ${buttonDialog({ label: tr('Demander un devis'), dialogId: 'consultationModal', variant: 'dark' })}
                         ${buttonLink({ label: tr('Visiter le showroom'), path: '/contact/', depth, variant: 'outline' })}
                     </div>
                 </div>
@@ -248,8 +248,8 @@ function collectionBody(collection) {
     const grid = `<section class="py-20 px-6 lg:px-12 max-w-7xl mx-auto border-t border-line" aria-labelledby="pieces-title">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
                 ${sectionHeading({
-                    eyebrow: `Édition 2025 — ${products.length} pièces`,
-                    title: 'Les pièces de la collection',
+                    eyebrow: `${tr('Édition 2025')} — ${products.length} ${tr('pièces')}`,
+                    title: tr('Les pièces de la collection'),
                     id: 'pieces-title',
                 })}
                 <p class="text-xs text-muted font-light max-w-sm">${tr('Toutes les pièces sont déclinables en dimensions, essences et textiles. Sélectionnez une pièce pour en consulter la fiche détaillée.')}</p>
@@ -268,7 +268,7 @@ function collectionBody(collection) {
 
     const faq = `<section class="py-24 px-6 lg:px-12 max-w-4xl mx-auto" aria-labelledby="faq-title">
             ${sectionHeading({
-                eyebrow: 'Questions fréquentes',
+                eyebrow: tr('Questions fréquentes'),
                 title: `Tout savoir sur nos ${collection.navLabel.toLowerCase()}`,
                 id: 'faq-title',
                 align: 'center',
@@ -277,17 +277,16 @@ function collectionBody(collection) {
                 ${faqBlock(collection.faq)}
             </div>
             <p class="mt-10 text-center text-xs text-muted font-light">${tr('Une autre question ?')}<a href="${href('/contact/', { depth })}" class="underline underline-offset-4 hover:text-ink">${tr("Écrivez à l'atelier")}</a>,
-                nous répondons sous 24 heures.
-            </p>
+                ${tr('nous répondons sous 24 heures.')}</p>
         </section>`;
 
     return [hero, grid, sections, faq, relatedCollectionsSection(collection, depth), ctaBand({
         depth,
         eyebrow: 'Passer commande',
-        title: 'Recevez votre devis personnalisé',
+        title: tr('Recevez votre devis personnalisé'),
         text: `Transmettez-nous vos dimensions, votre plan ou vos inspirations : nous revenons vers vous avec une proposition chiffrée et un délai de fabrication ferme pour votre projet de ${collection.navLabel.toLowerCase()}.`,
-        primary: { label: 'Réserver une visite privée', dialogId: 'consultationModal' },
-        secondary: { label: 'Voir la méthode sur-mesure', path: '/sur-mesure/' },
+        primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
+        secondary: { label: tr('Voir la méthode sur-mesure'), path: '/sur-mesure/' },
     })].join('\n\n        ');
 }
 

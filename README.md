@@ -4,9 +4,10 @@ Site vitrine de la maison d'édition et manufacture de mobilier d'art **Maison T
 (ébénisterie haut de gamme, Tripoli — Liban). Le dépôt contient le site **statique
 généré** et son outillage de contrôle qualité SEO / accessibilité / performance.
 
-Le site n'est plus une page unique : il est organisé en **13 pages HTML** dont une
+Le site n'est plus une page unique : il est organisé en **13 pages sources** dont une
 page d'accueil vitrine et **5 pages de collection** optimisées séparément pour le
-référencement naturel.
+référencement naturel, soit **27 pages publiées** une fois les versions anglaise et
+arabe générées.
 
 ---
 
@@ -34,11 +35,16 @@ Le français est servi à la racine (langue pivot) ; les pages **traduites** viv
 sous `/en/` et `/ar/` :
 
 ```
-/en/                             Home (traduite, hreflang réciproque)
-/en/collections/                 Collections hub
-/ar/                             النسخة العربية (dir="rtl")
-/ar/collections/                 مجموعات
+/en/                                        Home (traduite, hreflang réciproque)
+/en/collections/                            Collections hub
+/en/collections/salons/ … eclairage-objets/ les cinq collections
+/ar/                                        النسخة العربية (dir="rtl")
+/ar/collections/                            مجموعات
+/ar/collections/salons/ … eclairage-objets/ المجموعات الخمس
 ```
+
+Sept pages sont donc servies dans les trois langues (accueil, page des collections et
+les cinq collections) ; le reste du site reste en français pour l'instant.
 
 Seules les pages déclarées dans `PAGE_LOCALES` (`src/content/i18n.mjs`) sont
 publiées dans une autre langue : le build refuse de générer une page à moitié
@@ -100,7 +106,7 @@ doit être suivie de `npm run build`, sinon le HTML publié ne reflète pas la s
 ```bash
 npm install              # outils de développement uniquement
 
-npm run build            # HTML des 13 pages + sprite d'icônes + catalogue + CSS minifié
+npm run build            # HTML des 27 pages + sprite d'icônes + catalogue + CSS minifié
 npm run build:site       # HTML, sitemap.xml, robots.txt, catalog.js
 npm run build:css        # CSS minifié (assets/css/main.css)
 npm run build:icons      # sprite SVG des icônes
@@ -109,7 +115,7 @@ npm run brand            # favicons, icônes PWA et carte Open Graph
 
 npm run serve            # prévisualisation locale sur http://localhost:8080
 
-npm run validate         # validation HTML5 des 13 pages (html-validate, règles W3C)
+npm run validate         # validation HTML5 des 27 pages (html-validate, règles W3C)
 npm run check:styles     # classes utilisées ⊂ classes compilées (garde-fou Tailwind)
 npm run check:contrast   # contrastes WCAG des trois thèmes (clair + 2 sombres)
 npm run check:i18n       # aucun texte français résiduel dans une page traduite

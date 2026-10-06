@@ -233,7 +233,7 @@ export default function atelier() {
             eyebrow: 'Venir à l’atelier',
             title: 'Visitez l’atelier de la rue des Ébénistes',
             text: "Sur rendez-vous, nous ouvrons les portes de l'atelier : présentation des essences, des finitions et des pièces en fabrication. Une heure suffit pour comprendre comment nous travaillons.",
-            primary: { label: 'Réserver une visite privée', dialogId: 'consultationModal' },
+            primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
             secondary: { label: 'Voir le showroom', path: '/contact/' },
         }),
 

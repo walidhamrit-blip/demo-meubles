@@ -182,7 +182,7 @@ export default function projets() {
             eyebrow: 'Votre projet',
             title: 'Parlons de la résidence que vous aménagez',
             text: "Partagez-nous vos plans ou vos inspirations : nous vous indiquons ce que nous pouvons fabriquer, dans quels délais et à quel ordre de budget.",
-            primary: { label: 'Réserver une visite privée', dialogId: 'consultationModal' },
+            primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
             secondary: { label: 'Écrire à la Maison', path: '/contact/' },
         }),
     ].join('\n\n        ');

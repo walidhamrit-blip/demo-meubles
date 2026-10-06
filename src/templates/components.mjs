@@ -7,7 +7,7 @@
 
 import { href, asset } from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, getLocale } from '../content/i18n.mjs';
 
 /* ------------------------------------------------------------------ Icônes */
 
@@ -153,7 +153,7 @@ export function breadcrumbSchema(items) {
  */
 export function productCard(product, depth) {
     const priceLabel = product.priceFrom
-        ? `À partir de ${product.price.toLocaleString('fr-FR')} $`
+        ? `${tr('À partir de')} ${product.price.toLocaleString(getLocale() === 'ar' ? 'ar-LB' : getLocale() === 'en' ? 'en-GB' : 'fr-FR')} $`
         : `${product.price.toLocaleString('fr-FR')} $`;
 
     return `<article class="product-item group relative flex flex-col" data-collection="${product.collection}">
@@ -167,7 +167,7 @@ export function productCard(product, depth) {
                             height: 1250,
                         })}
                         <span class="absolute top-4 start-4 bg-surface/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-ink">
-                            ${product.badge}
+                            ${tr(product.badge)}
                         </span>
                         <span class="absolute bottom-4 end-4 bg-inverse text-on-inverse w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300" aria-hidden="true">
                             ${icon('eye', 'icon w-4 h-4 stroke-[2]')}
@@ -223,11 +223,11 @@ export function collectionCard(collection, { depth, image, sizes, eager = false 
 /* Les teintes sont exprimées en classes utilitaires (et non en styles en
    ligne) afin de rester conformes à la politique de sécurité de contenu
    et à la validation HTML. */
-const FINISHES = [
-    { name: 'Noyer foncé', swatch: 'bg-[#483327]' },
-    { name: 'Chêne clair', swatch: 'bg-[#BCA07B]' },
-    { name: 'Travertin', swatch: 'bg-[#DCD4C5]' },
-    { name: 'Ébène noir', swatch: 'bg-[#1E1B18]' },
+const FINISH_ENTRIES = [
+    { get name() { return tr('Noyer foncé'); }, swatch: 'bg-[#483327]' },
+    { get name() { return tr('Chêne clair'); }, swatch: 'bg-[#BCA07B]' },
+    { get name() { return tr('Travertin'); }, swatch: 'bg-[#DCD4C5]' },
+    { get name() { return tr('Ébène noir'); }, swatch: 'bg-[#1E1B18]' },
 ];
 
 /** Rangée de finitions (statique, sans JavaScript) pour les pages de collection. */
@@ -235,7 +235,7 @@ export function finishStrip(tone = 'dark') {
     const labelColor = tone === 'light' ? 'text-on-inverse-muted' : 'text-muted';
 
     return `<ul class="flex flex-wrap items-center gap-x-6 gap-y-4">
-                ${FINISHES.map(
+                ${FINISH_ENTRIES.map(
                     (finish) => `<li class="flex items-center gap-3">
                     <span class="w-8 h-8 rounded-full border border-line-strong/60 shadow-inner shrink-0 ${finish.swatch}" aria-hidden="true"></span>
                     <span class="text-[11px] uppercase tracking-wider ${labelColor} font-medium">${finish.name}</span>

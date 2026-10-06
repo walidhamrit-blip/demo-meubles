@@ -104,8 +104,8 @@ export function relatedCollectionsSection(collection, depth) {
 
     return `<section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="related-title">
             ${sectionHeading({
-                eyebrow: 'Poursuivre la visite',
-                title: 'Découvrir aussi',
+                eyebrow: tr('Poursuivre la visite'),
+                title: tr('Découvrir aussi'),
                 id: 'related-title',
                 align: 'center',
             })}
