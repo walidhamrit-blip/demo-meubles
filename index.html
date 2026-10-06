@@ -1,0 +1,1191 @@
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAISON TRIPOLI — Mobilier d'Art & Haute Ébénisterie</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        sand: {
+                            50: '#FAF8F5',
+                            100: '#F4EFEA',
+                            200: '#E8DFD5',
+                            300: '#D9CBBB',
+                            400: '#C4B19C',
+                        },
+                        charcoal: '#1A1817',
+                        espresso: '#231F1D',
+                        bronze: '#8C7355',
+                        travertine: '#EFECE6',
+                        warmgray: '#78736E'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::selection {
+            background-color: #231F1D;
+            color: #FAF8F5;
+        }
+        /* Hide scrollbar for gallery navigation */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .luxury-line-clamp {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-sand-50 text-charcoal font-sans antialiased selection:bg-espresso selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-espresso text-sand-200 text-xs py-2.5 px-4 tracking-[0.2em] uppercase text-center flex items-center justify-center gap-3">
+        <span>Atelier & Showroom Tripoli • Rue des Ébénistes</span>
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-bronze"></span>
+        <span class="hidden md:inline">Fabrication Artisanale & Sur-Mesure • Expédition Internationale</span>
+    </div>
+
+    <!-- Main Navigation Header (Baker Style) -->
+    <header id="navbar" class="sticky top-0 z-40 transition-all duration-500 bg-sand-50/95 backdrop-blur-md border-b border-sand-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Left: Mobile Menu & Primary Links -->
+            <div class="flex items-center gap-8">
+                <button id="mobileMenuBtn" class="lg:hidden text-charcoal hover:text-bronze transition">
+                    <i data-lucide="menu" class="w-6 h-6 stroke-[1.25]"></i>
+                </button>
+                <nav class="hidden lg:flex items-center space-x-9 text-xs uppercase tracking-[0.2em] font-medium text-charcoal/80">
+                    <a href="#collections" class="hover:text-bronze transition-colors py-2 relative group">
+                        Collections
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#artisanat" class="hover:text-bronze transition-colors py-2 relative group">
+                        L'Héritage Tripoli
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#sur-mesure" class="hover:text-bronze transition-colors py-2 relative group">
+                        Sur-Mesure
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#espaces" class="hover:text-bronze transition-colors py-2 relative group">
+                        Galerie & Projets
+                        <span class="absolute bottom-0 left-0 w-0 h-px bg-bronze transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Center: Brand Monogram & Name -->
+            <div class="text-center">
+                <a href="#" class="group block">
+                    <span class="block font-serif text-2xl lg:text-3xl tracking-[0.18em] uppercase font-light text-espresso">
+                        Maison Tripoli
+                    </span>
+                    <span class="block text-[9px] uppercase tracking-[0.35em] text-bronze -mt-1 font-sans">
+                        Atelier Mobilier • 1948
+                    </span>
+                </a>
+            </div>
+
+            <!-- Right: Search, Consultation CTA & Bag -->
+            <div class="flex items-center space-x-6">
+                <button onclick="toggleModal('searchModal')" class="text-charcoal/80 hover:text-bronze transition hidden sm:block" aria-label="Rechercher">
+                    <i data-lucide="search" class="w-4 h-4 stroke-[1.5]"></i>
+                </button>
+                <button onclick="toggleModal('consultationModal')" class="hidden md:inline-flex items-center text-xs tracking-[0.18em] uppercase border border-espresso px-4 py-2 hover:bg-espresso hover:text-white transition duration-300">
+                    Prendre Rendez-vous
+                </button>
+                <button onclick="toggleCart()" class="relative text-charcoal/90 hover:text-bronze transition flex items-center gap-1.5" aria-label="Mon Panier">
+                    <i data-lucide="baggage-claim" class="w-4 h-4 stroke-[1.5]"></i>
+                    <span id="cartCountBadge" class="text-xs font-serif italic text-bronze">(0)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileDrawer" class="hidden lg:hidden bg-sand-100 border-b border-sand-300 px-6 py-8 transition-all">
+            <nav class="flex flex-col space-y-5 text-sm uppercase tracking-[0.2em]">
+                <a href="#collections" onclick="closeMobileMenu()" class="text-charcoal hover:text-bronze">Collections</a>
+                <a href="#artisanat" onclick="closeMobileMenu()" class="text-charcoal hover:text-bronze">L'Héritage Tripoli</a>
+                <a href="#sur-mesure" onclick="closeMobileMenu()" class="text-charcoal hover:text-bronze">Service Sur-Mesure</a>
+                <a href="#espaces" onclick="closeMobileMenu()" class="text-charcoal hover:text-bronze">Galerie Projets</a>
+                <a href="#contact" onclick="closeMobileMenu()" class="text-charcoal hover:text-bronze">Showroom Tripoli</a>
+                <div class="pt-4 border-t border-sand-300 flex justify-between items-center">
+                    <button onclick="toggleModal('consultationModal'); closeMobileMenu();" class="text-xs uppercase tracking-widest bg-espresso text-sand-50 py-3 px-6 w-full text-center">
+                        Visite Privée au Showroom
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section: Baker Style Grand Elegance -->
+    <section class="relative min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center bg-espresso overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=85" 
+                 alt="Salon luxueux Maison Tripoli" 
+                 class="w-full h-full object-cover object-center opacity-70 filter brightness-[0.88] contrast-105 scale-105 transition-transform duration-1000 ease-out"
+                 id="heroImage">
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/40 to-black/30"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-sand-50 py-20">
+            <span class="inline-block uppercase tracking-[0.35em] text-xs font-medium text-sand-300 mb-4 border-b border-sand-300/40 pb-2">
+                Le Grand Savoir-Faire Libanais
+            </span>
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide leading-[1.1] mb-6">
+                L’Élégance Vivante, <br><span class="italic font-normal">Sculptée à Tripoli</span>
+            </h1>
+            <p class="max-w-xl mx-auto text-sm sm:text-base text-sand-200/90 font-light leading-relaxed mb-10 tracking-wide">
+                Depuis plus de 70 ans, nos maîtres ébénistes allient le marbre du Levant, le noyer massif et les velours d'exception pour habiller les demeures les plus raffinées.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#collections" class="w-full sm:w-auto px-8 py-3.5 bg-sand-50 text-espresso text-xs uppercase tracking-[0.22em] font-medium hover:bg-bronze hover:text-white transition duration-300 shadow-sm">
+                    Découvrir Les Pièces
+                </a>
+                <button onclick="toggleModal('consultationModal')" class="w-full sm:w-auto px-8 py-3.5 border border-sand-200/60 text-sand-50 text-xs uppercase tracking-[0.22em] font-medium hover:bg-white/10 backdrop-blur-sm transition duration-300">
+                    Visiter le Showroom
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating scroll indicator -->
+        <a href="#collections" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-sand-300/70 hover:text-sand-100 transition animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 stroke-[1]"></i>
+        </a>
+    </section>
+
+    <!-- Editorial Quote / Brand Statement (Baker Design Touch) -->
+    <section class="py-24 px-6 md:px-12 bg-sand-100 border-b border-sand-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="w-12 h-px bg-bronze mx-auto mb-8"></div>
+            <p class="font-serif text-2xl sm:text-3xl md:text-4xl text-espresso font-light leading-snug italic mb-6">
+                « Tripoli est le berceau séculaire du bois noble. Nous ne construisons pas de simples meubles ; nous forgeons des pièces de famille destinées à traverser les générations. »
+            </p>
+            <p class="text-xs uppercase tracking-[0.3em] text-bronze font-medium">
+                Maître Fadi Kabbara — Directeur de Création, Tripoli
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Collections Grid (Structure Pantry by Baker) -->
+    <section id="collections" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-sand-300">
+            <div>
+                <span class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Catalogue Édition 2025</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2">Collections Signatures</h2>
+            </div>
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap gap-2 sm:gap-6 mt-6 md:mt-0 text-xs uppercase tracking-[0.18em]">
+                <button onclick="filterProducts('all')" class="cat-filter active-filter text-charcoal font-semibold border-b border-charcoal pb-1 transition">Tous</button>
+                <button onclick="filterProducts('salon')" class="cat-filter text-warmgray hover:text-charcoal transition pb-1">Salons</button>
+                <button onclick="filterProducts('salle-a-manger')" class="cat-filter text-warmgray hover:text-charcoal transition pb-1">Salles à Manger</button>
+                <button onclick="filterProducts('chambre')" class="cat-filter text-warmgray hover:text-charcoal transition pb-1">Suites & Lits</button>
+                <button onclick="filterProducts('luminaires')" class="cat-filter text-warmgray hover:text-charcoal transition pb-1">Objets & Assises</button>
+            </div>
+        </div>
+
+        <!-- Products Showcase Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+            
+            <!-- Card 1 -->
+            <article class="product-item group cursor-pointer" data-category="salon" onclick="openQuickView(1)">
+                <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Canapé Modulaire Al-Mina" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        Noyer Massif & Bouclé
+                    </span>
+                    <button class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-bronze">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start text-espresso">
+                    <div>
+                        <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">Canapé Modulaire « Al-Mina »</h3>
+                        <p class="text-xs text-warmgray mt-1 font-light">Structure noyer huilé, textile lin écru d'Italie</p>
+                    </div>
+                    <span class="font-serif text-lg text-charcoal ml-2">3 800 $</span>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="product-item group cursor-pointer" data-category="salle-a-manger" onclick="openQuickView(2)">
+                <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Table de Réception El-Mina" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        Pièce Maîtresse
+                    </span>
+                    <button class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-bronze">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start text-espresso">
+                    <div>
+                        <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">Table Monolithe « Citadelle »</h3>
+                        <p class="text-xs text-warmgray mt-1 font-light">Chêne sculpté à la gouge & Travertin veiné</p>
+                    </div>
+                    <span class="font-serif text-lg text-charcoal ml-2">4 650 $</span>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="product-item group cursor-pointer" data-category="salon" onclick="openQuickView(3)">
+                <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Fauteuil Bas Miramar" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        Édition Numérotée
+                    </span>
+                    <button class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-bronze">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start text-espresso">
+                    <div>
+                        <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">Fauteuil Club « Miramar »</h3>
+                        <p class="text-xs text-warmgray mt-1 font-light">Cuir tanné végétal & Piètement bronze antique</p>
+                    </div>
+                    <span class="font-serif text-lg text-charcoal ml-2">1 950 $</span>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="product-item group cursor-pointer" data-category="chambre" onclick="openQuickView(4)">
+                <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Lit Céleste Tripoli" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        Tête de lit sur-mesure
+                    </span>
+                    <button class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-bronze">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start text-espresso">
+                    <div>
+                        <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">Ensemble Lit « Qadisha »</h3>
+                        <p class="text-xs text-warmgray mt-1 font-light">Tête de lit capitonnée lin beige & Chêne fumé</p>
+                    </div>
+                    <span class="font-serif text-lg text-charcoal ml-2">4 100 $</span>
+                </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="product-item group cursor-pointer" data-category="salle-a-manger" onclick="openQuickView(5)">
+                <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Buffet Bahut Tripoli" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        Menuiserie d'Art
+                    </span>
+                    <button class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-bronze">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start text-espresso">
+                    <div>
+                        <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">Enfilade « Tell Raymond »</h3>
+                        <p class="text-xs text-warmgray mt-1 font-light">Façades cannelées main, marbre noir Marquina</p>
+                    </div>
+                    <span class="font-serif text-lg text-charcoal ml-2">3 400 $</span>
+                </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="product-item group cursor-pointer" data-category="luminaires" onclick="openQuickView(6)">
+                <div class="relative overflow-hidden bg-sand-200 aspect-[4/5] mb-5">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Sculpture Luminaire Tripoli" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-4 left-4 bg-sand-50/90 backdrop-blur-sm text-[10px] tracking-widest uppercase px-3 py-1 font-medium text-espresso">
+                        Laiton Massif
+                    </span>
+                    <button class="absolute bottom-4 right-4 bg-espresso text-sand-50 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-bronze">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="flex justify-between items-start text-espresso">
+                    <div>
+                        <h3 class="font-serif text-xl font-normal group-hover:text-bronze transition">Lustre Géométrique « Khan »</h3>
+                        <p class="text-xs text-warmgray mt-1 font-light">Laiton martelé aux ateliers du Souk des Cuivres</p>
+                    </div>
+                    <span class="font-serif text-lg text-charcoal ml-2">1 420 $</span>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="mt-16 text-center">
+            <button onclick="toggleModal('consultationModal')" class="inline-flex items-center gap-3 px-10 py-4 bg-espresso text-sand-50 text-xs tracking-[0.25em] uppercase hover:bg-bronze transition duration-300">
+                <span>Consulter le Catalogue Complet & Tarifs Spéciaux</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Interactive Materiality & Swatch Experience (Baker Style Concept) -->
+    <section class="py-24 bg-sand-100 border-y border-sand-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Atelier de Confection Tripoli</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-espresso font-light leading-tight">
+                        La Noblesse des Matières Sélectionnées
+                    </h2>
+                    <p class="text-warmgray text-sm leading-relaxed font-light">
+                        À Tripoli, chaque pièce prend racine dans le choix intransigeant des essences de bois locales et régionales, associées aux marbres extraits du bassin levantin et aux tissages européens.
+                    </p>
+
+                    <!-- Interactive Finishes Selector -->
+                    <div class="pt-4 border-t border-sand-300 space-y-4">
+                        <p class="text-xs uppercase tracking-widest font-medium text-espresso">Sélectionnez une essence de finition :</p>
+                        
+                        <div class="flex items-center space-x-4">
+                            <button onclick="changeMaterial('walnut')" class="finish-btn active-finish flex flex-col items-center group">
+                                <span class="w-12 h-12 rounded-full border-2 border-espresso bg-[#483327] shadow-inner mb-1.5 transition transform group-hover:scale-105"></span>
+                                <span class="text-[11px] uppercase tracking-wider text-charcoal font-medium">Noyer Foncé</span>
+                            </button>
+                            <button onclick="changeMaterial('oak')" class="finish-btn flex flex-col items-center group">
+                                <span class="w-12 h-12 rounded-full border-2 border-transparent bg-[#BCA07B] shadow-inner mb-1.5 transition transform group-hover:scale-105"></span>
+                                <span class="text-[11px] uppercase tracking-wider text-warmgray group-hover:text-charcoal font-medium">Chêne Clair</span>
+                            </button>
+                            <button onclick="changeMaterial('travertine')" class="finish-btn flex flex-col items-center group">
+                                <span class="w-12 h-12 rounded-full border-2 border-transparent bg-[#DCD4C5] shadow-inner mb-1.5 transition transform group-hover:scale-105"></span>
+                                <span class="text-[11px] uppercase tracking-wider text-warmgray group-hover:text-charcoal font-medium">Travertin</span>
+                            </button>
+                            <button onclick="changeMaterial('ebony')" class="finish-btn flex flex-col items-center group">
+                                <span class="w-12 h-12 rounded-full border-2 border-transparent bg-[#1E1B18] shadow-inner mb-1.5 transition transform group-hover:scale-105"></span>
+                                <span class="text-[11px] uppercase tracking-wider text-warmgray group-hover:text-charcoal font-medium">Ébène Noir</span>
+                            </button>
+                        </div>
+
+                        <div id="materialDescription" class="bg-sand-50 p-4 border border-sand-200 mt-4 text-xs text-charcoal/80 leading-relaxed">
+                            <strong class="font-medium text-espresso block mb-1">Noyer Royal de la Vallée :</strong> 
+                            Séchage naturel en grange à Tripoli pendant 18 mois, puis polissage ciré à la main avec une cire d'abeille biologique libanaise.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="relative bg-sand-200 overflow-hidden shadow-2xl aspect-[16/10] group">
+                        <img id="materialPreviewImg" 
+                             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" 
+                             alt="Finition matière meuble" 
+                             class="w-full h-full object-cover transition-opacity duration-500">
+                        <div class="absolute bottom-6 left-6 right-6 bg-sand-50/90 backdrop-blur-md p-4 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] tracking-widest uppercase text-bronze font-semibold">Exemplaire Atelier</span>
+                                <p id="materialTitle" class="font-serif text-lg text-espresso">Console Basse « Bahia » en Noyer Sculpté</p>
+                            </div>
+                            <button onclick="toggleModal('consultationModal')" class="text-xs uppercase tracking-widest underline underline-offset-4 hover:text-bronze">
+                                Commander Échantillon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- The Tripoli Heritage Section (Identity & Authenticity) -->
+    <section id="artisanat" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            
+            <div class="lg:col-span-6 relative">
+                <div class="aspect-[4/5] bg-sand-200 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1540518614846-7ede433c4ef5?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Artisan ébéniste à Tripoli au travail" 
+                         class="w-full h-full object-cover">
+                </div>
+                <!-- Small overlay badge in Baker style -->
+                <div class="hidden sm:block absolute -bottom-8 -right-8 bg-espresso text-sand-100 p-8 max-w-xs shadow-xl">
+                    <span class="block font-serif text-3xl italic font-light mb-1">Tripoli, Liban</span>
+                    <p class="text-xs text-sand-300 font-light leading-relaxed">
+                        Capitale historique des corporations d'artisans d'art, où chaque ruelle du vieux souk perpétue le travail du bois noble.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 space-y-8 lg:pl-6">
+                <div>
+                    <span class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">L'Âme de la Ville</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2 leading-tight">
+                        Une Dynastie de Menuisiers au Cœur de la Méditerranée
+                    </h2>
+                </div>
+
+                <p class="text-warmgray text-sm sm:text-base leading-relaxed font-light">
+                    Bien au-delà d'un simple centre de production, la ville de <strong>Tripoli (Al-Fayha'a)</strong> incarne l'épicentre du mobilier haut de gamme au Moyen-Orient. Nos ateliers continuent de transmettre les techniques d'assemblage en queue d'aronde, le panneautage à plate-bande et la marqueterie délicate.
+                </p>
+
+                <div class="grid grid-cols-2 gap-8 pt-4 border-t border-sand-300">
+                    <div>
+                        <span class="font-serif text-3xl text-espresso block">100%</span>
+                        <span class="text-xs uppercase tracking-wider text-warmgray">Fabrication Locale à Tripoli</span>
+                    </div>
+                    <div>
+                        <span class="font-serif text-3xl text-espresso block">30 Ans</span>
+                        <span class="text-xs uppercase tracking-wider text-warmgray">Garantie sur l’Ébénisterie</span>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <a href="#contact" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition">
+                        <span>Explorer Notre Histoire & Démarche RSE</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sur-Mesure / Architectural Tailored Service (Similar to Pantry by Baker Hospitality/Bespoke) -->
+    <section id="sur-mesure" class="bg-espresso text-sand-50 py-24 px-6 lg:px-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            <div class="space-y-6">
+                <span class="text-xs uppercase tracking-[0.3em] text-bronze font-semibold">Service Architectes & Privés</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-light leading-tight text-sand-100">
+                    Projets Résidentiels & Sur-Mesure Intégral
+                </h2>
+                <p class="text-sand-300 text-sm sm:text-base leading-relaxed font-light">
+                    Vous aménagez une villa à Beyrouth, un appartement à Paris, une suite à Dubaï ou une résidence balnéaire à Tripoli ? Notre bureau d’études vous accompagne : métrés 3D, plans de calepinage, prototypes de teintes et fabrication clé en main.
+                </p>
+
+                <ul class="space-y-4 text-xs tracking-wider uppercase text-sand-200/90 pt-4">
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-bronze"></i>
+                        <span>Dessins techniques et modélisation photoréaliste</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-bronze"></i>
+                        <span>Sélection exclusive de tissus (Rubelli, Pierre Frey, Loro Piana)</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-bronze"></i>
+                        <span>Livraison sous gants blancs et installation par nos artisans</span>
+                    </li>
+                </ul>
+
+                <div class="pt-6">
+                    <button onclick="toggleModal('consultationModal')" class="px-8 py-4 bg-bronze text-white text-xs uppercase tracking-[0.25em] font-medium hover:bg-white hover:text-espresso transition duration-300">
+                        Initier un Projet Sur-Mesure
+                    </button>
+                </div>
+            </div>
+
+            <!-- Visual Showcase -->
+            <div class="relative">
+                <div class="aspect-[4/3] rounded-none overflow-hidden border border-sand-300/20">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" 
+                         alt="Projet intérieur haute facture Maison Tripoli" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="mt-4 flex justify-between text-[11px] uppercase tracking-widest text-sand-400">
+                    <span>Projet Résidence Villa El-Mina</span>
+                    <span>Architecture d'Intérieur 2024</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lookbook & Espace Projets (Pantry by Baker Editorial Gallery) -->
+    <section id="espaces" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">In Situ</span>
+            <h2 class="font-serif text-3xl sm:text-5xl text-espresso font-light mt-2">Demeures Réalisées</h2>
+            <p class="text-warmgray text-xs sm:text-sm mt-3 font-light">
+                Immersion dans les résidences contemporaines habillées par les ateliers de la Maison.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="group relative overflow-hidden aspect-[3/4] bg-sand-200">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" 
+                     alt="Salon Penthouse" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent flex items-end p-8 text-sand-50 opacity-90 group-hover:opacity-100 transition">
+                    <div>
+                        <span class="text-[10px] tracking-widest uppercase text-sand-300">Beyrouth / Achrafieh</span>
+                        <h3 class="font-serif text-2xl font-normal mt-1">Penthouse Sursock</h3>
+                        <p class="text-xs text-sand-300 font-light mt-1">Salon sur-mesure noyer et velours grège</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden aspect-[3/4] bg-sand-200">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" 
+                     alt="Salle à manger littorale" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent flex items-end p-8 text-sand-50 opacity-90 group-hover:opacity-100 transition">
+                    <div>
+                        <span class="text-[10px] tracking-widest uppercase text-sand-300">Tripoli Littoral</span>
+                        <h3 class="font-serif text-2xl font-normal mt-1">Villa Al-Bahr</h3>
+                        <p class="text-xs text-sand-300 font-light mt-1">Table en chêne blanchi & chaises cuir sellier</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden aspect-[3/4] bg-sand-200">
+                <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80" 
+                     alt="Chambre Principale" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent flex items-end p-8 text-sand-50 opacity-90 group-hover:opacity-100 transition">
+                    <div>
+                        <span class="text-[10px] tracking-widest uppercase text-sand-300">Dubaï Hills</span>
+                        <h3 class="font-serif text-2xl font-normal mt-1">Private Estate</h3>
+                        <p class="text-xs text-sand-300 font-light mt-1">Boiseries intégrées & Suite présidentielle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tripoli Showroom Invitation / Contact Section -->
+    <section id="contact" class="py-24 bg-sand-100 border-t border-sand-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <div class="space-y-6">
+                    <span class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Nous Rendre Visite</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-espresso font-light">
+                        Le Showroom & L’Atelier Principal
+                    </h2>
+                    <p class="text-warmgray text-sm leading-relaxed font-light">
+                        Nous vous accueillons du lundi au samedi au cœur historique de l’artisanat tripolitain. Prenez rendez-vous pour être guidé par l'un de nos conseillers designers ou rencontrez directement le maître ébéniste.
+                    </p>
+
+                    <div class="space-y-4 pt-4 text-xs tracking-wider text-charcoal">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-bronze shrink-0 mt-0.5"></i>
+                            <div>
+                                <strong class="block text-espresso uppercase font-semibold">Adresse Showroom :</strong>
+                                <span>Boulevard Fouad Chehab, Quartier des Ateliers d'Art, Tripoli, Liban</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="clock" class="w-5 h-5 text-bronze shrink-0 mt-0.5"></i>
+                            <div>
+                                <strong class="block text-espresso uppercase font-semibold">Horaires d'Ouverture :</strong>
+                                <span>Lundi – Samedi : 09h30 à 18h30 • Dimanche : Sur rendez-vous exclusif</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="phone" class="w-5 h-5 text-bronze shrink-0 mt-0.5"></i>
+                            <div>
+                                <strong class="block text-espresso uppercase font-semibold">Conciergerie Téléphonique / WhatsApp :</strong>
+                                <span>+961 6 442 890 / +961 70 123 456</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Showroom Contact Form -->
+                <div class="bg-sand-50 p-8 sm:p-10 border border-sand-300 shadow-sm">
+                    <h3 class="font-serif text-2xl text-espresso font-normal mb-2">Demander une Visite Privée ou un Devis</h3>
+                    <p class="text-xs text-warmgray mb-6">Un architecte d'intérieur de la Maison vous répondra sous 24 heures.</p>
+                    
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4 text-xs">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Nom Complet *</label>
+                                <input type="text" required placeholder="ex. Karim El-Mir" class="w-full bg-sand-100 border border-sand-300 px-4 py-3 text-xs focus:outline-none focus:border-espresso">
+                            </div>
+                            <div>
+                                <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Téléphone / WhatsApp *</label>
+                                <input type="tel" required placeholder="+961 ..." class="w-full bg-sand-100 border border-sand-300 px-4 py-3 text-xs focus:outline-none focus:border-espresso">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Adresse Email *</label>
+                            <input type="email" required placeholder="votre@email.com" class="w-full bg-sand-100 border border-sand-300 px-4 py-3 text-xs focus:outline-none focus:border-espresso">
+                        </div>
+                        <div>
+                            <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Type de demande</label>
+                            <select class="w-full bg-sand-100 border border-sand-300 px-4 py-3 text-xs focus:outline-none focus:border-espresso text-charcoal">
+                                <option>Visite Showroom à Tripoli</option>
+                                <option>Projet Résidentiel Sur-Mesure</option>
+                                <option>Achat Pièce du Catalogue</option>
+                                <option>Prescription Architecte / B2B</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Votre Message / Précisions</label>
+                            <textarea rows="3" placeholder="Dimensions, lieu du projet, pièces souhaitées..." class="w-full bg-sand-100 border border-sand-300 px-4 py-3 text-xs focus:outline-none focus:border-espresso"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-espresso text-sand-50 uppercase tracking-[0.2em] text-xs font-medium hover:bg-bronze transition duration-300">
+                            Transmettre la Requête
+                        </button>
+                    </form>
+                    <div id="formSuccessMessage" class="hidden mt-4 p-3 bg-emerald-50 text-emerald-800 text-xs text-center border border-emerald-200">
+                        Votre demande a été reçue avec succès. Notre équipe à Tripoli prendra contact sans délai.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Newsletter (Baker Style Minimalist Subscribe) -->
+    <section class="py-16 bg-sand-200 text-center px-6 border-t border-sand-300">
+        <div class="max-w-xl mx-auto">
+            <span class="text-[11px] uppercase tracking-[0.3em] text-bronze block mb-2">Correspondance Privée</span>
+            <h3 class="font-serif text-2xl sm:text-3xl font-light text-espresso mb-3">Recevez nos Nouvelles Éditions</h3>
+            <p class="text-xs text-warmgray mb-6 leading-relaxed">
+                Aperçus confidentiels de nos nouvelles lignes de mobilier, invitations aux vernissages et chroniques sur l'architecture libanaise.
+            </p>
+            <form onsubmit="event.preventDefault(); alert('Merci pour votre inscription à la gazette Maison Tripoli.');" class="flex flex-col sm:flex-row gap-2">
+                <input type="email" required placeholder="Votre adresse email" class="w-full bg-sand-50 border border-sand-300 px-4 py-3 text-xs focus:outline-none focus:border-espresso">
+                <button type="submit" class="px-8 py-3 bg-espresso text-sand-50 text-xs uppercase tracking-widest hover:bg-bronze transition shrink-0">
+                    S'inscrire
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Luxury Footer (Baker Architecture) -->
+    <footer class="bg-espresso text-sand-200 py-16 px-6 lg:px-12 text-xs border-t border-sand-300/20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-sand-400/20">
+            
+            <div class="lg:col-span-2 space-y-4">
+                <span class="block font-serif text-2xl tracking-[0.2em] uppercase font-light text-white">Maison Tripoli</span>
+                <p class="text-sand-400 text-xs leading-relaxed max-w-sm">
+                    Maison d'édition et manufacture de mobilier de prestige à Tripoli, Liban. Chaque création incarne un dialogue entre rigueur architecturale contemporaine et maîtrise artisanale méditerranéenne.
+                </p>
+                <div class="flex space-x-4 pt-2 text-sand-300">
+                    <a href="#" class="hover:text-white transition"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-white transition"><i data-lucide="compass" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="uppercase tracking-[0.2em] font-medium text-white mb-4">Collections</h4>
+                <ul class="space-y-2.5 text-sand-400">
+                    <li><a href="#collections" class="hover:text-sand-100 transition">Salons & Banquettes</a></li>
+                    <li><a href="#collections" class="hover:text-sand-100 transition">Tables de Réception</a></li>
+                    <li><a href="#collections" class="hover:text-sand-100 transition">Enfilades & Commodes</a></li>
+                    <li><a href="#collections" class="hover:text-sand-100 transition">Suites de Nuit</a></li>
+                    <li><a href="#collections" class="hover:text-sand-100 transition">Éclairage d'Art</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="uppercase tracking-[0.2em] font-medium text-white mb-4">La Maison</h4>
+                <ul class="space-y-2.5 text-sand-400">
+                    <li><a href="#artisanat" class="hover:text-sand-100 transition">L'Histoire de Tripoli</a></li>
+                    <li><a href="#artisanat" class="hover:text-sand-100 transition">Nos Maîtres Ébénistes</a></li>
+                    <li><a href="#sur-mesure" class="hover:text-sand-100 transition">Espace Professionnels</a></li>
+                    <li><a href="#contact" class="hover:text-sand-100 transition">Visiter l'Atelier</a></li>
+                    <li><a href="#" class="hover:text-sand-100 transition">Presse & Distinctions</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="uppercase tracking-[0.2em] font-medium text-white mb-4">Tripoli Atelier</h4>
+                <div class="text-sand-400 space-y-2 leading-relaxed">
+                    <p>Rue des Ébénistes & Menuisiers</p>
+                    <p>Tripoli, République Libanaise</p>
+                    <p class="pt-2 text-sand-200">contact@maisontripoli.com</p>
+                    <p>+961 6 442 890</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-sand-400 gap-4">
+            <p>© 2025 MAISON TRIPOLI — Mobilier & Art de Vivre. Inspiré de l’excellence Baker Pantry.</p>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-white transition">Mentions Légales</a>
+                <a href="#" class="hover:text-white transition">Conditions de Vente</a>
+                <a href="#" class="hover:text-white transition">Expéditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT QUICK VIEW MODAL (Baker Furniture Detail Sheet) -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-sand-50 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-sand-300">
+            <button onclick="closeQuickView()" class="absolute top-5 right-5 text-charcoal hover:text-bronze z-10 p-2">
+                <i data-lucide="x" class="w-6 h-6 stroke-[1.2]"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 sm:p-10">
+                <div class="bg-sand-200 aspect-[4/5] overflow-hidden">
+                    <img id="modalProductImg" src="" alt="Détail meuble" class="w-full h-full object-cover">
+                </div>
+
+                <div class="flex flex-col justify-between space-y-6">
+                    <div>
+                        <span id="modalProductBadge" class="text-[10px] uppercase tracking-[0.25em] text-bronze font-semibold">Atelier Tripoli</span>
+                        <h3 id="modalProductTitle" class="font-serif text-3xl text-espresso font-normal mt-1">Canapé Modulaire</h3>
+                        <p id="modalProductPrice" class="font-serif text-2xl text-charcoal mt-2">3 800 $</p>
+
+                        <div class="w-12 h-px bg-sand-300 my-4"></div>
+
+                        <p id="modalProductDesc" class="text-xs text-warmgray leading-relaxed font-light">
+                            Façonné à Tripoli selon les traditions de l'ébénisterie fine. Structure équilibrée en noyer massif, mousse haute résilience et revêtement sur-mesure.
+                        </p>
+
+                        <div class="mt-6 space-y-3">
+                            <div class="text-[11px] uppercase tracking-wider text-charcoal flex justify-between">
+                                <span class="text-warmgray">Dimensions :</span>
+                                <span id="modalProductDim" class="font-medium">L 260 × P 105 × H 76 cm</span>
+                            </div>
+                            <div class="text-[11px] uppercase tracking-wider text-charcoal flex justify-between">
+                                <span class="text-warmgray">Délai Atelier :</span>
+                                <span class="font-medium">Fabriqué sur commande (4 à 6 semaines)</span>
+                            </div>
+                            <div class="text-[11px] uppercase tracking-wider text-charcoal flex justify-between">
+                                <span class="text-warmgray">Origine :</span>
+                                <span class="font-medium">Tripoli, Liban (Livraison Internationale)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-4 border-t border-sand-200">
+                        <button onclick="addToCartCurrent()" class="w-full py-3.5 bg-espresso text-sand-50 text-xs uppercase tracking-[0.2em] font-medium hover:bg-bronze transition">
+                            Ajouter au Devis & Panier
+                        </button>
+                        <button onclick="toggleModal('consultationModal'); closeQuickView();" class="w-full py-3 border border-espresso text-espresso text-xs uppercase tracking-[0.2em] hover:bg-sand-200 transition">
+                            Personnaliser les Dimensions / Finitions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART / DEVIS DRAWER -->
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 max-w-md w-full bg-sand-50 shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out border-l border-sand-300 flex flex-col">
+        <div class="p-6 border-b border-sand-300 flex items-center justify-between">
+            <div>
+                <h3 class="font-serif text-xl text-espresso font-normal">Mon Devis & Sélection</h3>
+                <span class="text-[10px] uppercase tracking-widest text-bronze">Maison Tripoli Concierge</span>
+            </div>
+            <button onclick="toggleCart()" class="text-charcoal hover:text-bronze p-1">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Dynamically populated -->
+            <div id="emptyCartMessage" class="text-center py-16 text-warmgray">
+                <i data-lucide="inbox" class="w-10 h-10 mx-auto stroke-[1] mb-3 text-sand-400"></i>
+                <p class="text-xs uppercase tracking-widest">Votre sélection est vide</p>
+                <p class="text-[11px] text-warmgray/80 mt-1">Parcourez nos collections signatures pour ajouter vos pièces.</p>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-sand-300 bg-sand-100 space-y-4">
+            <div class="flex justify-between text-xs uppercase tracking-wider text-charcoal">
+                <span>Total Estimatif :</span>
+                <span id="cartSubtotal" class="font-serif text-lg font-medium">0 $</span>
+            </div>
+            <p class="text-[10px] text-warmgray leading-tight">
+                * Tarifs hors droits de douane selon la destination. Frais de fret calculés sur étude technique.
+            </p>
+            <button onclick="alert('Votre demande de chiffrage officiel a été transmise à notre bureau de Tripoli. Un chargé d’affaires vous contacte d\'ici 24h.'); toggleCart();" class="w-full py-4 bg-espresso text-sand-50 text-xs uppercase tracking-[0.2em] font-medium hover:bg-bronze transition">
+                Finaliser la Demande de Devis
+            </button>
+        </div>
+    </div>
+
+    <!-- CONSULTATION & SHOWROOM MODAL -->
+    <div id="consultationModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-sand-50 max-w-lg w-full p-8 border border-sand-300 shadow-2xl relative">
+            <button onclick="toggleModal('consultationModal')" class="absolute top-5 right-5 text-charcoal hover:text-bronze p-1">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <span class="text-xs uppercase tracking-[0.25em] text-bronze font-semibold">Service Personnalisé</span>
+            <h3 class="font-serif text-2xl text-espresso font-normal mt-1 mb-2">Visite Privée au Showroom</h3>
+            <p class="text-xs text-warmgray mb-6">
+                Réservez un créneau d'accueil exclusif avec notre bureau d'architecture d'intérieur à Tripoli.
+            </p>
+
+            <form onsubmit="event.preventDefault(); alert('Rendez-vous pré-enregistré. Nous confirmons la date par WhatsApp.'); toggleModal('consultationModal');" class="space-y-4 text-xs">
+                <div>
+                    <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Votre Nom & Prénom</label>
+                    <input type="text" required class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                </div>
+                <div>
+                    <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Numéro Mobile (WhatsApp)</label>
+                    <input type="tel" required placeholder="+961..." class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                </div>
+                <div>
+                    <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Date Souhaitée</label>
+                    <input type="date" required class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                </div>
+                <div>
+                    <label class="block uppercase tracking-wider text-[10px] text-warmgray mb-1">Objet de la Visite</label>
+                    <select class="w-full bg-sand-100 border border-sand-300 px-4 py-2.5 text-xs focus:outline-none focus:border-espresso">
+                        <option>Achat mobilier particulier</option>
+                        <option>Projet villa / appartement complet</option>
+                        <option>Collaboration professionnelle (Architecte)</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-espresso text-sand-50 uppercase tracking-[0.2em] text-xs font-medium hover:bg-bronze transition mt-4">
+                    Confirmer la Demande
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div id="searchModal" class="fixed inset-0 z-50 hidden bg-sand-50/98 backdrop-blur-md flex flex-col justify-center items-center px-6">
+        <button onclick="toggleModal('searchModal')" class="absolute top-8 right-8 text-charcoal hover:text-bronze p-2">
+            <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+        <div class="max-w-2xl w-full text-center">
+            <span class="text-xs uppercase tracking-[0.3em] text-bronze block mb-4">Recherche au Catalogue</span>
+            <input type="text" id="searchInput" oninput="liveSearch(this.value)" placeholder="Tapez 'Noyer', 'Canapé', 'Table', 'Tripoli'..." class="w-full text-2xl sm:text-4xl font-serif border-b border-charcoal bg-transparent pb-4 text-center focus:outline-none text-espresso placeholder:text-warmgray/40">
+            <div id="searchResults" class="mt-8 text-xs text-left max-h-60 overflow-y-auto space-y-3"></div>
+        </div>
+    </div>
+
+    <!-- DATA & LOGIC SCRIPTS -->
+    <script>
+        // Database of Tripoli Furniture items
+        const products = [
+            {
+                id: 1,
+                name: "Canapé Modulaire « Al-Mina »",
+                category: "salon",
+                price: 3800,
+                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80",
+                badge: "Noyer Massif & Bouclé",
+                desc: "Chef-d’œuvre des ateliers du port d'Al-Mina. Structure apparente en noyer foncé de la vallée, coussins d'assise garnis de plumes et lin texturé de première sélection.",
+                dimensions: "L 280 × P 110 × H 72 cm"
+            },
+            {
+                id: 2,
+                name: "Table Monolithe « Citadelle »",
+                category: "salle-a-manger",
+                price: 4650,
+                image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1000&q=80",
+                badge: "Pièce Maîtresse",
+                desc: "Inspirée par la pierre historique de la forteresse Raymond de Saint-Gilles à Tripoli. Piétement sculpté d'une seule pièce de chêne et plateau de travertin adouci.",
+                dimensions: "L 300 × P 115 × H 76 cm"
+            },
+            {
+                id: 3,
+                name: "Fauteuil Club « Miramar »",
+                category: "salon",
+                price: 1950,
+                image: "https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1000&q=80",
+                badge: "Édition Numérotée",
+                desc: "Élégance méditerranéenne intemporelle. Cuir pleine fleur patiné artisanalement dans les cours intérieures de Tripoli, détails en laiton brossé.",
+                dimensions: "L 84 × P 88 × H 78 cm"
+            },
+            {
+                id: 4,
+                name: "Ensemble Lit « Qadisha »",
+                category: "chambre",
+                price: 4100,
+                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80",
+                badge: "Tête de lit sur-mesure",
+                desc: "Hommage aux forêts séculaires. Tête de lit sculptée en chêne fumé libanais et alcôve capitonnée dans un tissu écru déperlant.",
+                dimensions: "Pour matelas 180 × 200 cm (King Size)"
+            },
+            {
+                id: 5,
+                name: "Enfilade « Tell Raymond »",
+                category: "salle-a-manger",
+                price: 3400,
+                image: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1000&q=80",
+                badge: "Menuiserie d'Art",
+                desc: "Façades composées de 120 cannelures fraisées individuellement par nos maîtres menuisiers tripolitains. Charnières amorties et plateau en marbre noir d'Alep.",
+                dimensions: "L 220 × P 50 × H 82 cm"
+            },
+            {
+                id: 6,
+                name: "Lustre Géométrique « Khan »",
+                category: "luminaires",
+                price: 1420,
+                image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=80",
+                badge: "Laiton Massif",
+                desc: "Laiton lourd façonné au marteau dans les ruelles du Souk des Cuivres de Tripoli. Diffusion lumineuse chaude et graphique.",
+                dimensions: "Diamètre 90 cm × H 110 cm réglable"
+            }
+        ];
+
+        let cart = [];
+        let currentActiveProduct = null;
+
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initScrollEffects();
+        });
+
+        // Sticky Navbar subtle border transition on scroll
+        function initScrollEffects() {
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 30) {
+                    nav.classList.add('shadow-sm');
+                } else {
+                    nav.classList.remove('shadow-sm');
+                }
+            });
+        }
+
+        // Mobile drawer toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        mobileBtn.addEventListener('click', () => {
+            mobileDrawer.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            mobileDrawer.classList.add('hidden');
+        }
+
+        // Category filter in Catalog
+        function filterProducts(category) {
+            const buttons = document.querySelectorAll('.cat-filter');
+            buttons.forEach(btn => {
+                btn.classList.remove('active-filter', 'font-semibold', 'text-charcoal', 'border-b', 'border-charcoal');
+                btn.classList.add('text-warmgray');
+            });
+
+            event.target.classList.add('active-filter', 'font-semibold', 'text-charcoal', 'border-b', 'border-charcoal');
+            event.target.classList.remove('text-warmgray');
+
+            const items = document.querySelectorAll('.product-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Material Finishes Interactive Switcher
+        const materialDetails = {
+            walnut: {
+                title: "Console Basse « Bahia » en Noyer Sculpté",
+                desc: "<strong>Noyer Royal de la Vallée :</strong> Séchage naturel en grange à Tripoli pendant 18 mois, puis polissage ciré à la main avec une cire d'abeille biologique libanaise.",
+                img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+            },
+            oak: {
+                title: "Table d'Appoint « Tripoli » en Chêne Cérusé",
+                desc: "<strong>Chêne Clair de Haute Facture :</strong> Veinage linéaire sélectionné à la gouge, finition sablée et huilée mat pour préserver la clarté méditerranéenne.",
+                img: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=80"
+            },
+            travertine: {
+                title: "Sellette Monolithe en Travertin de la Côte",
+                desc: "<strong>Travertin Romain & Levant :</strong> Découpé et chanfreiné avec précision par nos marbriers partenaires de la région du Nord-Liban.",
+                img: "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=80"
+            },
+            ebony: {
+                title: "Bureau Ministre en Ébène Teinté & Bronze",
+                desc: "<strong>Ébène Noir Velouté :</strong> Laque satinée à l'ancienne appliquée en 7 couches successives dans nos ateliers à Tripoli.",
+                img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80"
+            }
+        };
+
+        function changeMaterial(type) {
+            const data = materialDetails[type];
+            if (!data) return;
+
+            const previewImg = document.getElementById('materialPreviewImg');
+            previewImg.style.opacity = 0;
+            
+            setTimeout(() => {
+                previewImg.src = data.img;
+                document.getElementById('materialTitle').innerText = data.title;
+                document.getElementById('materialDescription').innerHTML = data.desc;
+                previewImg.style.opacity = 1;
+            }, 250);
+
+            // Update active state indicator
+            document.querySelectorAll('.finish-btn span:first-child').forEach(span => {
+                span.classList.remove('border-espresso');
+                span.classList.add('border-transparent');
+            });
+            event.currentTarget.querySelector('span:first-child').classList.remove('border-transparent');
+            event.currentTarget.querySelector('span:first-child').classList.add('border-espresso');
+        }
+
+        // Quick View Modal logic
+        function openQuickView(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+            currentActiveProduct = product;
+
+            document.getElementById('modalProductImg').src = product.image;
+            document.getElementById('modalProductTitle').innerText = product.name;
+            document.getElementById('modalProductPrice').innerText = product.price.toLocaleString('fr-FR') + " $";
+            document.getElementById('modalProductBadge').innerText = product.badge;
+            document.getElementById('modalProductDesc').innerText = product.desc;
+            document.getElementById('modalProductDim').innerText = product.dimensions;
+
+            document.getElementById('quickViewModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickViewModal').classList.add('hidden');
+        }
+
+        // Cart Drawer logic
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('translate-x-full');
+            renderCart();
+        }
+
+        function addToCartCurrent() {
+            if (currentActiveProduct) {
+                cart.push(currentActiveProduct);
+                updateCartCount();
+                closeQuickView();
+                toggleCart();
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCountBadge').innerText = `(${cart.length})`;
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cartItemsList');
+            const subtotalEl = document.getElementById('cartSubtotal');
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-16 text-warmgray">
+                        <i data-lucide="inbox" class="w-10 h-10 mx-auto stroke-[1] mb-3 text-sand-400"></i>
+                        <p class="text-xs uppercase tracking-widest">Votre sélection est vide</p>
+                        <p class="text-[11px] text-warmgray/80 mt-1">Parcourez nos collections signatures pour ajouter vos pièces.</p>
+                    </div>
+                `;
+                subtotalEl.innerText = "0 $";
+                lucide.createIcons();
+                return;
+            }
+
+            let total = 0;
+            list.innerHTML = "";
+            cart.forEach((item, index) => {
+                total += item.price;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "flex items-center gap-4 py-3 border-b border-sand-200 text-xs";
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" class="w-14 h-14 object-cover border border-sand-300">
+                    <div class="flex-1">
+                        <h4 class="font-serif text-sm font-medium text-espresso">${item.name}</h4>
+                        <span class="text-warmgray">${item.price} $</span>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-warmgray hover:text-red-700 p-1">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                `;
+                list.appendChild(itemDiv);
+            });
+
+            subtotalEl.innerText = total.toLocaleString('fr-FR') + " $";
+            lucide.createIcons();
+        }
+
+        // Generic Modal Toggle
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.toggle('hidden');
+            if (id === 'searchModal' && !modal.classList.contains('hidden')) {
+                setTimeout(() => document.getElementById('searchInput').focus(), 100);
+            }
+        }
+
+        // Search logic
+        function liveSearch(query) {
+            const res = document.getElementById('searchResults');
+            if (!query.trim()) {
+                res.innerHTML = "";
+                return;
+            }
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query.toLowerCase()) || 
+                p.desc.toLowerCase().includes(query.toLowerCase()) ||
+                p.category.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                res.innerHTML = `<p class="text-warmgray italic">Aucun modèle ne correspond à cette recherche.</p>`;
+            } else {
+                res.innerHTML = filtered.map(p => `
+                    <div onclick="openQuickView(${p.id}); toggleModal('searchModal');" class="flex items-center justify-between p-3 hover:bg-sand-100 cursor-pointer border-b border-sand-200">
+                        <div class="flex items-center gap-4">
+                            <img src="${p.image}" class="w-12 h-12 object-cover">
+                            <div>
+                                <h4 class="font-serif text-base text-espresso">${p.name}</h4>
+                                <span class="text-[10px] uppercase tracking-wider text-warmgray">${p.badge}</span>
+                            </div>
+                        </div>
+                        <span class="font-serif text-charcoal">${p.price} $</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Contact Form Submission
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            document.getElementById('formSuccessMessage').classList.remove('hidden');
+            document.getElementById('contactForm').reset();
+            setTimeout(() => {
+                document.getElementById('formSuccessMessage').classList.add('hidden');
+            }, 6000);
+        }
+
+        // Close modal on Escape
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('quickViewModal').classList.add('hidden');
+                document.getElementById('consultationModal').classList.add('hidden');
+                document.getElementById('searchModal').classList.add('hidden');
+                document.getElementById('cartDrawer').classList.add('translate-x-full');
+            }
+        });
+    </script>
+</body>
+</html>
