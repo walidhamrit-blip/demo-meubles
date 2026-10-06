@@ -11,13 +11,28 @@
  *
  * Usage : node tools/build-icons.mjs
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { readdirSync } from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const ICONS_DIR = path.join(ROOT, 'node_modules', 'lucide-static', 'icons');
-const PAGES = ['index.html', 'mentions-legales.html', '404.html'];
+
+/** Répertoires techniques exclus de l'exploration. */
+const IGNORED_DIRS = new Set(['node_modules', '.git', 'src', 'tools', 'docs', 'assets']);
+
+/** Découvre toutes les pages HTML générées (profondeur illimitée). */
+async function collectPages(dir = ROOT, acc = []) {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+        if (entry.isDirectory()) {
+            if (IGNORED_DIRS.has(entry.name)) continue;
+            await collectPages(path.join(dir, entry.name), acc);
+        } else if (entry.name.endsWith('.html')) {
+            acc.push(path.relative(ROOT, path.join(dir, entry.name)));
+        }
+    }
+    return acc.sort();
+}
 
 /** Icônes de marque retirées de lucide-static (traits « Feather », ISC). */
 const BRAND_ICONS = {
@@ -45,7 +60,7 @@ function extractPaths(svg) {
 async function collectUsedIconIds() {
     const used = new Set();
 
-    for (const page of PAGES) {
+    for (const page of await collectPages()) {
         let html;
         try {
             html = await readFile(path.join(ROOT, page), 'utf8');
@@ -116,7 +131,7 @@ async function main() {
     ].join('\n    ');
 
     let injected = 0;
-    for (const page of PAGES) {
+    for (const page of await collectPages()) {
         const file = path.join(ROOT, page);
         let html;
         try {

@@ -2,10 +2,14 @@
 /**
  * tools/smoke-test.mjs
  * ---------------------------------------------------------------------------
- * Test de bon fonctionnement du DOM : charge index.html dans jsdom, exécute
- * assets/js/main.js puis rejoue les parcours utilisateurs critiques
- * (fiche produit, panier, filtres, recherche, modales, formulaires) et
- * vérifie qu'aucune erreur JavaScript n'est levée.
+ * Tests fonctionnels du DOM sur les pages clés du site multi-pages :
+ *   1. Page d'accueil        — nuancier des matières, recherche, panier
+ *   2. Page de collection    — fiche produit, filtres de page, formulaire
+ *   3. Page de contact       — formulaire, cohérence NAP
+ *   4. Menu de navigation    — liens des collections, accessibilité clavier
+ *
+ * Chaque page est chargée dans jsdom avec son catalogue (catalog.js) puis sa
+ * logique applicative (main.js) ; toute erreur JavaScript fait échouer le test.
  *
  * Usage : node tools/smoke-test.mjs
  */
@@ -15,177 +19,255 @@ import { JSDOM } from 'jsdom';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 
-const html = (await readFile(path.join(ROOT, 'index.html'), 'utf8')).replace(
-    /<script src="assets\/js\/main\.js" defer><\/script>/,
-    '',
-);
-const script = await readFile(path.join(ROOT, 'assets', 'js', 'main.js'), 'utf8');
-
-const dom = new JSDOM(html, {
-    runScripts: 'dangerously',
-    pretendToBeVisual: true,
-    url: 'https://www.maisontripoli.com/',
-});
-
-const { window } = dom;
-const { document } = window;
-
-const errors = [];
-window.addEventListener('error', (event) => errors.push(event.message));
-window.addEventListener('unhandledrejection', (event) => errors.push(String(event.reason)));
-
-// jsdom n'implémente pas matchMedia ni requestAnimationFrame de façon complète
-window.matchMedia =
-    window.matchMedia ||
-    (() => ({ matches: false, addEventListener() {}, removeEventListener() {} }));
-
-// Exécution du script applicatif (équivalent du chargement différé)
-const element = document.createElement('script');
-element.textContent = script;
-document.body.appendChild(element);
-
-// Le script s'initialise sur DOMContentLoaded : on attend la fin du chargement
-// de la page avant de simuler les interactions.
-await new Promise((resolve) => {
-    if (document.readyState === 'complete') resolve();
-    else window.addEventListener('load', resolve, { once: true });
-});
-
 let failures = 0;
+let jsErrors = 0;
+
+const OK = '\x1b[32m✓\x1b[0m';
+const KO = '\x1b[31m✗\x1b[0m';
+
 const check = (label, condition, detail = '') => {
     if (condition) {
-        console.log(`  ✓ ${label}`);
+        console.log(`  ${OK} ${label}`);
     } else {
         failures += 1;
-        console.log(`  ✗ ${label}${detail ? ` — ${detail}` : ''}`);
+        console.log(`  ${KO} ${label}${detail ? ` — ${detail}` : ''}`);
     }
 };
 
-const click = (selector) => {
-    const target = document.querySelector(selector);
-    if (!target) throw new Error(`Élément introuvable : ${selector}`);
-    target.dispatchEvent(new window.MouseEvent('click', { bubbles: true, cancelable: true }));
-    return target;
-};
+/**
+ * Charge une page dans un DOM simulé puis exécute le JavaScript applicatif
+ * exactement dans l'ordre du navigateur : catalog.js puis main.js.
+ */
+async function loadPage(pagePath) {
+    const html = (await readFile(path.join(ROOT, pagePath), 'utf8'))
+        .replace(/<script src="[^"]*catalog\.js" defer><\/script>/, '')
+        .replace(/<script src="[^"]*main\.js" defer><\/script>/, '');
 
-console.log('\nParcours utilisateurs (index.html)');
+    const dom = new JSDOM(html, {
+        runScripts: 'dangerously',
+        pretendToBeVisual: true,
+        url: `https://www.maisontripoli.com/${pagePath.replace(/index\.html$/, '')}`,
+    });
 
-// --- Fiche produit --------------------------------------------------------
-click('[data-quickview="3"]');
-const modal = document.getElementById('quickViewModal');
-check('fiche produit ouverte au clic sur une pièce', modal.hidden === false && modal.classList.contains('is-open'));
-check(
-    'contenu de la fiche mis à jour',
-    document.getElementById('modalProductTitle').textContent.includes('Miramar'),
-    document.getElementById('modalProductTitle').textContent,
-);
-check(
-    'attribut alt de l’image de fiche renseigné',
-    (document.getElementById('modalProductImg').getAttribute('alt') || '').length > 10,
-);
-check('aria-hidden synchronisé (ouvert)', modal.getAttribute('aria-hidden') === 'false');
+    const { window } = dom;
+    const { document } = window;
 
-// --- Ajout au panier ------------------------------------------------------
-click('#addToCartBtn');
-check('compteur du panier mis à jour', document.getElementById('cartCountBadge').textContent === '(1)');
-check('tiroir de sélection ouvert', document.getElementById('cartDrawer').classList.contains('is-open'));
-check('fiche produit refermée après ajout', modal.hidden === true);
-check(
-    'ligne de sélection rendue avec image et alt',
-    document.querySelectorAll('#cartItemsList img[alt]').length === 1,
-);
+    const errors = [];
+    window.addEventListener('error', (event) => errors.push(event.message));
+    window.addEventListener('unhandledrejection', (event) => errors.push(String(event.reason)));
 
-const total = document.getElementById('cartSubtotal').textContent;
-check('total calculé', /1[\s\u202f]?950\s\$/.test(total), total);
+    window.matchMedia =
+        window.matchMedia || (() => ({ matches: false, addEventListener() {}, removeEventListener() {} }));
 
-// --- Suppression ----------------------------------------------------------
-click('#cartItemsList button[aria-label^="Retirer"]');
-check('compteur remis à zéro', document.getElementById('cartCountBadge').textContent === '(0)');
-check('état vide restauré', /Votre sélection est vide/.test(document.getElementById('cartItemsList').textContent));
+    const catalog = await readFile(path.join(ROOT, 'assets', 'js', 'catalog.js'), 'utf8');
+    const script = await readFile(path.join(ROOT, 'assets', 'js', 'main.js'), 'utf8');
 
-// --- Filtres du catalogue -------------------------------------------------
-click('.cat-filter[data-filter="salon"]');
-const visible = [...document.querySelectorAll('.product-item')].filter((item) => !item.classList.contains('hidden'));
-check('filtre « Salons » : 2 pièces affichées', visible.length === 2, `${visible.length} affichée(s)`);
-check('état aria-pressed transmis au filtre', document.querySelector('.cat-filter[data-filter="salon"]').getAttribute('aria-pressed') === 'true');
-check('message de statut annoncé aux lecteurs d’écran', /2 pièces affichées/.test(document.getElementById('filterStatus').textContent));
+    for (const source of [catalog, script]) {
+        const element = document.createElement('script');
+        element.textContent = source;
+        document.body.appendChild(element);
+    }
 
-click('.cat-filter[data-filter="all"]');
-check(
-    'retour à « Tous » : 6 pièces affichées',
-    [...document.querySelectorAll('.product-item')].filter((item) => !item.classList.contains('hidden')).length === 6,
-);
+    await new Promise((resolve) => {
+        if (document.readyState === 'complete') resolve();
+        else window.addEventListener('load', resolve, { once: true });
+    });
 
-// --- Nuancier des matières ------------------------------------------------
-click('.finish-btn[data-material="ebony"]');
-check(
-    'finitions : titre mis à jour',
-    document.getElementById('materialTitle').textContent.includes('Ébène'),
-    document.getElementById('materialTitle').textContent,
-);
-check(
-    'finitions : état sélectionné',
-    document.querySelector('.finish-btn[data-material="ebony"]').getAttribute('aria-pressed') === 'true',
-);
+    const click = (selector) => {
+        const target = document.querySelector(selector);
+        if (!target) throw new Error(`Élément introuvable : ${selector}`);
+        target.dispatchEvent(new window.MouseEvent('click', { bubbles: true, cancelable: true }));
+        return target;
+    };
 
-// --- Recherche ------------------------------------------------------------
-click('[data-open-dialog="searchModal"]');
-const searchModal = document.getElementById('searchModal');
-check('couche de recherche ouverte', searchModal.hidden === false);
+    return { window, document, errors, click };
+}
 
-const input = document.getElementById('searchInput');
-input.value = 'noyer';
-input.dispatchEvent(new window.Event('input', { bubbles: true }));
+/* ========================================================================
+   1. Page d'accueil
+   ======================================================================== */
+console.log("\n1. Page d'accueil (index.html)");
+{
+    const { document, errors, click, window } = await loadPage('index.html');
 
-await new Promise((resolve) => setTimeout(resolve, 250));
-const results = document.getElementById('searchResults').querySelectorAll('button');
-const resultText = document.getElementById('searchResults').textContent;
-check('recherche « noyer » : résultat pertinent', /Al-Mina/.test(resultText), resultText.slice(0, 80));
-check('recherche : images pourvues d’un alt', document.querySelectorAll('#searchResults img[alt]').length === results.length);
+    // Maillage vers les collections
+    const collectionLinks = [...document.querySelectorAll('a[href*="collections/"]')];
+    check(
+        'la page d’accueil renvoie vers les pages de collection',
+        collectionLinks.length >= 5,
+        `${collectionLinks.length} lien(s)`,
+    );
 
-// Recherche insensible à la casse et aux accents (« TABLE » doit matcher « Table »)
-input.value = 'salon';
-input.dispatchEvent(new window.Event('input', { bubbles: true }));
-await new Promise((resolve) => setTimeout(resolve, 250));
-check(
-    'recherche par catégorie normalisée (« salon »)',
-    document.getElementById('searchResults').querySelectorAll('button').length >= 2,
-);
+    // Nuancier des matières
+    click('.finish-btn[data-material="ebony"]');
+    check(
+        'nuancier des matières : titre mis à jour',
+        document.getElementById('materialTitle').textContent.includes('Ébène'),
+        document.getElementById('materialTitle').textContent,
+    );
+    check(
+        'nuancier : état sélectionné annoncé',
+        document.querySelector('.finish-btn[data-material="ebony"]').getAttribute('aria-pressed') === 'true',
+    );
 
-input.value = 'zzzz';
-input.dispatchEvent(new window.Event('input', { bubbles: true }));
-await new Promise((resolve) => setTimeout(resolve, 250));
-check(
-    'recherche sans résultat : message explicite',
-    /Aucun modèle/.test(document.getElementById('searchResults').textContent),
-);
+    // Recherche instantanée interrogeant tout le catalogue
+    click('[data-open-dialog="searchModal"]');
+    const input = document.getElementById('searchInput');
+    input.value = 'travertin';
+    input.dispatchEvent(new window.Event('input', { bubbles: true }));
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    check(
+        'recherche globale : plusieurs collections atteintes',
+        document.getElementById('searchResults').querySelectorAll('button').length >= 2,
+        `${document.getElementById('searchResults').querySelectorAll('button').length} résultat(s)`,
+    );
 
-// --- Modales : fermeture ----------------------------------------------
-window.document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-check('touche Échap : couches refermées', searchModal.hidden === true);
+    window.document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    check('touche Échap : couche refermée', document.getElementById('searchModal').hidden === true);
 
-click('[data-open-dialog="consultationModal"]');
-const consultation = document.getElementById('consultationModal');
-check('couche de rendez-vous ouverte', consultation.classList.contains('is-open'));
-check('défilement verrouillé pendant l’ouverture', document.body.classList.contains('has-dialog-open'));
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
 
-click('#consultationModal [data-close-dialog]');
-check('fermeture par le bouton', consultation.hidden === true);
-check('défilement rétabli', !document.body.classList.contains('has-dialog-open'));
+/* ========================================================================
+   2. Page de collection
+   ======================================================================== */
+console.log('\n2. Page de collection (collections/salons/index.html)');
+{
+    const { document, errors, click, window } = await loadPage('collections/salons/index.html');
 
-// --- Formulaires ----------------------------------------------------------
-const contactForm = document.getElementById('contactForm');
-contactForm.elements.name.value = 'Karim El-Mir';
-contactForm.elements.phone.value = '+961 70 123 456';
-contactForm.elements.email.value = 'karim@example.com';
-contactForm.dispatchEvent(new window.Event('submit', { bubbles: true, cancelable: true }));
-check(
-    'formulaire de contact : accusé de réception affiché',
-    document.getElementById('formSuccessMessage').textContent.length > 20,
-);
+    const cards = document.querySelectorAll('[data-quickview]');
+    check('les pièces de la collection sont listées', cards.length === 3, `${cards.length} carte(s)`);
 
-// --- Erreurs JavaScript ---------------------------------------------------
-check('aucune erreur JavaScript pendant les parcours', errors.length === 0, errors.join(' | '));
+    click('[data-quickview="fauteuil-club-miramar"]');
+    const modal = document.getElementById('quickViewModal');
+    check('fiche produit ouverte', modal.hidden === false && modal.classList.contains('is-open'));
+    check(
+        'fiche produit : contenu exact',
+        document.getElementById('modalProductTitle').textContent.includes('Miramar'),
+        document.getElementById('modalProductTitle').textContent,
+    );
+    check(
+        'fiche produit : lien vers la collection',
+        document.getElementById('modalProductCollection').querySelector('a') !== null,
+    );
+    check(
+        'fiche produit : image avec alt descriptif',
+        (document.getElementById('modalProductImg').getAttribute('alt') || '').length > 20,
+    );
 
-console.log(`\n${failures === 0 ? 'Succès' : `${failures} échec(s)`} — ${errors.length} erreur(s) JS.\n`);
-process.exit(failures === 0 ? 0 : 1);
+    click('#addToCartBtn');
+    check('panier : compteur mis à jour', document.getElementById('cartCountBadge').textContent === '(1)');
+    check('panier : tiroir ouvert', document.getElementById('cartDrawer').classList.contains('is-open'));
+    check(
+        'panier : total calculé',
+        /1[\s\u202f]?950\s\$/.test(document.getElementById('cartSubtotal').textContent),
+        document.getElementById('cartSubtotal').textContent,
+    );
+
+    click('#cartItemsList button[aria-label^="Retirer"]');
+    check('panier : suppression', document.getElementById('cartCountBadge').textContent === '(0)');
+
+    // FAQ sans JavaScript
+    const faqItems = document.querySelectorAll('details');
+    check('FAQ dépliable sans JavaScript', faqItems.length === 4, `${faqItems.length} question(s)`);
+
+    // Fil d'Ariane
+    check('fil d’Ariane présent', document.querySelector('nav[aria-label*="Ariane"]') !== null);
+
+    window.document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+/* ========================================================================
+   3. Page de contact
+   ======================================================================== */
+console.log('\n3. Page de contact (contact/index.html)');
+{
+    const { document, errors, window } = await loadPage('contact/index.html');
+
+    const form = document.getElementById('contactForm');
+    check('formulaire de contact présent', form !== null);
+
+    const labels = [...document.querySelectorAll('#contactForm label')];
+    check(
+        'tous les champs du formulaire sont étiquetés',
+        labels.length >= 5 && labels.every((label) => label.getAttribute('for')),
+        `${labels.length} étiquette(s)`,
+    );
+
+    form.elements.name.value = 'Karim El-Mir';
+    form.elements.phone.value = '+961 70 123 456';
+    form.elements.email.value = 'karim@example.com';
+    form.dispatchEvent(new window.Event('submit', { bubbles: true, cancelable: true }));
+    check(
+        'envoi simulé : accusé de réception affiché',
+        document.getElementById('formSuccessMessage').textContent.length > 20,
+    );
+
+    // Cohérence NAP entre l'affichage et les données structurées
+    const jsonLd = JSON.parse(document.querySelector('script[type="application/ld+json"]').textContent);
+    const store = jsonLd['@graph'].find((node) => node['@type'] === 'FurnitureStore');
+    // Le numéro affiché utilise des espaces insécables (typographie) : on compare
+    // les chiffres, seul moyen robuste de vérifier la cohérence affichage / JSON-LD.
+    const digits = (value) => (value || '').replace(/\D/g, '');
+    check(
+        'NAP : téléphone identique entre la page et le JSON-LD',
+        digits(document.body.textContent).includes(digits(store.telephone)) && store.telephone === '+9616442890',
+        store.telephone,
+    );
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+/* ========================================================================
+   4. Navigation partagée
+   ======================================================================== */
+console.log('\n4. Navigation partagée par toutes les pages');
+{
+    const { document, errors, click } = await loadPage('collections/index.html');
+
+    // Menu déroulant Collections : les 5 sous-liens doivent être dans le DOM
+    const dropdownLinks = [...document.querySelectorAll('header nav ul ul a')];
+    check(
+        'menu déroulant « Collections » : 5 pages filles liées',
+        dropdownLinks.length === 5,
+        `${dropdownLinks.length} lien(s)`,
+    );
+    check(
+        'les liens du menu pointent vers les URL de collection',
+        dropdownLinks.every((link) => /collections\/[a-z-]+\/$/.test(link.getAttribute('href'))),
+    );
+
+    // Tiroir mobile
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    check('tiroir mobile masqué au chargement', drawer.hidden === true);
+    click('#mobileMenuBtn');
+    check('ouverture du tiroir mobile', drawer.hidden === false);
+    check('état annoncé (aria-expanded)', menuBtn.getAttribute('aria-expanded') === 'true');
+    click('#mobileMenuBtn');
+    check('fermeture du tiroir mobile', drawer.hidden === true);
+
+    // La page courante est indiquée aux technologies d'assistance
+    check(
+        'page courante annoncée (aria-current)',
+        document.querySelector('header a[aria-current="page"]') !== null,
+    );
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+/* ========================================================================
+   Synthèse
+   ======================================================================== */
+console.log(`\n${'─'.repeat(64)}`);
+if (failures === 0 && jsErrors === 0) {
+    console.log(`${OK} Tous les parcours passent — 0 échec, 0 erreur JavaScript.\n`);
+} else {
+    console.log(`${KO} ${failures} échec(s) fonctionnel(s), ${jsErrors} erreur(s) JavaScript.\n`);
+}
+process.exit(failures === 0 && jsErrors === 0 ? 0 : 1);

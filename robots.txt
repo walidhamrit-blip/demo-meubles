@@ -1,13 +1,13 @@
 # robots.txt — Maison Tripoli
-# Autorise l'exploration complète et pointe vers le sitemap XML.
+# Autorise l'exploration complète et pointe vers le plan de site.
 
 User-agent: *
 Allow: /
 
-# Répertoires techniques sans valeur d'indexation
+# Répertoires de travail : aucune valeur d'indexation
 Disallow: /node_modules/
 Disallow: /src/
 Disallow: /tools/
-Disallow: /*?filter=
+Disallow: /docs/
 
 Sitemap: https://www.maisontripoli.com/sitemap.xml

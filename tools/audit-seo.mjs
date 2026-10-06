@@ -18,10 +18,28 @@
  *   • balisage sémantique (header/nav/main/section/article/footer).
  */
 import { readFile } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
-const PAGES = ['index.html', 'mentions-legales.html', '404.html'];
+
+/** Répertoires techniques exclus de l'audit. */
+const IGNORED_DIRS = new Set(['node_modules', '.git', 'src', 'tools', 'docs', 'assets']);
+
+/** Découvre toutes les pages HTML générées, à n'importe quelle profondeur. */
+async function collectPages(dir = ROOT, acc = []) {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+        if (entry.isDirectory()) {
+            if (IGNORED_DIRS.has(entry.name)) continue;
+            await collectPages(path.join(dir, entry.name), acc);
+        } else if (entry.name.endsWith('.html')) {
+            acc.push(path.relative(ROOT, path.join(dir, entry.name)));
+        }
+    }
+    return acc.sort();
+}
+
+const PAGES = await collectPages();
 
 let errors = 0;
 let warnings = 0;
@@ -73,7 +91,7 @@ for (const page of PAGES) {
     console.log(`\n${page}`);
     const html = await readFile(path.join(ROOT, page), 'utf8');
     const body = stripCode(html);
-    const is404 = page === '404.html';
+    const is404 = page.endsWith('404.html');
 
     // --- 1. Titre et métadonnées -----------------------------------------
     const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
@@ -220,7 +238,7 @@ for (const page of PAGES) {
     // --- 7. Données structurées ------------------------------------------
     const jsonLdBlocks = [...html.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/gi)];
     if (!jsonLdBlocks.length) {
-        if (!is404 && page === 'index.html') fail(page, 'aucune donnée structurée JSON-LD');
+        if (!is404) fail(page, 'aucune donnée structurée JSON-LD');
     } else {
         for (const [, block] of jsonLdBlocks) {
             try {
@@ -252,6 +270,26 @@ for (const page of PAGES) {
     }
     if (!/class="skip-link"/.test(body)) warn(page, 'lien d’évitement (skip link) absent');
 
+    const isRoot = path.dirname(page) === '.';
+    if (!isRoot && !is404 && !/aria-label="Fil d[’']Ariane"/.test(body)) {
+        fail(page, 'fil d’Ariane absent sur une page de niveau inférieur');
+    } else if (!isRoot && !is404) {
+        pass('fil d’Ariane présent');
+    }
+
+    // --- 8 bis. Maillage interne ------------------------------------------
+    const internalLinks = [...body.matchAll(/<a\b[^>]*href="((?!https?:|mailto:|tel:|#)[^"]+)"/gi)].map(
+        (match) => match[1],
+    );
+    const uniqueTargets = new Set(
+        internalLinks.map((target) => target.split('#')[0]).filter(Boolean),
+    );
+    if (!is404 && uniqueTargets.size < 3) {
+        warn(page, `maillage interne faible : ${uniqueTargets.size} cible(s) unique(s)`);
+    } else if (!is404) {
+        pass(`${uniqueTargets.size} cibles internes uniques`);
+    }
+
     // --- 9. Ressources locales -------------------------------------------
     const localRefs = new Set();
     for (const match of html.matchAll(/(?:src|href)="((?!https?:|mailto:|tel:|#|\/\/)[^"]+)"/gi)) {
@@ -260,19 +298,18 @@ for (const page of PAGES) {
     }
     const missingFiles = [];
     for (const reference of localRefs) {
-        // « / » et « /dossier/ » désignent la racine du site (index.html servi
-        // par le serveur web) : aucune vérification de fichier possible en local.
-        if (reference === '/' || reference.endsWith('/')) {
-            const candidate = path.join(ROOT, reference, 'index.html');
-            try {
-                await readFile(candidate);
-            } catch {
-                if (reference !== '/') missingFiles.push(reference);
-            }
-            continue;
-        }
+        // Les liens sont relatifs à la page : on les résout depuis son dossier.
+        // Une cible terminée par « / » correspond à un « index.html ».
+        const pageDir = path.dirname(path.join(ROOT, page));
+        const target = reference.startsWith('/')
+            ? path.join(ROOT, reference)
+            : path.resolve(pageDir, reference);
+        const candidate = reference.endsWith('/') || reference === '/'
+            ? path.join(target, 'index.html')
+            : target;
+
         try {
-            await readFile(path.join(ROOT, reference));
+            await readFile(candidate);
         } catch {
             missingFiles.push(reference);
         }

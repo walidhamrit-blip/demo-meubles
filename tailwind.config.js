@@ -3,9 +3,15 @@ module.exports = {
     // Fichiers scannés pour ne générer QUE les classes réellement utilisées
     // (CSS final ~20 Ko au lieu des ~400 Ko du CDN Play).
     content: [
-        './index.html',
+        './index.html',              // pages générées…
+        './collections/**/*.html',
+        './atelier/**/*.html',
+        './sur-mesure/**/*.html',
+        './projets/**/*.html',
+        './contact/**/*.html',
+        './mentions-legales/**/*.html',
         './404.html',
-        './mentions-legales.html',
+        './src/**/*.mjs',            // …et leurs gabarits/composants sources
         './assets/js/**/*.js',
     ],
     theme: {

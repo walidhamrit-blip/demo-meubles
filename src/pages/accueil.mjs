@@ -1,0 +1,285 @@
+/* =========================================================================
+   Page d'accueil — « / »
+   -------------------------------------------------------------------------
+   Rôle : vitrine globale de la Maison. Elle présente la promesse de marque,
+   puis aiguille le visiteur (et le moteur de recherche) vers les cinq pages
+   de collection — c'est le nœud principal du maillage interne.
+   ========================================================================= */
+
+import { href, asset } from '../lib/paths.mjs';
+import { site } from '../site.config.mjs';
+import { collections } from '../content/collections.mjs';
+import { heroImage, collectionImages, editorialImages, projectImages } from '../content/imagery.mjs';
+import {
+    icon,
+    responsiveImage,
+    collectionCard,
+    sectionHeading,
+    buttonLink,
+    buttonDialog,
+    storeSchema,
+} from '../templates/components.mjs';
+import { materialsSection, newsletterSection, ctaBand } from '../templates/sections.mjs';
+
+const PATH = '/';
+const DEPTH = 0;
+
+function hero() {
+    return `<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center bg-espresso overflow-hidden" aria-labelledby="hero-title">
+            <div class="absolute inset-0 z-0">
+                ${responsiveImage({
+                    src: heroImage.src,
+                    alt: heroImage.alt,
+                    widths: heroImage.widths,
+                    sizes: '100vw',
+                    width: heroImage.width,
+                    height: heroImage.height,
+                    priority: true,
+                    className:
+                        'w-full h-full object-cover object-center opacity-70 filter brightness-[0.88] scale-105',
+                })}
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/40 to-black/30" aria-hidden="true"></div>
+            </div>
+
+            <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-sand-50 py-20">
+                <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-sand-300 mb-4 border-b border-sand-300/40 pb-2">
+                    Le grand savoir-faire libanais
+                </p>
+                <h1 id="hero-title" class="font-serif text-3xl sm:text-6xl md:text-7xl font-light tracking-wide leading-[1.1] mb-6">
+                    Mobilier d'Art &amp; Haute Ébénisterie<br>
+                    <span class="italic font-normal">Sculptés à Tripoli depuis 1948</span>
+                </h1>
+                <p class="max-w-xl mx-auto text-sm sm:text-base text-sand-200/90 font-light leading-relaxed mb-10 tracking-wide">
+                    Depuis plus de 70 ans, nos maîtres ébénistes allient le marbre du Levant, le noyer massif et les velours d'exception pour habiller les demeures les plus raffinées.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    ${buttonLink({ label: 'Découvrir les collections', path: '/collections/', depth: DEPTH, variant: 'primary' })}
+                    ${buttonLink({ label: 'Visiter le showroom', path: '/contact/', depth: DEPTH, variant: 'outlineLight' })}
+                </div>
+            </div>
+
+            <a href="#collections" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-sand-300/70 hover:text-sand-100 transition animate-bounce" aria-label="Faire défiler vers les collections">
+                ${icon('chevron-down', 'icon w-6 h-6 stroke-[1.5]')}
+            </a>
+        </section>`;
+}
+
+function quote() {
+    return `<section class="py-24 px-6 md:px-12 bg-sand-100 border-b border-sand-200" aria-label="Parole de maître ébéniste">
+            <figure class="max-w-4xl mx-auto text-center">
+                <div class="w-12 h-px bg-bronze mx-auto mb-8" aria-hidden="true"></div>
+                <blockquote>
+                    <p class="font-serif text-2xl sm:text-3xl md:text-4xl text-espresso font-light leading-snug italic mb-6">
+                        « Tripoli est le berceau séculaire du bois noble. Nous ne construisons pas de simples meubles ; nous forgeons des pièces de famille destinées à traverser les générations. »
+                    </p>
+                </blockquote>
+                <figcaption class="text-xs uppercase tracking-[0.3em] text-bronze font-medium">
+                    Maître Fadi Kabbara — Directeur de création, <cite class="not-italic">Atelier de Tripoli</cite>
+                </figcaption>
+            </figure>
+        </section>`;
+}
+
+function collectionsShowcase() {
+    return `<section id="collections" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="collections-title">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 pb-6 border-b border-sand-300">
+                ${sectionHeading({
+                    eyebrow: 'Catalogue — édition 2025',
+                    title: 'Cinq collections, un même atelier',
+                    id: 'collections-title',
+                })}
+                <a href="${href('/collections/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition shrink-0">
+                    Voir toutes les collections
+                    ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${collections
+                    .map((collection, index) =>
+                        collectionCard(collection, {
+                            depth: DEPTH,
+                            image: collectionImages[collection.slug],
+                            sizes: '(min-width: 1024px) 31vw, (min-width: 640px) 45vw, 92vw',
+                            eager: index === 0,
+                        }),
+                    )
+                    .join('\n                ')}
+                <div class="hidden lg:flex flex-col justify-center bg-espresso text-sand-50 p-10 aspect-[4/5]">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-bronze font-semibold">Sur-mesure intégral</p>
+                    <p class="font-serif text-2xl sm:text-3xl font-light mt-3 leading-tight">
+                        Un projet complet, du calepinage à la pose
+                    </p>
+                    <p class="text-xs text-sand-300 font-light mt-4 leading-relaxed">
+                        Boiseries, mobilier, éclairage et pierre : nous dessinons l'ensemble et fabriquons dans un même langage de matières.
+                    </p>
+                    <div class="mt-8">
+                        ${buttonLink({ label: 'Notre méthode', path: '/sur-mesure/', depth: DEPTH, variant: 'bronze', className: 'text-[11px]' })}
+                    </div>
+                </div>
+            </div>
+        </section>`;
+}
+
+function atelierTeaser() {
+    return `<section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="atelier-teaser-title">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                <figure class="lg:col-span-6 relative">
+                    <div class="aspect-[4/5] bg-sand-200 overflow-hidden relative">
+                        ${responsiveImage({
+                            src: editorialImages.atelierArtisan.src,
+                            alt: editorialImages.atelierArtisan.alt,
+                            widths: editorialImages.atelierArtisan.widths,
+                            sizes: '(min-width: 1024px) 45vw, 92vw',
+                            width: editorialImages.atelierArtisan.width,
+                            height: editorialImages.atelierArtisan.height,
+                        })}
+                    </div>
+                    <figcaption class="hidden sm:block absolute -bottom-8 -right-8 bg-espresso text-sand-100 p-8 max-w-xs shadow-xl">
+                        <span class="block font-serif text-3xl italic font-light mb-1">Tripoli, Liban</span>
+                        <p class="text-xs text-sand-300 font-light leading-relaxed">
+                            Capitale historique des corporations d'artisans d'art, où chaque ruelle du vieux souk perpétue le travail du bois noble.
+                        </p>
+                    </figcaption>
+                </figure>
+
+                <div class="lg:col-span-6 space-y-8 lg:pl-6">
+                    ${sectionHeading({
+                        eyebrow: "L'âme de la ville",
+                        title: 'Une dynastie de menuisiers au cœur de la Méditerranée',
+                        id: 'atelier-teaser-title',
+                    })}
+                    <p class="text-warmgray text-sm sm:text-base leading-relaxed font-light">
+                        Bien au-delà d'un centre de production, la ville de <strong class="font-medium text-charcoal">Tripoli (Al-Fayha'a)</strong> incarne l'épicentre du mobilier haut de gamme au Moyen-Orient. Nos ateliers transmettent toujours l'assemblage en queue d'aronde, le panneautage à plate-bande et la marqueterie.
+                    </p>
+                    <dl class="grid grid-cols-2 gap-8 pt-4 border-t border-sand-300">
+                        <div>
+                            <dt class="sr-only">Taux de fabrication locale</dt>
+                            <dd>
+                                <span class="font-serif text-3xl text-espresso block">100 %</span>
+                                <span class="text-xs uppercase tracking-wider text-warmgray">Fabrication locale à Tripoli</span>
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="sr-only">Durée de garantie sur l'ébénisterie</dt>
+                            <dd>
+                                <span class="font-serif text-3xl text-espresso block">30 ans</span>
+                                <span class="text-xs uppercase tracking-wider text-warmgray">Garantie sur l'ébénisterie</span>
+                            </dd>
+                        </div>
+                    </dl>
+                    <div class="pt-2">
+                        <a href="${href('/atelier/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition">
+                            <span>Découvrir l'atelier &amp; la démarche RSE</span>
+                            ${icon('arrow-up-right', 'icon w-4 h-4 stroke-[2]')}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>`;
+}
+
+function projetsTeaser() {
+    return `<section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="projets-teaser-title">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                ${sectionHeading({
+                    eyebrow: 'In situ',
+                    title: 'Demeures réalisées',
+                    id: 'projets-teaser-title',
+                    align: 'center',
+                })}
+                <p class="text-warmgray text-xs sm:text-sm mt-3 font-light">
+                    Immersion dans les résidences contemporaines habillées par les ateliers de la Maison.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                ${projectImages
+                    .map(
+                        (project) => `<figure class="group relative overflow-hidden aspect-[3/4] bg-sand-200">
+                    ${responsiveImage({
+                        src: project.src,
+                        alt: project.alt,
+                        widths: [400, 600, 800],
+                        sizes: '(min-width: 768px) 31vw, 92vw',
+                        width: 800,
+                        height: 1067,
+                    })}
+                    <figcaption class="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent flex items-end p-8 text-sand-50 opacity-90 group-hover:opacity-100 transition">
+                        <span>
+                            <span class="block text-[10px] tracking-widest uppercase text-sand-300">${project.location}</span>
+                            <span class="block font-serif text-2xl font-normal mt-1">${project.name}</span>
+                            <span class="block text-xs text-sand-300 font-light mt-1">${project.caption}</span>
+                        </span>
+                    </figcaption>
+                </figure>`,
+                    )
+                    .join('\n                ')}
+            </div>
+
+            <div class="mt-14 text-center">
+                <a href="${href('/projets/', { depth: DEPTH })}" class="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] font-medium text-espresso border-b border-espresso pb-2 hover:text-bronze hover:border-bronze transition">
+                    <span>Voir tous les projets livrés</span>
+                    ${icon('arrow-right', 'icon w-4 h-4 stroke-[2]')}
+                </a>
+            </div>
+        </section>`;
+}
+
+export default function accueil() {
+    const body = [
+        hero(),
+        quote(),
+        collectionsShowcase(),
+        materialsSection(DEPTH),
+        atelierTeaser(),
+        projetsTeaser(),
+        ctaBand({
+            depth: DEPTH,
+            eyebrow: 'Prendre rendez-vous',
+            title: "Un projet, une pièce ou une simple question ?",
+            text: "Nos conseillers vous reçoivent au showroom de Tripoli ou vous répondent sous 24 heures pour un devis, un plan de teinte ou une estimation de délai.",
+            primary: { label: 'Réserver une visite privée', dialogId: 'consultationModal' },
+            secondary: { label: 'Écrire à la Maison', path: '/contact/' },
+        }),
+        newsletterSection(),
+    ].join('\n\n        ');
+
+    return {
+        path: PATH,
+        depth: DEPTH,
+        title: `${site.name} — Ébénisterie &amp; Mobilier d'Art à Tripoli`,
+        description:
+            "Atelier d'ébénisterie depuis 1948, Maison Tripoli crée du mobilier d'art sur-mesure en noyer massif : salons, tables, chambres, luminaires. Showroom à Tripoli.",
+        ogType: 'website',
+        includeQuickView: false,
+        preload: `<link rel="preload" as="image"
+          href="${heroImage.src}?auto=format&amp;fit=crop&amp;w=1600&amp;q=78"
+          imagesrcset="${heroImage.widths.map((w) => `${heroImage.src}?auto=format&amp;fit=crop&amp;w=${w}&amp;q=${w >= 1600 ? 75 : 72} ${w}w`).join(', ')}"
+          imagesizes="100vw" fetchpriority="high">`,
+        body,
+        jsonLd: [
+            storeSchema(),
+            {
+                '@type': 'WebSite',
+                '@id': `${site.url}/#site`,
+                url: `${site.url}/`,
+                name: site.name,
+                inLanguage: 'fr-FR',
+                publisher: { '@id': `${site.url}/#boutique` },
+            },
+            {
+                '@type': 'ItemList',
+                '@id': `${site.url}/#collections`,
+                name: 'Collections Maison Tripoli',
+                numberOfItems: collections.length,
+                itemListElement: collections.map((collection, index) => ({
+                    '@type': 'ListItem',
+                    position: index + 1,
+                    name: collection.navLabel,
+                    url: `${site.url}${collection.path}`,
+                })),
+            },
+        ],
+    };
+}

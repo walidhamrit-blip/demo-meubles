@@ -1,99 +1,29 @@
 /* =========================================================================
-   MAISON TRIPOLI — Logique applicative
+   MAISON TRIPOLI — Logique applicative (multi-pages)
    -------------------------------------------------------------------------
-   ✔ Aucune dépendance externe (plus de CDN Lucide ni d'icônes injectées par JS)
-   ✔ Chargé en `defer` : n'entrave pas le rendu (bon pour LCP / FID)
+   ✔ Aucune dépendance externe (ni CDN, ni framework, ni icônes injectées)
+   ✔ Chargé en `defer` sur toutes les pages : n'entrave pas le rendu (LCP)
+   ✔ Chaque module ne s'active que si ses éléments existent dans le DOM
+     (une page de collection, la page d'accueil et la 404 partagent le même
+     fichier sans jamais lever d'erreur)
    ✔ Couches accessibles : ARIA, piège de focus, touche Échap, retour du focus
-   ✔ Aucun accès au `window.event` global (compatibilité inter-navigateurs)
    ========================================================================= */
 (function () {
     'use strict';
 
     /* ---------------------------------------------------------------------
-       Données catalogue (source unique de vérité, alignée sur le JSON-LD)
+       Catalogue — miroir de src/content/products.mjs
+       (injecté au build par tools/build-site.mjs)
        --------------------------------------------------------------------- */
-    var products = [
-        {
-            id: 1,
-            name: 'Canapé Modulaire « Al-Mina »',
-            alt: 'Canapé modulaire Al-Mina en noyer massif huilé et lin bouclé écru, ébénisterie Maison Tripoli',
-            category: 'salon',
-            price: 3800,
-            image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=72',
-            badge: 'Noyer massif & bouclé',
-            desc: "Chef-d'œuvre des ateliers du port d'Al-Mina. Structure apparente en noyer foncé de la vallée, coussins d'assise garnis de plumes et lin texturé de première sélection.",
-            dimensions: 'L 280 × P 110 × H 72 cm'
-        },
-        {
-            id: 2,
-            name: 'Table Monolithe « Citadelle »',
-            alt: 'Table monolithe Citadelle en chêne sculpté à la gouge et plateau de travertin veiné',
-            category: 'salle-a-manger',
-            price: 4650,
-            image: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1000&q=72',
-            badge: 'Pièce maîtresse',
-            desc: "Inspirée par la pierre historique de la forteresse Raymond de Saint-Gilles à Tripoli. Piétement sculpté d'une seule pièce de chêne et plateau de travertin adouci.",
-            dimensions: 'L 300 × P 115 × H 76 cm'
-        },
-        {
-            id: 3,
-            name: 'Fauteuil Club « Miramar »',
-            alt: 'Fauteuil club Miramar en cuir pleine fleur tanné végétal et laiton bronze antique',
-            category: 'salon',
-            price: 1950,
-            image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1000&q=72',
-            badge: 'Édition numérotée',
-            desc: "Élégance méditerranéenne intemporelle. Cuir pleine fleur patiné artisanalement dans les cours intérieures de Tripoli, détails en laiton brossé.",
-            dimensions: 'L 84 × P 88 × H 78 cm'
-        },
-        {
-            id: 4,
-            name: 'Ensemble Lit « Qadisha »',
-            alt: 'Ensemble lit Qadisha à tête de lit capitonnée en lin et chêne fumé libanais',
-            category: 'chambre',
-            price: 4100,
-            image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=72',
-            badge: 'Tête de lit sur-mesure',
-            desc: 'Hommage aux forêts séculaires. Tête de lit sculptée en chêne fumé libanais et alcôve capitonnée dans un tissu écru déperlant.',
-            dimensions: 'Pour matelas 180 × 200 cm (King Size)'
-        },
-        {
-            id: 5,
-            name: 'Enfilade « Tell Raymond »',
-            alt: 'Enfilade Tell Raymond aux façades cannelées faites main et marbre noir Marquina',
-            category: 'salle-a-manger',
-            price: 3400,
-            image: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1000&q=72',
-            badge: "Menuiserie d'art",
-            desc: "Façades composées de 120 cannelures fraisées individuellement par nos maîtres menuisiers tripolitains. Charnières amorties et plateau en marbre noir d'Alep.",
-            dimensions: 'L 220 × P 50 × H 82 cm'
-        },
-        {
-            id: 6,
-            name: 'Lustre Géométrique « Khan »',
-            alt: 'Lustre géométrique Khan en laiton massif martelé du Souk des Cuivres de Tripoli',
-            category: 'luminaires',
-            price: 1420,
-            image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1000&q=72',
-            badge: 'Laiton massif',
-            desc: 'Laiton lourd façonné au marteau dans les ruelles du Souk des Cuivres de Tripoli. Diffusion lumineuse chaude et graphique.',
-            dimensions: 'Diamètre 90 cm × H 110 cm réglable'
-        }
-    ];
-
-    var categoryLabels = {
-        all: 'Toutes catégories',
-        salon: 'Salons',
-        'salle-a-manger': 'Salles à manger',
-        chambre: 'Suites & lits',
-        luminaires: 'Objets & assises'
-    };
+    var catalogData = window.__MT_CATALOG__ || { products: [], collections: {}, collectionLabels: {} };
+    var products = catalogData.products;
+    var collectionPaths = catalogData.collections;
+    var collectionLabels = catalogData.collectionLabels;
 
     var cart = [];
     var currentActiveProduct = null;
     var lastFocusedElement = null;
     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var CART_ANIMATION_MS = 400;
 
     /* ---------------------------------------------------------------------
        Utilitaires
@@ -106,7 +36,7 @@
         return Array.prototype.slice.call((scope || document).querySelectorAll(selector));
     }
 
-    /** Retire les accents pour une recherche tolérante (« noyer » / « Noyér »). */
+    /** Normalise une chaîne : minuscules, sans accents (recherche tolérante). */
     function normalize(value) {
         return (value || '')
             .toString()
@@ -118,6 +48,11 @@
 
     function formatPrice(value) {
         return value.toLocaleString('fr-FR') + ' $';
+    }
+
+    /** Prix affiché (gère les pièces « à partir de »). */
+    function priceLabel(product) {
+        return product.priceFrom ? 'À partir de ' + formatPrice(product.price) : formatPrice(product.price);
     }
 
     function createIcon(iconId, classes) {
@@ -132,9 +67,10 @@
     }
 
     /* ---------------------------------------------------------------------
-       Couches (modales) accessibles
+       Couches (modales / tiroirs) accessibles
        --------------------------------------------------------------------- */
-    var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    var FOCUSABLE =
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])';
 
     function openDialog(dialog) {
         if (!dialog || dialog.classList.contains('is-open')) return;
@@ -145,7 +81,6 @@
         dialog.setAttribute('aria-hidden', 'false');
 
         if (dialog.id === 'cartDrawer') {
-            // Animation d'entrée (le tiroir part de la droite)
             dialog.classList.add('translate-x-full');
             window.requestAnimationFrame(function () {
                 dialog.classList.remove('translate-x-full');
@@ -154,11 +89,14 @@
 
         document.body.classList.add('has-dialog-open');
 
-        var target = $('[autofocus]', dialog) || $('input, button', dialog);
+        var target = $('[autofocus]', dialog) || $('input, button, a', dialog);
         if (target) {
-            window.setTimeout(function () {
-                target.focus();
-            }, prefersReducedMotion.matches ? 0 : 80);
+            window.setTimeout(
+                function () {
+                    target.focus();
+                },
+                prefersReducedMotion.matches ? 0 : 80,
+            );
         }
     }
 
@@ -171,6 +109,8 @@
 
         if (dialog.id === 'cartDrawer') {
             dialog.classList.add('translate-x-full');
+            var toggle = $('#cartToggleBtn');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
         }
 
         if (!$('[data-dialog].is-open')) {
@@ -207,7 +147,7 @@
     }
 
     /* ---------------------------------------------------------------------
-       Tiroir de navigation mobile
+       Navigation mobile
        --------------------------------------------------------------------- */
     var mobileDrawer = $('#mobileDrawer');
     var mobileMenuBtn = $('#mobileMenuBtn');
@@ -218,67 +158,38 @@
         mobileMenuBtn.setAttribute('aria-expanded', String(open));
         mobileMenuBtn.setAttribute(
             'aria-label',
-            open ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'
+            open ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation',
         );
     }
 
     /* ---------------------------------------------------------------------
-       Catalogue : filtres par catégorie
-       --------------------------------------------------------------------- */
-    function filterProducts(category, trigger) {
-        $all('.cat-filter').forEach(function (button) {
-            var isActive = button === trigger;
-            button.setAttribute('aria-pressed', String(isActive));
-            button.classList.toggle('text-charcoal', isActive);
-            button.classList.toggle('font-semibold', isActive);
-            button.classList.toggle('border-b', isActive);
-            button.classList.toggle('border-charcoal', isActive);
-            button.classList.toggle('text-warmgray', !isActive);
-        });
-
-        var visible = 0;
-        $all('.product-item').forEach(function (item) {
-            var match = category === 'all' || item.dataset.category === category;
-            item.classList.toggle('hidden', !match);
-            if (match) visible += 1;
-        });
-
-        var status = $('#filterStatus');
-        if (status) {
-            status.textContent =
-                visible + ' pièce' + (visible > 1 ? 's' : '') + ' affichée' + (visible > 1 ? 's' : '') +
-                ' — ' + (categoryLabels[category] || categoryLabels.all);
-        }
-    }
-
-    /* ---------------------------------------------------------------------
-       Nuancier des matières
+       Nuancier des matières (page d'accueil)
        --------------------------------------------------------------------- */
     var materialDetails = {
         walnut: {
             title: 'Console Basse « Bahia » en Noyer Sculpté',
             alt: 'Console basse Bahia en noyer foncé sculpté et ciré à la main dans l’atelier de Tripoli',
             desc: "<strong>Noyer Royal de la Vallée :</strong> Séchage naturel en grange à Tripoli pendant 18 mois, puis polissage ciré à la main avec une cire d'abeille biologique libanaise.",
-            img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=75'
+            img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=75',
         },
         oak: {
             title: "Table d'Appoint « Tripoli » en Chêne Cérusé",
             alt: 'Table d’appoint Tripoli en chêne clair cérusé à la finition huilée mate',
             desc: '<strong>Chêne Clair de Haute Facture :</strong> Veinage linéaire sélectionné à la gouge, finition sablée et huilée mat pour préserver la clarté méditerranéenne.',
-            img: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=75'
+            img: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1200&q=75',
         },
         travertine: {
             title: 'Sellette Monolithe en Travertin de la Côte',
             alt: 'Sellette monolithe en travertin romain adouci et chanfreiné, découpe de marbrerie levantine',
             desc: '<strong>Travertin Romain & Levant :</strong> Découpé et chanfreiné avec précision par nos marbriers partenaires de la région du Nord-Liban.',
-            img: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=75'
+            img: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=75',
         },
         ebony: {
             title: 'Bureau Ministre en Ébène Teinté & Bronze',
             alt: 'Bureau ministre en ébène teinté laqué satiné et détails en bronze de l’atelier Maison Tripoli',
             desc: "<strong>Ébène Noir Velouté :</strong> Laque satinée à l'ancienne appliquée en 7 couches successives dans nos ateliers à Tripoli.",
-            img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=75'
-        }
+            img: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=75',
+        },
     };
 
     function changeMaterial(type, trigger) {
@@ -291,11 +202,14 @@
 
         if (previewImg) {
             previewImg.style.opacity = '0';
-            window.setTimeout(function () {
-                previewImg.src = data.img;
-                previewImg.alt = data.alt;
-                previewImg.style.opacity = '1';
-            }, prefersReducedMotion.matches ? 0 : 200);
+            window.setTimeout(
+                function () {
+                    previewImg.src = data.img;
+                    previewImg.alt = data.alt;
+                    previewImg.style.opacity = '1';
+                },
+                prefersReducedMotion.matches ? 0 : 200,
+            );
         }
         if (title) title.textContent = data.title;
         if (description) description.innerHTML = data.desc;
@@ -306,39 +220,57 @@
     }
 
     /* ---------------------------------------------------------------------
-       Fiche produit (quick view)
+       Fiche produit (quick view) — partagée par toutes les pages
        --------------------------------------------------------------------- */
-    function openQuickView(id, trigger) {
-        var product = products.filter(function (item) {
-            return item.id === Number(id);
+    function findProduct(slug) {
+        return products.filter(function (item) {
+            return item.slug === slug;
         })[0];
+    }
+
+    function openQuickView(slug, trigger) {
+        var product = findProduct(slug);
         if (!product) return;
 
         currentActiveProduct = product;
 
         var image = $('#modalProductImg');
         if (image) {
-            image.src = product.image;
+            image.src = product.image + '?auto=format&fit=crop&w=1000&q=75';
             image.alt = product.alt || product.name;
         }
+
         var fields = {
             modalProductTitle: product.name,
-            modalProductPrice: formatPrice(product.price),
+            modalProductPrice: priceLabel(product),
             modalProductBadge: product.badge,
             modalProductDesc: product.desc,
-            modalProductDim: product.dimensions
+            modalProductDim: product.dimensions,
+            modalProductLead: product.lead,
         };
         Object.keys(fields).forEach(function (id) {
             var element = document.getElementById(id);
             if (element) element.textContent = fields[id];
         });
 
+        var collectionLink = $('#modalProductCollection');
+        if (collectionLink) {
+            collectionLink.textContent = '';
+            if (collectionPaths[product.collection]) {
+                var anchor = document.createElement('a');
+                anchor.href = collectionPaths[product.collection];
+                anchor.className = 'underline underline-offset-4 hover:text-bronze';
+                anchor.textContent = 'Voir la collection ' + (collectionLabels[product.collection] || '');
+                collectionLink.appendChild(anchor);
+            }
+        }
+
         if (trigger) lastFocusedElement = trigger;
         openDialog($('#quickViewModal'));
     }
 
     /* ---------------------------------------------------------------------
-       Sélection / demande de devis
+       Sélection & demande de devis
        --------------------------------------------------------------------- */
     function updateCartCount() {
         var badge = $('#cartCountBadge');
@@ -349,8 +281,12 @@
             toggle.setAttribute(
                 'aria-label',
                 cart.length
-                    ? 'Ouvrir ma sélection et mon devis (' + cart.length + ' pièce' + (cart.length > 1 ? 's' : '') + ')'
-                    : 'Ouvrir ma sélection et mon devis (vide)'
+                    ? 'Ouvrir ma sélection et mon devis (' +
+                          cart.length +
+                          ' pièce' +
+                          (cart.length > 1 ? 's' : '') +
+                          ')'
+                    : 'Ouvrir ma sélection et mon devis (vide)',
             );
         }
     }
@@ -396,7 +332,7 @@
             row.className = 'flex items-center gap-4 py-3 border-b border-sand-200 text-xs';
 
             var image = document.createElement('img');
-            image.src = item.image;
+            image.src = item.image + '?auto=format&fit=crop&w=200&q=70';
             image.alt = item.alt || item.name;
             image.width = 56;
             image.height = 56;
@@ -413,7 +349,7 @@
 
             var price = document.createElement('span');
             price.className = 'text-warmgray';
-            price.textContent = formatPrice(item.price);
+            price.textContent = priceLabel(item);
 
             details.appendChild(title);
             details.appendChild(price);
@@ -444,8 +380,6 @@
 
         if (drawer.classList.contains('is-open')) {
             closeDialog(drawer);
-            var toggleBtn = $('#cartToggleBtn');
-            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
             return;
         }
 
@@ -470,19 +404,20 @@
     }
 
     /* ---------------------------------------------------------------------
-       Recherche instantanée
+       Recherche instantanée (sur tout le catalogue, toutes pages)
        --------------------------------------------------------------------- */
     function buildSearchResult(product) {
         var button = document.createElement('button');
         button.type = 'button';
-        button.className = 'w-full text-left flex items-center justify-between gap-4 p-3 hover:bg-sand-100 cursor-pointer border-b border-sand-200';
-        button.setAttribute('aria-label', 'Voir la fiche de ' + product.name + ', ' + formatPrice(product.price));
+        button.className =
+            'w-full text-left flex items-center justify-between gap-4 p-3 hover:bg-sand-100 cursor-pointer border-b border-sand-200';
+        button.setAttribute('aria-label', 'Voir la fiche de ' + product.name + ', ' + priceLabel(product));
 
         var left = document.createElement('span');
         left.className = 'flex items-center gap-4';
 
         var image = document.createElement('img');
-        image.src = product.image;
+        image.src = product.image + '?auto=format&fit=crop&w=120&q=70';
         image.alt = product.alt || product.name;
         image.width = 48;
         image.height = 48;
@@ -498,7 +433,7 @@
 
         var badge = document.createElement('span');
         badge.className = 'block text-[10px] uppercase tracking-wider text-warmgray';
-        badge.textContent = product.badge;
+        badge.textContent = (collectionLabels[product.collection] || '') + ' • ' + product.badge;
 
         text.appendChild(title);
         text.appendChild(badge);
@@ -507,15 +442,18 @@
 
         var price = document.createElement('span');
         price.className = 'font-serif text-charcoal whitespace-nowrap';
-        price.textContent = formatPrice(product.price);
+        price.textContent = priceLabel(product);
 
         button.appendChild(left);
         button.appendChild(price);
         button.addEventListener('click', function () {
             closeDialog($('#searchModal'));
-            window.setTimeout(function () {
-                openQuickView(product.id, $('#cartToggleBtn'));
-            }, prefersReducedMotion.matches ? 0 : 120);
+            window.setTimeout(
+                function () {
+                    openQuickView(product.slug, $('#cartToggleBtn'));
+                },
+                prefersReducedMotion.matches ? 0 : 120,
+            );
         });
 
         return button;
@@ -535,14 +473,16 @@
                 normalize(product.name).indexOf(needle) !== -1 ||
                 normalize(product.desc).indexOf(needle) !== -1 ||
                 normalize(product.badge).indexOf(needle) !== -1 ||
-                normalize(categoryLabels[product.category] || product.category).indexOf(needle) !== -1
+                normalize(product.materials).indexOf(needle) !== -1 ||
+                normalize(collectionLabels[product.collection]).indexOf(needle) !== -1
             );
         });
 
         if (!matches.length) {
             var empty = document.createElement('p');
             empty.className = 'text-warmgray italic text-center';
-            empty.textContent = 'Aucun modèle ne correspond à cette recherche. Essayez « noyer », « table » ou « salon ».';
+            empty.textContent =
+                'Aucun modèle ne correspond à cette recherche. Essayez « noyer », « table » ou « salon ».';
             results.appendChild(empty);
             return;
         }
@@ -574,7 +514,10 @@
             return;
         }
 
-        showStatus($('#formSuccessMessage'), 'Votre demande a été reçue. Notre équipe à Tripoli vous contacte sous 24 heures.');
+        showStatus(
+            $('#formSuccessMessage'),
+            'Votre demande a été reçue. Notre équipe à Tripoli vous contacte sous 24 heures.',
+        );
         form.reset();
     }
 
@@ -609,7 +552,7 @@
     }
 
     /* ---------------------------------------------------------------------
-       Ombrage du header au défilement (lecture passive + rAF)
+       Ombrage du header au défilement (écoute passive + rAF)
        --------------------------------------------------------------------- */
     function initScrollEffects() {
         var navbar = $('#navbar');
@@ -627,7 +570,7 @@
                     ticking = false;
                 });
             },
-            { passive: true }
+            { passive: true },
         );
     }
 
@@ -646,22 +589,12 @@
             var closer = event.target.closest('[data-close-dialog]');
             if (closer) {
                 closeDialog(closer.closest('[data-dialog]'));
-                if (closer.closest('#cartDrawer')) {
-                    var toggleBtn = $('#cartToggleBtn');
-                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
-                }
                 return;
             }
 
             var quickView = event.target.closest('[data-quickview]');
             if (quickView) {
                 openQuickView(quickView.getAttribute('data-quickview'), quickView);
-                return;
-            }
-
-            var filter = event.target.closest('.cat-filter');
-            if (filter) {
-                filterProducts(filter.getAttribute('data-filter'), filter);
                 return;
             }
 
@@ -679,10 +612,6 @@
             // Clic sur le fond assombri d'une couche => fermeture
             if (event.target.hasAttribute('data-dialog')) {
                 closeDialog(event.target);
-                if (event.target.id === 'cartDrawer') {
-                    var cartToggle = $('#cartToggleBtn');
-                    if (cartToggle) cartToggle.setAttribute('aria-expanded', 'false');
-                }
             }
         });
 
@@ -690,12 +619,9 @@
             if (event.key === 'Escape') {
                 closeAllDialogs();
                 setMobileMenu(false);
-                var toggleBtn = $('#cartToggleBtn');
-                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
             }
         });
 
-        // Piège de focus dans chaque couche ouverte
         $all('[data-dialog]').forEach(function (dialog) {
             dialog.addEventListener('keydown', function (event) {
                 if (event.key === 'Tab') trapFocus(event);
@@ -740,7 +666,7 @@
             quoteRequestBtn.addEventListener('click', function () {
                 showStatus(
                     $('#cartStatus'),
-                    'Votre demande de chiffrage a été transmise à notre bureau de Tripoli. Un chargé d’affaires vous contacte d’ici 24 heures.'
+                    'Votre demande de chiffrage a été transmise à notre bureau de Tripoli. Un chargé d’affaires vous contacte d’ici 24 heures.',
                 );
             });
         }
@@ -753,7 +679,6 @@
         initScrollEffects();
         initEventListeners();
         updateCartCount();
-        filterProducts('all', $('.cat-filter[data-filter="all"]'));
     }
 
     if (document.readyState === 'loading') {
