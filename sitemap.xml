@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap XML — Maison Tripoli
+  ⚠️ Remplacer le domaine par le domaine réel avant mise en production,
+     puis régénérer `lastmod` à chaque publication de contenu.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://www.maisontripoli.com/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=1600&amp;q=78</image:loc>
+      <image:title>Salon habillé par l'atelier d'ébénisterie Maison Tripoli</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.maisontripoli.com/mentions-legales.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

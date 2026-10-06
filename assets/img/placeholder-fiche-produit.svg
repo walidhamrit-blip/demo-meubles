@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1250" width="1000" height="1250"
+     role="img" aria-label="Sélectionnez une pièce pour afficher sa fiche détaillée">
+  <rect width="1000" height="1250" fill="#E8DFD5"/>
+  <rect x="40" y="40" width="920" height="1170" fill="none" stroke="#D9CBBB" stroke-width="2"/>
+  <path d="M400 700V500l100 108 100-108v200" fill="none" stroke="#8C7355" stroke-width="14"
+        stroke-linecap="square" stroke-linejoin="miter" opacity="0.55"/>
+  <path d="M400 760h200" stroke="#C4B19C" stroke-width="6"/>
+</svg>

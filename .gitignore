@@ -1,0 +1,14 @@
+# Dépendances (outils de build uniquement — le site n'a aucune dépendance runtime)
+node_modules/
+
+# Artefacts et fichiers système
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# Sources intermédiaires de la carte Open Graph
+assets/img/og-image-base.jpg
+
+# Le CSS compilé (assets/css/main.css) EST versionné : le site doit pouvoir
+# être déployé tel quel, sans étape de build côté hébergeur.

@@ -1,0 +1,146 @@
+/* =========================================================================
+   MAISON TRIPOLI — Feuille de style source (compilée par Tailwind CSS v3)
+   Build : npm run build  ->  assets/css/main.css (minifié)
+   ========================================================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   Styles personnalisés (hors couches Tailwind => jamais "purgés")
+   ========================================================================= */
+
+:root {
+    color-scheme: light;
+}
+
+html {
+    /* Compense le header sticky lors de la navigation par ancres (#collections…) */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    text-rendering: optimizeLegibility;
+}
+
+/* Sélection de texte aux couleurs de la Maison */
+::selection {
+    background-color: #231F1D;
+    color: #FAF8F5;
+}
+
+/* -------------------------------------------------------------------------
+   Accessibilité : anneau de focus visible au clavier uniquement
+   ------------------------------------------------------------------------- */
+:focus-visible {
+    outline: 2px solid #8C7355;
+    outline-offset: 3px;
+}
+
+/* Lien d'évitement ("skip link") — visible uniquement au focus clavier */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    background-color: #231F1D;
+    color: #FAF8F5;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+}
+
+/* -------------------------------------------------------------------------
+   Couches / modales : affichage piloté par JS (.is-open) + attribut hidden
+   (évite le conflit Tailwind .hidden / .flex et garantit un bon état
+   sans JavaScript : la modale reste masquée par l'attribut hidden)
+   ------------------------------------------------------------------------- */
+[data-dialog] {
+    display: none;
+}
+
+[data-dialog].is-open {
+    display: flex;
+}
+
+/* Verrouillage du défilement lorsque une couche plein écran est ouverte */
+body.has-dialog-open {
+    overflow: hidden;
+}
+
+/* -------------------------------------------------------------------------
+   Sprite d'icônes : masqué sans display:none (qui casse <use> dans certains
+   moteurs de rendu) — dimensions nulles + débordement caché.
+   ------------------------------------------------------------------------- */
+.icon-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* -------------------------------------------------------------------------
+   Icônes SVG (sprite) — cohérence de rendu entre navigateurs
+   ------------------------------------------------------------------------- */
+.icon {
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: middle;
+    /* fill/stroke héritées du <symbol> ; l'épaisseur est pilotée par les
+       utilitaires Tailwind (stroke-[1.25], stroke-[1.5]…) sur chaque icône */
+}
+
+/* -------------------------------------------------------------------------
+   Filtres catalogue / nuancier matières (états actifs)
+   ------------------------------------------------------------------------- */
+.cat-filter[aria-pressed='true'] {
+    color: #1A1817;
+    font-weight: 600;
+    border-bottom-width: 1px;
+    border-color: #1A1817;
+}
+
+.finish-btn .finish-swatch {
+    border-color: transparent;
+}
+
+.finish-btn[aria-pressed='true'] .finish-swatch {
+    border-color: #231F1D;
+}
+
+/* -------------------------------------------------------------------------
+   Confort de lecture / respect des préférences utilisateur
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Impression : on masque les éléments d'interface */
+@media print {
+    header,
+    footer,
+    [data-dialog],
+    .skip-link {
+        display: none !important;
+    }
+}

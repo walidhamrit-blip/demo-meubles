@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Maison Tripoli — ébénisterie et mobilier d'art à Tripoli">
+  <rect width="64" height="64" rx="14" fill="#231F1D"/>
+  <rect x="6.75" y="6.75" width="50.5" height="50.5" rx="9" fill="none" stroke="#8C7355" stroke-width="1"/>
+  <path d="M18 45V21l14 15 14-15v24" fill="none" stroke="#C4B19C" stroke-width="3.2" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>
