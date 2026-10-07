@@ -284,9 +284,10 @@ body.has-dialog-open {
     }
 }
 
-/* Ruban 1 : marques graphiques des partenaires.
-   Le SVG hérite de la couleur d'encre du thème (currentColor) et se met à
-   l'échelle par sa hauteur : aucune variante par thème n'est nécessaire. */
+/* Ruban 1 : sigles des partenaires, affichés en images.
+   Les fichiers SVG sont dessinés à l'encre du thème clair ; les thèmes
+   sombres les inversent (filtre appliqué au seul élément image, sans effet
+   sur la mise en page ni sur les performances). */
 .marquee-item--brand {
     gap: 3.25rem;
     padding: 0 3.25rem;
@@ -299,7 +300,12 @@ body.has-dialog-open {
     display: block;
     height: 2.25rem;
     width: auto;
-    color: rgb(var(--mt-ink));
+    object-fit: contain;
+}
+
+[data-theme='ebene'] .marquee-logo,
+[data-theme='noyer'] .marquee-logo {
+    filter: invert(1) brightness(1.05);
 }
 
 @media (min-width: 640px) {

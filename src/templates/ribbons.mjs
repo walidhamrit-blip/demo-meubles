@@ -8,11 +8,12 @@
 
    Choix techniques, guidés par le référencement et l'accessibilité :
 
-   • Ruban 1 : chaque partenaire est une MARQUE GRAPHIQUE (signature
-     typographique de la Maison, tracée en SVG vectoriel — voir
-     src/content/brand-marks.mjs). Le nom est porté par le `<title>` du SVG,
-     jamais par une image bitmap : le contenu reste lisible par les moteurs
-     et annoncé par les lecteurs d'écran.
+   • Ruban 1 : chaque partenaire est une IMAGE — le sigle de la maison
+     (`assets/img/marques/<slug>.svg`, engendré par tools/build-logos.mjs).
+     Plus aucun libellé texte n'y est affiché ; le nom du partenaire reste
+     dans le texte alternatif de l'image, donc dans le DOM : lisible par les
+     moteurs comme par les lecteurs d'écran. `width` et `height` sont fixes
+     (aucun décalage de mise en page) et les images sont chargées en différé.
    • Ruban 2 : le contenu est du TEXTE réel dans le DOM, indexable et lisible
      sans CSS.
    • La copie de bouclage porte `aria-hidden="true"` et `data-marquee-clone` :
@@ -25,16 +26,27 @@
      fil d'Ariane et le pied de page.
    ========================================================================= */
 
-import { brandMarks, mark } from '../content/brand-marks.mjs';
+import { brandMarks } from '../content/brand-marks.mjs';
 import { houseServices } from '../content/ribbons.mjs';
 import { tr } from '../content/i18n.mjs';
+import { asset } from '../lib/paths.mjs';
 
 const MODIFIER = {
     brands: 'marquee-track--brands',
     services: 'marquee-track--services',
 };
 
-/** Un élément de ruban : texte (services) ou marque graphique (partenaires). */
+/**
+ * Image d'un sigle de partenaire.
+ * La copie de bouclage est décorative (`alt=""`) : le nom n'est annoncé
+ * qu'une fois par les technologies d'assistance.
+ */
+function logo(entry, clone) {
+    const file = asset(`/assets/img/marques/${entry.slug}.svg`);
+    return `<img class="marquee-logo" src="${file}" alt="${clone ? '' : entry.label}" width="${entry.width}" height="${entry.height}" loading="lazy" decoding="async">`;
+}
+
+/** Un élément de ruban : texte (services) ou image (partenaires). */
 function item(content, clone, modifier = '') {
     return `<li class="marquee-item${modifier}"${clone ? ' aria-hidden="true" data-marquee-clone' : ''}>${content}</li>`;
 }
@@ -47,9 +59,13 @@ function item(content, clone, modifier = '') {
  * @param {string} options.label      intitulé lu par les technologies d'assistance
  * @param {string} [options.modifier] classe ajoutée aux éléments
  */
-function ribbon({ items, kind, label, modifier = '' }) {
-    const list = items.map((entry) => item(entry, false, modifier)).join('\n                    ');
-    const clone = items.map((entry) => item(entry, true, modifier)).join('\n                    ');
+function ribbon({ items, kind, label, modifier = '', render }) {
+    const rendu = (clone) =>
+        items
+            .map((entry) => item(render(entry, clone), clone, modifier))
+            .join('\n                    ');
+    const list = rendu(false);
+    const clone = rendu(true);
 
     return `<!-- =====================================================================
          Ruban défilant — ${label}
@@ -67,10 +83,11 @@ function ribbon({ items, kind, label, modifier = '' }) {
 /** Ruban 1 — maisons et fournisseurs partenaires (défilement vers la gauche). */
 export function partnerRibbon() {
     return ribbon({
-        items: brandMarks().map(mark),
+        items: brandMarks(),
         kind: 'brands',
         label: tr('Maisons et fournisseurs avec lesquels travaille l’atelier'),
         modifier: ' marquee-item--brand',
+        render: (entry, clone) => logo(entry, clone),
     });
 }
 
@@ -80,5 +97,6 @@ export function serviceRibbon() {
         items: houseServices(),
         kind: 'services',
         label: tr('Savoir-faire et services de la Maison Tripoli'),
+        render: (entry) => entry,
     });
 }

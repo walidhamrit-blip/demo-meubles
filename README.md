@@ -6,8 +6,8 @@ généré** et son outillage de contrôle qualité SEO / accessibilité / perfor
 
 Le site n'est plus une page unique : il est organisé en **13 pages sources** dont une
 page d'accueil vitrine et **5 pages de collection** optimisées séparément pour le
-référencement naturel, soit **27 pages publiées** une fois les versions anglaise et
-arabe générées.
+référencement naturel, soit **26 pages publiées** : chacune est servie en arabe
+(langue principale) **et** en anglais.
 
 ---
 
@@ -29,32 +29,37 @@ arabe générées.
 └── /404.html                    Erreur personnalisée (noindex, follow)
 ```
 
-### Versions linguistiques
+### Versions linguistiques — arabe d'abord
 
-Le français est servi à la racine (langue pivot) ; les pages **traduites** vivent
-sous `/en/` et `/ar/` :
+Le site est **bilingue arabe / anglais** et ne publie aucune page française :
 
 ```
-/en/                                        Home (traduite, hreflang réciproque)
-/en/collections/                            Collections hub
-/en/collections/salons/ … eclairage-objets/ les cinq collections
-/ar/                                        النسخة العربية (dir="rtl")
-/ar/collections/                            مجموعات
-/ar/collections/salons/ … eclairage-objets/ المجموعات الخمس
+/                                الصفحة الرئيسية        (lang="ar", dir="rtl", x-default)
+├── /collections/ … les cinq collections                المجموعات
+├── /atelier/ · /sur-mesure/ · /projets/ · /contact/ · /mentions-legales/
+/en/                             Home                   (lang="en", hreflang réciproque)
+├── /en/collections/ … les cinq collections
+└── /en/atelier/ · /en/sur-mesure/ · /en/projets/ · /en/contact/ · /en/mentions-legales/
+/404.html  ·  /en/404.html        erreur personnalisée (noindex, follow)
 ```
 
-Sept pages sont donc servies dans les trois langues (accueil, page des collections et
-les cinq collections) ; le reste du site reste en français pour l'instant.
+L'arabe est la **langue principale** : il occupe la racine du domaine, il est
+déclaré `x-default`, et le site lui-même est rédigé en arabe standard (les
+chiffres restent en chiffres arabes occidentaux, comme le veut l'usage levantin).
+L'anglais est la **seconde langue**, servi sous `/en/`.
 
-Seules les pages déclarées dans `PAGE_LOCALES` (`src/content/i18n.mjs`) sont
-publiées dans une autre langue : le build refuse de générer une page à moitié
-traduite (il échoue en listant les chaînes manquantes), et le contrôle
+Le français n'existe plus qu'à l'intérieur du code : c'est la **langue de
+rédaction**. Chaque chaîne française sert de clé dans la table `ui`
+(`src/content/i18n.mjs`) ; le rendu passe par `tr()` qui renvoie la valeur
+arabe ou anglaise de la page en cours. `PAGE_LOCALES` énumère les 13 routes
+publiées dans les deux langues : le build **échoue** en listant les chaînes
+manquantes plutôt que de publier une page à moitié traduite, et
 `npm run check:i18n` vérifie qu'aucun texte français ne subsiste dans une page
-traduite. Les pages non traduites ne portent ni `hreflang` ni entrée de plan de
-site supplémentaire ; le sélecteur y renvoie vers l'accueil de la langue visée.
+publiée (nœuds de texte, attributs `alt`, `title`, `aria-label`, `content`).
 
-`robots.txt` et `sitemap.xml` sont **générés** par le build à partir de cette liste ;
-le plan de site porte les alternances `xhtml:link` (hreflang) de chaque page.
+`robots.txt` et `sitemap.xml` sont **générés** par le build ; le plan de site
+porte les alternances `xhtml:link` (`ar`, `en`, `x-default` → arabe) de chaque
+page, et un canonical auto-référent par langue.
 
 ---
 
@@ -106,19 +111,20 @@ doit être suivie de `npm run build`, sinon le HTML publié ne reflète pas la s
 ```bash
 npm install              # outils de développement uniquement
 
-npm run build            # HTML des 27 pages + sprite d'icônes + catalogue + CSS minifié
+npm run build            # HTML des 26 pages + sprite d'icônes + sigles + catalogue + CSS
 npm run build:site       # HTML, sitemap.xml, robots.txt, catalog.js
 npm run build:css        # CSS minifié (assets/css/main.css)
 npm run build:icons      # sprite SVG des icônes
+npm run build:logos      # sigles SVG des maisons et fournisseurs partenaires
 npm run dev              # recompilation du CSS à chaque modification (watch)
 npm run brand            # favicons, icônes PWA et carte Open Graph
 
 npm run serve            # prévisualisation locale sur http://localhost:8080
 
-npm run validate         # validation HTML5 des 27 pages (html-validate, règles W3C)
+npm run validate         # validation HTML5 des 26 pages (html-validate, règles W3C)
 npm run check:styles     # classes utilisées ⊂ classes compilées (garde-fou Tailwind)
 npm run check:contrast   # contrastes WCAG des trois thèmes (clair + 2 sombres)
-npm run check:i18n       # aucun texte français résiduel dans une page traduite
+npm run check:i18n       # aucun texte français résiduel dans une page publiée
 npm run audit            # audit SEO / accessibilité / performance statique
 npm run test             # parcours fonctionnels du DOM (jsdom)
 npm run check            # enchaîne build + validate + check:styles + check:contrast + check:i18n + audit + test
@@ -159,10 +165,30 @@ sont générés automatiquement.
 
 ---
 
+### Un sigle de partenaire
+
+Le premier ruban défilant n'affiche **aucun libellé texte** : chaque maison ou
+fournisseur y est représenté par une image (`<img>`), son sigle — monogramme
+encadré suivi du nom en capitales.
+
+1. Modifier la liste `MARKS` (`src/content/brand-marks.mjs`) : `slug`, `name`
+   (clé de traduction, reprise dans le texte alternatif), `monogram`, `wordmark`.
+2. Lancer `npm run build:logos` : les fichiers `assets/img/marques/<slug>.svg`
+   sont engendrés (dimensions déduites du mot-symbole).
+3. `npm run check` : le test fonctionnel vérifie que chaque image du ruban
+   existe, porte un `alt` et des dimensions, et qu'aucun texte ne subsiste
+   à côté d'elle.
+
+Pour afficher le **logo officiel** d'une maison (avec son autorisation) : le
+déposer au même emplacement, sous le même nom de fichier. Le balisage, les
+attributs `alt`, `width`, `height` et le chargement différé ne changent pas.
+
+---
+
 ### Une traduction
 
 1. Ajouter la page dans `PAGE_LOCALES` (`src/content/i18n.mjs`), par exemple
-   `'/sur-mesure/': ['fr', 'en', 'ar']`.
+   `'/sur-mesure/': ['ar', 'en']` — les deux langues servies.
 2. Passer chaque chaîne visible du gabarit par `tr('…')` (ou par un accesseur
    `get x() { return tr('…'); }` dans un module de contenu).
 3. Lancer `npm run build:site` : les traductions manquantes sont listées dans

@@ -217,7 +217,9 @@ et injectés dans les 13 pages : le menu ne contient plus aucun `href="#"`.
   données (`products.mjs`) et le balisage `Product` sont déjà en place ; il suffira
   d'ajouter une fonction `productPages()` dans `src/pages/collections.mjs` et de
   l'injecter dans la liste `routes` du build.
-* **Version arabe / anglaise** : dupliquer `src/content/` par langue et ajouter un
-  champ `locale` à la route, puis émettre les balises `hreflang`.
+* **Troisième langue** (par exemple le français) : elle se branche en ajoutant un
+  bloc à `ui` (`src/content/i18n.mjs`), une entrée dans `locales` (code, `lang`,
+  `dir`, `ogLocale`, `inLanguage`) et le chemin dans `PAGE_LOCALES` ; le build,
+  le plan de site et les `hreflang` suivent automatiquement.
 * **Blog / journal** (`/journal/`) : même modèle qu'une collection, avec `Article`
   au lieu de `CollectionPage`.

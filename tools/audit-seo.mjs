@@ -184,7 +184,12 @@ for (const page of PAGES) {
     if (withoutAlt.length) fail(page, `${withoutAlt.length} image(s) sans attribut alt`);
     else pass(`${images.length} images, toutes pourvues d’un alt`);
 
-    const emptyAlt = images.filter((tag) => attr(tag, 'alt') === '');
+    // Une image à alt vide est légitime lorsqu'elle est décorative : c'est le
+    // cas de la copie de bouclage des rubans, déjà masquée aux technologies
+    // d'assistance (`aria-hidden="true" data-marquee-clone`).
+    const decorative = [...body.matchAll(/<[^>]*data-marquee-clone[^>]*>[\s\S]*?<\/li>/gi)]
+        .flatMap((match) => [...match[0].matchAll(/<img\b[^>]*>/gi)].map((image) => image[0]));
+    const emptyAlt = images.filter((tag) => attr(tag, 'alt') === '' && !decorative.includes(tag));
     if (emptyAlt.length && !is404) warn(page, `${emptyAlt.length} image(s) à alt vide (décoratives ?)`);
 
     const withoutDimensions = images.filter((tag) => !attr(tag, 'width') || !attr(tag, 'height'));

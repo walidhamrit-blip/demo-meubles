@@ -247,10 +247,9 @@ audit à 0 erreur / 0 avertissement, 29 tests fonctionnels réussis.
    balisage local est prêt à l'emploi).
 6. **Bannière de consentement** obligatoire avant tout ajout d'un outil de mesure
    d'audience ou d'une régie publicitaire (aucun cookie n'est déposé à ce jour).
-7. **Enrichir le contenu** : pages dédiées par collection (`/collections/canapes-sur-mesure`,
-   `/collections/tables-en-noyer`…) et version anglaise avec `hreflang` si l'export
-   international devient prioritaire. La structure actuelle (one-page) est
-   volontairement mono-sujet : la démultiplication en pages filles est le principal
-   levier de croissance restant.
+7. **Enrichir le contenu** : fiches produit dédiées (`/collections/{collection}/{produit}/`)
+   avec le balisage `Product`, journal d'atelier (`/journal/`, balisage `Article`) et
+   pages de ville pour le référencement local. Les versions arabe et anglaise sont
+   en place ; c'est le contenu qui reste le principal levier de croissance.
 8. **Brancher `npm run check`** dans une intégration continue pour bloquer toute
    régression SEO ou accessibilité avant déploiement.

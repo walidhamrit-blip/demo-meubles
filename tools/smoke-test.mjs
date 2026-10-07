@@ -13,6 +13,7 @@
  *
  * Usage : node tools/smoke-test.mjs
  */
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { JSDOM } from 'jsdom';
@@ -348,33 +349,40 @@ console.log('\n5. Thèmes, WhatsApp et rubans');
     const brands = [...brandsTrack.querySelectorAll('.marquee-item:not([data-marquee-clone])')];
     const services = [...document.querySelectorAll('.marquee-track--services .marquee-item:not([data-marquee-clone])')];
 
-    // Ruban 1 : chaque partenaire est une marque graphique (SVG vectoriel)
-    // dont le nom est porté par l'élément <title> : lisible par les moteurs
-    // et annoncé par les lecteurs d'écran.
-    const logos = brands.map((item) => item.querySelector('svg.marquee-logo'));
+    // Ruban 1 : chaque partenaire est une IMAGE (le sigle de la maison,
+    // engendré par tools/build-logos.mjs). Le nom reste dans le texte
+    // alternatif : le contenu demeure lisible par les moteurs.
+    const logos = brands.map((item) => item.querySelector('img.marquee-logo'));
     check(
-        'ruban 1 : maisons et fournisseurs partenaires',
-        brands.length >= 8 && logos.every((svg) => svg !== null),
+        'ruban 1 : maisons et fournisseurs partenaires (images)',
+        brands.length >= 8 && logos.every((img) => img !== null),
         `${brands.length} marques`,
     );
     check(
-        'ruban 1 : chaque marque porte un nom accessible',
-        logos.every((svg) => (svg.querySelector('title')?.textContent ?? '').trim().length > 2),
-        logos.map((svg) => svg?.querySelector('title')?.textContent).join(', ').slice(0, 80),
+        'ruban 1 : chaque image porte un texte alternatif',
+        logos.every((img) => (img.getAttribute('alt') ?? '').trim().length > 2),
+        logos.map((img) => img.getAttribute('alt')).join(', ').slice(0, 80),
     );
     check(
-        'ruban 1 : aucune étiquette textuelle à côté des marques',
-        brands.every((item) =>
-            [...item.childNodes].every(
-                (node) => node.nodeType !== 3 || node.textContent.trim() === '',
-            ),
-        ),
+        'ruban 1 : dimensions déclarées sur chaque image',
+        logos.every((img) => Number(img.getAttribute('width')) > 0 && Number(img.getAttribute('height')) > 0),
+    );
+    const fichiers = [...new Set(logos.map((img) => (img.getAttribute('src') ?? '').replace(/^(\.\.\/)+/, '')))];
+    check(
+        'ruban 1 : les fichiers images sont présents',
+        fichiers.length >= 8 && fichiers.every((file) => existsSync(path.join(ROOT, file))),
+        `${fichiers.length} fichier(s)`,
+    );
+    check(
+        'ruban 1 : plus aucun libellé texte à côté des sigles',
+        brands.every((item) => item.textContent.trim() === ''),
     );
     check(
         'ruban 2 : services de la Maison (texte réel)',
         services.length >= 8 && services.some((item) => item.textContent.trim().length > 8),
         `${services.length} mentions`,
     );
+
     const doublons = {
         brands: [...brandsTrack.querySelectorAll('.marquee-item[data-marquee-clone]')],
         services: [...document.querySelectorAll('.marquee-track--services .marquee-item[data-marquee-clone]')],
@@ -385,6 +393,10 @@ console.log('\n5. Thèmes, WhatsApp et rubans');
             doublons.services.length === services.length &&
             [...doublons.brands, ...doublons.services].every((item) => item.getAttribute('aria-hidden') === 'true'),
         `${doublons.brands.length + doublons.services.length} élément(s) masqué(s)`,
+    );
+    check(
+        'copie de bouclage : sigles déclarés décoratifs',
+        doublons.brands.every((item) => item.querySelector('img.marquee-logo')?.getAttribute('alt') === ''),
     );
 
     check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
