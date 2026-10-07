@@ -54,7 +54,11 @@ export function href(target, { depth = currentDepth, absolute = false, locale } 
     // (sélecteur de langue, balises hreflang).
     const path = localizedPath(target, locale);
     const clean = path.startsWith('/') ? path.slice(1) : path;
-    return `${absolute ? `${site.basePath}/` : prefix(depth)}${clean}`;
+    if (absolute) return `${site.basePath}/${clean}`;
+    // Sur la page racine, le lien vers la racine elle-même serait vide :
+    // « ./ » reste explicite pour les valideurs et les robots.
+    const relative = `${prefix(depth)}${clean}`;
+    return relative === '' ? './' : relative;
 }
 
 /** Chemin relatif d'une ressource statique (jamais localisée). */
