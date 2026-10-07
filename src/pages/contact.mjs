@@ -12,21 +12,21 @@ import {
 import { site } from '../site.config.mjs';
 import { icon, sectionHeading, breadcrumbs, breadcrumbSchema, storeSchema, faqBlock, faqSchema } from '../templates/components.mjs';
 import { newsletterSection } from '../templates/sections.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 
 const PATH = '/contact/';
-const faq = [
+const faq = () => [
     {
-        q: 'Faut-il prendre rendez-vous pour visiter le showroom ?',
-        a: "Le showroom est ouvert du lundi au samedi de 09h30 à 18h30 en accès libre. Le rendez-vous est toutefois recommandé : il garantit la présence d'un conseiller designer et permet de préparer les échantillons de matières correspondant à votre projet.",
+        q: tr('Faut-il prendre rendez-vous pour visiter le showroom ?'),
+        a: tr("Le showroom est ouvert du lundi au samedi de 09h30 à 18h30 en accès libre. Le rendez-vous est toutefois recommandé : il garantit la présence d'un conseiller designer et permet de préparer les échantillons de matières correspondant à votre projet."),
     },
     {
-        q: 'Répondez-vous aux demandes envoyées depuis l’étranger ?',
-        a: "Oui. Les demandes internationales reçoivent une première réponse sous 24 heures ouvrées, avec une estimation de cadrage et la liste des informations nécessaires (plans, dimensions, destination) pour établir un devis de fret précis.",
+        q: tr('Répondez-vous aux demandes envoyées depuis l’étranger ?'),
+        a: tr("Oui. Les demandes internationales reçoivent une première réponse sous 24 heures ouvrées, avec une estimation de cadrage et la liste des informations nécessaires (plans, dimensions, destination) pour établir un devis de fret précis."),
     },
     {
-        q: 'Peut-on voir les matières avant de commander ?',
-        a: "Nous envoyons sur demande une mallette d'échantillons — essences de bois, pierres et textiles — pour les projets confirmés. Au Liban, la visite de l'atelier permet de voir les finitions appliquées sur des panneaux témoins grandeur réelle.",
+        q: tr('Peut-on voir les matières avant de commander ?'),
+        a: tr("Nous envoyons sur demande une mallette d'échantillons — essences de bois, pierres et textiles — pour les projets confirmés. Au Liban, la visite de l'atelier permet de voir les finitions appliquées sur des panneaux témoins grandeur réelle."),
     },
 ];
 
@@ -60,7 +60,7 @@ export default function contact() {
                             <p>
                                 <strong class="block text-ink uppercase tracking-wider text-[11px] font-semibold">${tr('Adresse du showroom')}</strong>
                                 <span class="block mt-1 text-muted font-light">${contact.street}</span>
-                                <span class="block text-muted font-light">${contact.locality}, ${contact.countryName}</span>
+                                <span class="block text-muted font-light">${contact.locality}, ${tr(contact.countryName)}</span>
                                 <a href="${contact.mapsUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-xs uppercase tracking-[0.18em] text-ink border-b border-ink pb-1 hover:text-accent-ink hover:border-accent transition">
                                     Ouvrir dans Google Maps
                                     ${icon('arrow-up-right', 'icon w-4 h-4 stroke-[2]')}
@@ -71,7 +71,7 @@ export default function contact() {
                             ${icon('clock', 'icon w-5 h-5 stroke-[2] text-accent-ink mt-0.5')}
                             <p>
                                 <strong class="block text-ink uppercase tracking-wider text-[11px] font-semibold">${tr("Horaires d'ouverture")}</strong>
-                                <span class="block mt-1 text-muted font-light">${contact.displayHours}</span>
+                                <span class="block mt-1 text-muted font-light">${tr(contact.displayHours)}</span>
                             </p>
                         </div>
                         <div class="flex items-start gap-4">
@@ -166,13 +166,13 @@ export default function contact() {
         <section class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="faq-contact-title">
             <div class="max-w-4xl mx-auto">
                 ${sectionHeading({
-                    eyebrow: 'Questions fréquentes',
-                    title: 'Visite, échantillons et projets à distance',
+                    eyebrow: tr('Questions fréquentes'),
+                                        title: tr('Visite, échantillons et projets à distance'),
                     id: 'faq-contact-title',
                     align: 'center',
                 })}
                 <div class="mt-14">
-                    ${faqBlock(faq)}
+                    ${faqBlock(faq())}
                 </div>
             </div>
         </section>`,
@@ -183,9 +183,16 @@ export default function contact() {
     return {
         path: PATH,
         depth: DEPTH,
-        title: 'Showroom &amp; Atelier à Tripoli, Liban | Maison Tripoli',
-        description:
-            "Showroom et atelier Maison Tripoli à Tripoli : adresse, horaires, téléphone et formulaire de devis. Réponse sous 24 heures, livraison internationale.",
+        title: localized({
+            fr: "Showroom &amp; Atelier à Tripoli, Liban | Maison Tripoli",
+            en: 'Showroom &amp; Workshop in Tripoli, Lebanon | Maison Tripoli',
+            ar: 'صالة العرض والورشة في طرابلس، لبنان | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: 'Showroom et atelier Maison Tripoli à Tripoli : adresse, horaires, téléphone et formulaire de devis. Réponse sous 24 heures, livraison internationale.',
+            en: 'Maison Tripoli showroom and workshop in Tripoli: address, opening hours, phone and quote form. Reply within 24 hours, international delivery.',
+            ar: 'صالة عرض وورشة ميزون طرابلس في طرابلس: العنوان وساعات العمل والهاتف ونموذج طلب عرض سعر. ردّ خلال ٢٤ ساعة وتسليم دولي.',
+        }),
         includeQuickView: false,
         body,
         jsonLd: [
@@ -194,10 +201,10 @@ export default function contact() {
                 '@type': 'ContactPage',
                 '@id': `${site.url}/contact/#page`,
                 url: `${site.url}/contact/`,
-                name: 'Showroom et atelier Maison Tripoli à Tripoli',
+                name: tr('Showroom et atelier Maison Tripoli à Tripoli',),
                 description:
-                    "Coordonnées, horaires et accès du showroom et de l'atelier Maison Tripoli à Tripoli (Liban), ainsi que le formulaire de demande de devis et de visite privée.",
-                inLanguage: 'fr-FR',
+                    tr("Coordonnées, horaires et accès du showroom et de l'atelier Maison Tripoli à Tripoli (Liban), ainsi que le formulaire de demande de devis et de visite privée.",),
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 about: { '@id': `${site.url}/#boutique` },
                 breadcrumb: { '@id': `${site.url}/contact/#fil` },
@@ -206,7 +213,7 @@ export default function contact() {
                 ...breadcrumbSchema([{ label: 'Accueil', path: '/' }, { label: 'Showroom &amp; contact', path: PATH }]),
                 '@id': `${site.url}/contact/#fil`,
             },
-            { ...faqSchema(faq), '@id': `${site.url}/contact/#faq` },
+            { ...faqSchema(faq()), '@id': `${site.url}/contact/#faq` },
         ],
     };
 }

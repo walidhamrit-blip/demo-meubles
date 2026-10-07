@@ -17,7 +17,7 @@
  *
  * Usage : node tools/build-site.mjs
  */
-import { mkdir, readFile, readdir, rm, rmdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rm, rmdir, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { decodeDeep } from '../src/lib/html.mjs';
@@ -220,6 +220,16 @@ async function writeBrowserCatalog() {
 /** Pages de l'ancienne arborescence, remplacées par des URL dédiées. */
 const LEGACY_FILES = ['mentions-legales.html'];
 
+/**
+ * Arborescences de langues retirées du site.
+ *
+ * L'arabe est servi à la racine depuis que le site est bilingue ar/en : le
+ * dossier `/ar/` hérité d'une version antérieure doit disparaître, sinon la
+ * même page serait servie à deux URL (contenu dupliqué, hreflang trompeur).
+ * `/fr/` n'a jamais existé mais figure ici par sécurité.
+ */
+const LEGACY_LOCALE_DIRS = ['ar', 'fr'];
+
 async function cleanLegacyOutput() {
     for (const file of LEGACY_FILES) {
         await rm(path.join(ROOT, file), { force: true });
@@ -261,6 +271,15 @@ async function pruneLocalizedOutputs(written) {
     }
 
     if (removed) console.log(`  ↺ ${removed} page(s) traduite(s) obsolète(s) supprimée(s)`);
+
+    // Arborescences de langues héritées : retirées en bloc.
+    for (const dir of LEGACY_LOCALE_DIRS) {
+        const target = path.join(ROOT, dir);
+        if (await stat(target).catch(() => null)) {
+            await rm(target, { recursive: true, force: true });
+            console.log(`  ↺ arborescence obsolète supprimée : /${dir}/`);
+        }
+    }
 }
 
 /** Parcours récursif d'un dossier (fichiers, ou dossiers si demandé). */

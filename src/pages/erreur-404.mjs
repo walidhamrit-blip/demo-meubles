@@ -8,7 +8,7 @@
 
 import { site } from '../site.config.mjs';
 import { icon } from '../templates/components.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 
 /* Une page 404 est servie pour n'importe quelle URL demandée : les liens
    relatifs seraient résolus par rapport à cette URL et non au fichier.
@@ -33,37 +33,37 @@ export default function erreur404() {
                     <li>
                         <a href="${root('/collections/salons/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
                             ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
-                            Salons &amp; banquettes
+${tr('Salons &amp; banquettes')}
                         </a>
                     </li>
                     <li>
                         <a href="${root('/collections/salles-a-manger/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
                             ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
-                            Salles à manger &amp; tables
+${tr('Salles à manger &amp; tables')}
                         </a>
                     </li>
                     <li>
                         <a href="${root('/collections/chambres/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
                             ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
-                            Chambres &amp; suites
+${tr('Chambres &amp; suites')}
                         </a>
                     </li>
                     <li>
                         <a href="${root('/sur-mesure/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
                             ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
-                            Service sur-mesure
+${tr('Service sur-mesure')}
                         </a>
                     </li>
                     <li>
                         <a href="${root('/projets/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
                             ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
-                            Demeures réalisées
+${tr('Demeures réalisées')}
                         </a>
                     </li>
                     <li>
                         <a href="${root('/contact/')}" class="inline-flex items-center gap-3 text-muted hover:text-accent-ink transition">
                             ${icon('arrow-right', 'icon w-4 h-4 stroke-[2] text-accent-ink')}
-                            Showroom &amp; contact
+${tr('Showroom &amp; contact')}
                         </a>
                     </li>
                 </ul>
@@ -76,9 +76,16 @@ export default function erreur404() {
         // Page d'erreur servie depuis n'importe quelle URL : liens en
         // absolu racine (préfixés par le chemin de base éventuel).
         rootAbsoluteLinks: true,
-        title: 'Page introuvable (404) | Ébénisterie Maison Tripoli',
-        description:
-            "La page recherchée n'existe pas ou a été déplacée. Retrouvez les collections de mobilier d'art et l'atelier d'ébénisterie Maison Tripoli à Tripoli, au Liban.",
+        title: localized({
+            fr: 'Page introuvable (404) | Ébénisterie Maison Tripoli',
+            en: 'Page not found (404) | Maison Tripoli',
+            ar: 'الصفحة غير موجودة (٤٠٤) | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: 'La page recherchée n\'existe pas ou a été déplacée. Retrouvez les collections de mobilier d\'art et l\'atelier d\'ébénisterie Maison Tripoli à Tripoli, au Liban.',
+            en: 'The page you are looking for does not exist or has been moved. Find the art furniture collections and the Maison Tripoli workshop in Tripoli, Lebanon.',
+            ar: 'الصفحة المطلوبة غير موجودة أو نُقلت. اعثر على مجموعات الأثاث الفني وورشة ميزون طرابلس في طرابلس، لبنان، من الصفحة الرئيسية.',
+        }),
         robots: 'noindex, follow',
         includeQuickView: false,
         body,
@@ -87,8 +94,8 @@ export default function erreur404() {
                 '@type': 'WebPage',
                 '@id': `${site.url}/404.html#page`,
                 url: `${site.url}/404.html`,
-                name: 'Page introuvable',
-                inLanguage: 'fr-FR',
+                name: tr('Page introuvable',),
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 about: { '@id': `${site.url}/#boutique` },
             },

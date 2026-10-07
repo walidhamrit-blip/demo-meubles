@@ -15,7 +15,7 @@ import { site } from '../site.config.mjs';
 import { collections } from '../content/collections.mjs';
 import { collectionImages } from '../content/imagery.mjs';
 import { productsByCollection, priceRange } from '../content/products.mjs';
-import { tr, localized } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -61,7 +61,7 @@ function hubBody() {
         .join('\n                ');
 
     return `<section class="pt-16 pb-12 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="hub-title">
-            ${breadcrumbs([{ label: 'Accueil', path: '/' }, { label: tr('Collections') }], depth)}
+            ${breadcrumbs([{ label: 'Accueil', path: '/' }, { label: 'Collections' }], depth)}
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
                 <div class="lg:col-span-7">
@@ -148,7 +148,7 @@ export function hubPage() {
                 name: 'Collections de mobilier d’art Maison Tripoli',
                 description:
                     "Les cinq collections de mobilier d'art Maison Tripoli, fabriquées à Tripoli : salons, salles à manger, chambres, rangements, éclairage et objets.",
-                inLanguage: 'fr-FR',
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 about: { '@id': STORE_ID },
                 breadcrumb: { '@id': `${site.url}/collections/#fil` },
@@ -269,7 +269,7 @@ function collectionBody(collection) {
     const faq = `<section class="py-24 px-6 lg:px-12 max-w-4xl mx-auto" aria-labelledby="faq-title">
             ${sectionHeading({
                 eyebrow: tr('Questions fréquentes'),
-                title: `Tout savoir sur nos ${collection.navLabel.toLowerCase()}`,
+                title: `${tr('Tout savoir sur nos')} ${collection.navLabel.toLowerCase()}`,
                 id: 'faq-title',
                 align: 'center',
             })}
@@ -284,7 +284,7 @@ function collectionBody(collection) {
         depth,
         eyebrow: 'Passer commande',
         title: tr('Recevez votre devis personnalisé'),
-        text: `Transmettez-nous vos dimensions, votre plan ou vos inspirations : nous revenons vers vous avec une proposition chiffrée et un délai de fabrication ferme pour votre projet de ${collection.navLabel.toLowerCase()}.`,
+        text: `${tr('Transmettez-nous vos dimensions, votre plan ou vos inspirations : nous revenons vers vous avec une proposition chiffrée et un délai de fabrication ferme pour votre projet de ')} ${collection.navLabel.toLowerCase()}.`,
         primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
         secondary: { label: tr('Voir la méthode sur-mesure'), path: '/sur-mesure/' },
     })].join('\n\n        ');
@@ -309,7 +309,7 @@ export function collectionPage(collection) {
                 url: `${site.url}${collection.path}`,
                 name: collection.h1,
                 description: collection.summary,
-                inLanguage: 'fr-FR',
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 about: { '@id': STORE_ID },
                 keywords: collection.metaKeywords.join(', '),

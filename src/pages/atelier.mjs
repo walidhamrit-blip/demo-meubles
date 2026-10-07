@@ -14,7 +14,7 @@ import {
 import { site } from '../site.config.mjs';
 import { editorialImages } from '../content/imagery.mjs';
 import { collections } from '../content/collections.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -27,22 +27,22 @@ import {
 import { editorialSection, ctaBand, newsletterSection } from '../templates/sections.mjs';
 
 const PATH = '/atelier/';
-const steps = [
+const steps = () => [
     {
         title: 'Le choix de la grume',
-        text: "Nos bois sont sélectionnés en forêt puis débités en plots larges. Le noyer, le chêne et le cèdre sont empilés en grange et séchés lentement pendant dix-huit mois, jusqu'à un taux d'humidité stable qui garantit qu'un plateau ne bougera plus.",
+        text: tr("Nos bois sont sélectionnés en forêt puis débités en plots larges. Le noyer, le chêne et le cèdre sont empilés en grange et séchés lentement pendant dix-huit mois, jusqu'à un taux d'humidité stable qui garantit qu'un plateau ne bougera plus."),
     },
     {
-        title: 'Le dessin d’exécution',
-        text: "Chaque commande passe par le bureau d'études : élévations cotées, plan de calepinage, nomenclature des matières. C'est cette étape, invisible pour le client, qui sépare un meuble d'atelier d'une pièce de série.",
+                title: 'Le choix de la grume',
+        text: tr("Chaque commande passe par le bureau d'études : élévations cotées, plan de calepinage, nomenclature des matières. C'est cette étape, invisible pour le client, qui sépare un meuble d'atelier d'une pièce de série."),
     },
     {
         title: "L'assemblage traditionnel",
-        text: "Tenons, mortaises, queues d'aronde et panneautage à plate-bande : nos cadres sont assemblés sans vis apparente. Ce sont ces liaisons qui autorisent une garantie de trente ans sur la structure d'ébénisterie.",
+        text: tr("Tenons, mortaises, queues d'aronde et panneautage à plate-bande : nos cadres sont assemblés sans vis apparente. Ce sont ces liaisons qui autorisent une garantie de trente ans sur la structure d'ébénisterie."),
     },
     {
-        title: 'La finition à la main',
-        text: "Cire d'abeille, huile dure, laque au tampon ou vernis satiné : les finitions sont appliquées en couches fines, poncées entre chaque passe. La teinte est validée sur panneau témoin avant d'être appliquée à la pièce.",
+        title: 'Le choix de la grume',
+        text: tr("Cire d'abeille, huile dure, laque au tampon ou vernis satiné : les finitions sont appliquées en couches fines, poncées entre chaque passe. La teinte est validée sur panneau témoin avant d'être appliquée à la pièce."),
     },
 ];
 
@@ -89,13 +89,13 @@ export default function atelier() {
         `<section id="savoir-faire" class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="savoir-faire-title">
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
-                    eyebrow: 'Savoir-faire',
-                    title: 'De la grume à la pièce finie',
+                    eyebrow: tr('Savoir-faire'),
+                    title: tr('De la grume à la pièce finie'),
                     id: 'savoir-faire-title',
                     align: 'center',
                 })}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 mt-16">
-                    ${steps
+                    ${steps()
                         .map(
                             (step, index) => `<article class="flex gap-6">
                         <span class="font-serif text-3xl text-accent-ink/60 leading-none shrink-0 w-12" aria-hidden="true">0${index + 1}</span>
@@ -151,17 +151,17 @@ export default function atelier() {
         editorialSection(
             {
                 id: 'matieres',
-                eyebrow: 'Matières',
-                heading: 'Des matières traçables, du Levant à vos pièces',
+                eyebrow: tr('Matières'),
+                heading: tr('Des matières traçables, du Levant à vos pièces'),
                 paragraphs: [
-                    "Nous privilégions les essences régionales — noyer de la montagne libanaise, chêne du Nord-Liban — complétées par des bois européens sélectionnés pour leur stabilité. Le travertin et les marbres proviennent de carrières du bassin levantin et d'Italie, dont nous connaissons les exploitants.",
-                    "Nos chutes de plateau ne sont pas jetées : elles deviennent sellets, socles et plateaux d'objets, vendus dans la collection éclairage et objets d'art. Une manière de faire vivre la matière jusqu'au bout, et de réduire le volume de copeaux destinés à la filière bois-énergie.",
+                    tr("Nous privilégions les essences régionales — noyer de la montagne libanaise, chêne du Nord-Liban — complétées par des bois européens sélectionnés pour leur stabilité. Le travertin et les marbres proviennent de carrières du bassin levantin et d'Italie, dont nous connaissons les exploitants."),
+                    tr("Nos chutes de plateau ne sont pas jetées : elles deviennent sellets, socles et plateaux d'objets, vendus dans la collection éclairage et objets d'art. Une manière de faire vivre la matière jusqu'au bout, et de réduire le volume de copeaux destinés à la filière bois-énergie."),
                 ],
                 specs: [
-                    { label: 'Séchage', value: '18 mois en grange, à l’air libre' },
-                    { label: 'Traçabilité', value: 'Bois et pierre d’origine identifiée' },
-                    { label: 'Valorisation', value: 'Chutes transformées en objets de la Maison' },
-                    { label: 'Finition', value: 'Cires et huiles sans solvant pétrochimique' },
+                    { label: 'Séchage', value: tr('18 mois en grange, à l’air libre') },
+                    { label: tr('Traçabilité'), value: tr('Bois et pierre d’origine identifiée') },
+                    { label: 'Valorisation', value: tr('Chutes transformées en objets de la Maison') },
+                    { label: tr('Finition'), value: tr('Cires et huiles sans solvant pétrochimique') },
                 ],
             },
             { depth: DEPTH, tone: 'light' },
@@ -207,7 +207,7 @@ export default function atelier() {
         `<section class="py-20 px-6 lg:px-12 max-w-7xl mx-auto border-t border-line" aria-labelledby="atelier-collections">
             ${sectionHeading({
                 eyebrow: 'Production',
-                title: 'Ce que l’atelier fabrique',
+                title: tr('Ce que l’atelier fabrique'),
                 id: 'atelier-collections',
                 align: 'center',
             })}
@@ -230,9 +230,9 @@ export default function atelier() {
 
         ctaBand({
             depth: DEPTH,
-            eyebrow: 'Venir à l’atelier',
-            title: 'Visitez l’atelier de la rue des Ébénistes',
-            text: "Sur rendez-vous, nous ouvrons les portes de l'atelier : présentation des essences, des finitions et des pièces en fabrication. Une heure suffit pour comprendre comment nous travaillons.",
+            eyebrow: tr('Venir à l’atelier'),
+            title: tr('Visitez l’atelier de la rue des Ébénistes'),
+            text: tr("Sur rendez-vous, nous ouvrons les portes de l'atelier : présentation des essences, des finitions et des pièces en fabrication. Une heure suffit pour comprendre comment nous travaillons."),
             primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
             secondary: { label: 'Voir le showroom', path: '/contact/' },
         }),
@@ -243,9 +243,16 @@ export default function atelier() {
     return {
         path: PATH,
         depth: DEPTH,
-        title: "L'Atelier d'Ébénisterie de Tripoli | Maison Tripoli",
-        description:
-            "Trois générations d'ébénistes au cœur de Tripoli : séchage du noyer, assemblages traditionnels et finitions à la main. Visitez l'atelier et son savoir-faire.",
+        title: localized({
+            fr: "L'Atelier d'Ébénisterie de Tripoli | Maison Tripoli",
+            en: 'The Tripoli Cabinetmaking Workshop | Maison Tripoli',
+            ar: 'ورشة النجارة الفنية في طرابلس | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: "Trois générations d'ébénistes au cœur de Tripoli : séchage du noyer, assemblages traditionnels et finitions à la main. Visitez l'atelier et son savoir-faire.",
+            en: 'Three generations of cabinetmakers in the heart of Tripoli: walnut drying, traditional joinery and hand finishing. Visit the workshop and its craft.',
+            ar: 'ثلاثة أجيال من صنّاع الأثاث في قلب طرابلس: تجفيف الجوز، وتجميع تقليدي، وتشطيب باليد. زُر الورشة وتعرّف على حرفتها وموادها.',
+        }),
         includeQuickView: false,
         body,
         jsonLd: [
@@ -253,10 +260,10 @@ export default function atelier() {
                 '@type': 'AboutPage',
                 '@id': `${site.url}/atelier/#page`,
                 url: `${site.url}/atelier/`,
-                name: "L'Atelier d'ébénisterie de Tripoli",
+                name: tr("L'Atelier d'ébénisterie de Tripoli",),
                 description:
-                    "Histoire, savoir-faire et engagements de l'atelier Maison Tripoli : séchage du bois, assemblage traditionnel, finitions à la main et valorisation des chutes.",
-                inLanguage: 'fr-FR',
+                    tr("Histoire, savoir-faire et engagements de l'atelier Maison Tripoli : séchage du bois, assemblage traditionnel, finitions à la main et valorisation des chutes.",),
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 about: { '@id': STORE_ID },
                 breadcrumb: { '@id': `${site.url}/atelier/#fil` },

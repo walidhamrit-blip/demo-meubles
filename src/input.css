@@ -284,6 +284,30 @@ body.has-dialog-open {
     }
 }
 
+/* Ruban 1 : marques graphiques des partenaires.
+   Le SVG hérite de la couleur d'encre du thème (currentColor) et se met à
+   l'échelle par sa hauteur : aucune variante par thème n'est nécessaire. */
+.marquee-item--brand {
+    gap: 3.25rem;
+    padding: 0 3.25rem;
+    font-size: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.marquee-logo {
+    display: block;
+    height: 2.25rem;
+    width: auto;
+    color: rgb(var(--mt-ink));
+}
+
+@media (min-width: 640px) {
+    .marquee-logo {
+        height: 2.5rem;
+    }
+}
+
 /* Durées : les deux rubans ne défilent pas au même rythme */
 .marquee-track--brands {
     --marquee-duration: 58s;

@@ -11,7 +11,7 @@ import {
 } from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
 import { icon, breadcrumbs, breadcrumbSchema } from '../templates/components.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 
 const PATH = '/mentions-legales/';
 export default function mentionsLegales() {
@@ -25,24 +25,24 @@ export default function mentionsLegales() {
             <p class="text-muted text-sm leading-relaxed font-light mb-14">${tr("Dernière mise à jour : octobre 2026. Ce document précise l'identité de l'éditeur du site, les conditions d'acquisition des pièces d'ébénisterie et le traitement de vos données personnelles.")}</p>
 
             <section aria-labelledby="editeur" class="mb-12">
-                <h2 id="editeur" class="font-serif text-2xl text-ink font-normal mb-4">1. Éditeur du site</h2>
+                <h2 id="editeur" class="font-serif text-2xl text-ink font-normal mb-4">${tr('1. Éditeur du site')}</h2>
                 <address class="not-italic text-sm text-muted leading-relaxed space-y-1">
-                    <p><strong class="font-medium text-ink-strong">${site.legalName}</strong> — atelier d'ébénisterie et manufacture de mobilier d'art.</p>
-                    <p>${contact.street}, ${contact.locality}, ${contact.countryName}.</p>
+                    <p><strong class="font-medium text-ink-strong">${tr(site.legalName)}</strong> ${tr("— atelier d'ébénisterie et manufacture de mobilier d'art.")}</p>
+                    <p>${contact.street}, ${contact.locality}, ${tr(contact.countryName)}.</p>
                     <p>${tr('Téléphone :')}<a href="tel:${contact.phoneHref}" class="underline underline-offset-2 hover:text-ink">${contact.phone.replace(/ /g, '&nbsp;')}</a></p>
                     <p>${tr('E-mail :')}<a href="mailto:${contact.email}" class="underline underline-offset-2 hover:text-ink">${contact.email}</a></p>
                 </address>
             </section>
 
             <section aria-labelledby="propriete" class="mb-12">
-                <h2 id="propriete" class="font-serif text-2xl text-ink font-normal mb-4">2. Propriété intellectuelle</h2>
+                <h2 id="propriete" class="font-serif text-2xl text-ink font-normal mb-4">${tr('2. Propriété intellectuelle')}</h2>
                 <p class="text-sm text-muted leading-relaxed font-light">
-                    L'ensemble des créations, dessins techniques, photographies, textes et marques présents sur ce site sont protégés. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable de ${site.name}. Les photographies d'ambiance utilisées à titre de démonstration proviennent de banques d'images sous licence.
+                    ${tr('L\'ensemble des créations, dessins techniques, photographies, textes et marques présents sur ce site sont protégés. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable de ${site.name}. Les photographies d\'ambiance utilisées à titre de démonstration proviennent de banques d\'images sous licence.')}
                 </p>
             </section>
 
             <section id="conditions-de-vente" aria-labelledby="cgv" class="mb-12">
-                <h2 id="cgv" class="font-serif text-2xl text-ink font-normal mb-4">3. Conditions générales de vente</h2>
+                <h2 id="cgv" class="font-serif text-2xl text-ink font-normal mb-4">${tr('3. Conditions générales de vente')}</h2>
                 <div class="text-sm text-muted leading-relaxed font-light space-y-4">
                     <p>${tr("Les pièces présentées sont fabriquées sur commande dans notre atelier de Tripoli. Le devis transmis via le site constitue une demande de chiffrage et non une commande ferme : celle-ci devient définitive après validation des plans techniques, du choix des matières et versement d'un acompte de 40 %.")}</p>
                     <p>${tr('Le délai de fabrication indicatif est de 4 à 6 semaines pour les pièces du catalogue et de 8 à 16 semaines pour les projets sur-mesure intégrant boiseries et mobilier. Les délais sont confirmés par écrit à la commande.')}</p>
@@ -51,12 +51,12 @@ export default function mentionsLegales() {
             </section>
 
             <section id="expeditions" aria-labelledby="expedition" class="mb-12">
-                <h2 id="expedition" class="font-serif text-2xl text-ink font-normal mb-4">4. Expéditions &amp; livraisons</h2>
+                <h2 id="expedition" class="font-serif text-2xl text-ink font-normal mb-4">${tr('4. Expéditions &amp; livraisons')}</h2>
                 <p class="text-sm text-muted leading-relaxed font-light">${tr("Nous livrons au Liban et à l'international (Europe, Golfe, Afrique du Nord). Les pièces sont emballées en caisse bois sur mesure et manipulées sous gants blancs. Les tarifs de fret sont établis après étude technique, selon le volume, la destination et les droits de douane applicables. L'installation par nos artisans est incluse au Liban et disponible sur devis à l'étranger.")}</p>
             </section>
 
             <section aria-labelledby="confidentialite" class="mb-12">
-                <h2 id="confidentialite" class="font-serif text-2xl text-ink font-normal mb-4">5. Données personnelles &amp; cookies</h2>
+                <h2 id="confidentialite" class="font-serif text-2xl text-ink font-normal mb-4">${tr('5. Données personnelles &amp; cookies')}</h2>
                 <div class="text-sm text-muted leading-relaxed font-light space-y-4">
                     <p>${tr('Les informations transmises via les formulaires (nom, téléphone, e-mail, description du projet) sont utilisées exclusivement pour répondre à votre demande de devis ou de rendez-vous. Elles ne sont ni vendues ni cédées à des tiers et sont conservées 36 mois maximum.')}</p>
                     <p>${tr("Conformément au Règlement général sur la protection des données (RGPD) et à la loi libanaise n° 81/2018, vous disposez d'un droit d'accès, de rectification, d'opposition et d'effacement. Toute demande peut être adressée à")}<a href="mailto:${contact.email}" class="underline underline-offset-2 hover:text-ink">${contact.email}</a>.
@@ -66,7 +66,7 @@ export default function mentionsLegales() {
             </section>
 
             <section aria-labelledby="mediateur" class="mb-12">
-                <h2 id="mediateur" class="font-serif text-2xl text-ink font-normal mb-4">6. Litiges</h2>
+                <h2 id="mediateur" class="font-serif text-2xl text-ink font-normal mb-4">${tr('6. Litiges')}</h2>
                 <p class="text-sm text-muted leading-relaxed font-light">${tr('Le droit libanais est applicable. En cas de litige, une solution amiable sera recherchée en priorité ; à défaut, les tribunaux compétents de Tripoli (Liban) seront seuls saisis.')}</p>
             </section>
 
@@ -81,9 +81,16 @@ export default function mentionsLegales() {
     return {
         path: PATH,
         depth: DEPTH,
-        title: 'Mentions Légales, CGV &amp; Confidentialité | Maison Tripoli',
-        description:
-            "Mentions légales, conditions générales de vente, confidentialité et expéditions de Maison Tripoli, atelier d'ébénisterie et de mobilier d'art à Tripoli.",
+        title: localized({
+            fr: 'Mentions Légales, CGV &amp; Confidentialité | Maison Tripoli',
+            en: 'Legal Notice, Terms of Sale &amp; Privacy | Maison Tripoli',
+            ar: 'المعلومات القانونية وشروط البيع والخصوصية | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: 'Mentions légales, conditions générales de vente, confidentialité et expéditions de Maison Tripoli, atelier d\'ébénisterie et de mobilier d\'art à Tripoli.',
+            en: 'Legal notice, terms of sale, privacy and shipping for Maison Tripoli, a cabinetmaking workshop and art furniture manufactory in Tripoli.',
+            ar: 'المعلومات القانونية وشروط البيع والخصوصية والشحن لدى ميزون طرابلس، ورشة نجارة فنية ومصنع أثاث فني في طرابلس، لبنان. حقوق النشر وحماية البيانات.',
+        }),
         includeQuickView: false,
         body,
         jsonLd: [
@@ -91,10 +98,10 @@ export default function mentionsLegales() {
                 '@type': 'WebPage',
                 '@id': `${site.url}/mentions-legales/#page`,
                 url: `${site.url}/mentions-legales/`,
-                name: 'Mentions légales, conditions de vente et confidentialité',
+                name: tr('Mentions légales, conditions de vente et confidentialité',),
                 description:
-                    "Informations légales de Maison Tripoli : éditeur, propriété intellectuelle, conditions générales de vente, expéditions, protection des données et règlement des litiges.",
-                inLanguage: 'fr-FR',
+                    tr("Informations légales de Maison Tripoli : éditeur, propriété intellectuelle, conditions générales de vente, expéditions, protection des données et règlement des litiges.",),
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 breadcrumb: { '@id': `${site.url}/mentions-legales/#fil` },
             },

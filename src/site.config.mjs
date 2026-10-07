@@ -87,12 +87,17 @@ export const site = {
         { label: 'Expéditions', path: '/mentions-legales/#expeditions' },
     ],
 
-    /** Zones desservies (référencement local + export). */
+    /** Zones desservies (référencement local + export). Noms localisés au
+        rendu par `localized()` : les données structurées décrivent le marché
+        de la page, pas celui de la rédaction. */
     areaServed: [
-        { type: 'Country', name: 'Liban' },
-        { type: 'Country', name: 'France' },
-        { type: 'Country', name: 'Émirats arabes unis' },
-        { type: 'Country', name: 'Arabie saoudite' },
+        { type: 'Country', name: { fr: 'Liban', en: 'Lebanon', ar: 'لبنان' } },
+        { type: 'Country', name: { fr: 'France', en: 'France', ar: 'فرنسا' } },
+        {
+            type: 'Country',
+            name: { fr: 'Émirats arabes unis', en: 'United Arab Emirates', ar: 'الإمارات العربية المتحدة' },
+        },
+        { type: 'Country', name: { fr: 'Arabie saoudite', en: 'Saudi Arabia', ar: 'المملكة العربية السعودية' } },
     ],
 };
 

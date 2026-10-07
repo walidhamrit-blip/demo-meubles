@@ -21,9 +21,7 @@ export const collections = [
             );
         },
         get breadcrumbLabel() {
-            return tr(
-                'Salons &amp; banquettes',
-            );
+            return 'Salons &amp; banquettes';
         },
         get eyebrow() {
             return tr(
@@ -177,9 +175,7 @@ export const collections = [
             );
         },
         get breadcrumbLabel() {
-            return tr(
-                'Salles à manger',
-            );
+            return 'Salles à manger';
         },
         get eyebrow() {
             return tr(
@@ -333,9 +329,7 @@ export const collections = [
             );
         },
         get breadcrumbLabel() {
-            return tr(
-                'Chambres &amp; suites de nuit',
-            );
+            return 'Chambres &amp; suites de nuit';
         },
         get eyebrow() {
             return tr(
@@ -489,9 +483,7 @@ export const collections = [
             );
         },
         get breadcrumbLabel() {
-            return tr(
-                'Rangements, enfilades &amp; bureaux',
-            );
+            return 'Rangements, enfilades &amp; bureaux';
         },
         get eyebrow() {
             return tr(
@@ -645,9 +637,7 @@ export const collections = [
             );
         },
         get breadcrumbLabel() {
-            return tr(
-                "Éclairage &amp; objets d'art",
-            );
+            return "Éclairage &amp; objets d'art";
         },
         get eyebrow() {
             return tr(

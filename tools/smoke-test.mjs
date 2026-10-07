@@ -125,13 +125,16 @@ console.log("\n1. Page d'accueil (index.html)");
     // Recherche instantanée interrogeant tout le catalogue
     click('[data-open-dialog="searchModal"]');
     const input = document.getElementById('searchInput');
-    input.value = 'travertin';
+    // La requête est extraite du catalogue réellement publié : le contrôle
+    // reste valable dans toutes les langues du site.
+    const catalogue = window.__MT_CATALOG__?.products ?? [];
+    input.value = (catalogue[0]?.name ?? '').split(' ')[0] || 'a';
     input.dispatchEvent(new window.Event('input', { bubbles: true }));
     await new Promise((resolve) => setTimeout(resolve, 250));
     check(
-        'recherche globale : plusieurs collections atteintes',
-        document.getElementById('searchResults').querySelectorAll('button').length >= 2,
-        `${document.getElementById('searchResults').querySelectorAll('button').length} résultat(s)`,
+        'recherche globale : le catalogue répond',
+        catalogue.length > 0 && document.getElementById('searchResults').querySelectorAll('button').length >= 1,
+        `${document.getElementById('searchResults').querySelectorAll('button').length} résultat(s) pour « ${input.value} »`,
     );
 
     window.document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
@@ -154,10 +157,12 @@ console.log('\n2. Page de collection (collections/salons/index.html)');
     click('[data-quickview="fauteuil-club-miramar"]');
     const modal = document.getElementById('quickViewModal');
     check('fiche produit ouverte', modal.hidden === false && modal.classList.contains('is-open'));
+    const attendu = window.__MT_CATALOG__?.products.find((item) => item.slug === 'fauteuil-club-miramar')?.name ?? '';
+    const titre = document.getElementById('modalProductTitle').textContent.trim();
     check(
         'fiche produit : contenu exact',
-        document.getElementById('modalProductTitle').textContent.includes('Miramar'),
-        document.getElementById('modalProductTitle').textContent,
+        attendu.length > 0 && titre === attendu,
+        `${titre} (attendu : ${attendu})`,
     );
     check(
         'fiche produit : lien vers la collection',
@@ -185,7 +190,7 @@ console.log('\n2. Page de collection (collections/salons/index.html)');
     check('FAQ dépliable sans JavaScript', faqItems.length === 4, `${faqItems.length} question(s)`);
 
     // Fil d'Ariane
-    check('fil d’Ariane présent', document.querySelector('nav[aria-label*="Ariane"]') !== null);
+    check('fil d’Ariane présent', document.querySelector('nav[data-breadcrumb]') !== null);
 
     window.document.dispatchEvent(new window.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
@@ -340,22 +345,46 @@ console.log('\n5. Thèmes, WhatsApp et rubans');
     );
 
     const brandsTrack = document.querySelector('.marquee-track--brands');
-    const brands = [...brandsTrack.querySelectorAll('.marquee-item')];
-    const services = [...document.querySelectorAll('.marquee-track--services .marquee-item')];
+    const brands = [...brandsTrack.querySelectorAll('.marquee-item:not([data-marquee-clone])')];
+    const services = [...document.querySelectorAll('.marquee-track--services .marquee-item:not([data-marquee-clone])')];
+
+    // Ruban 1 : chaque partenaire est une marque graphique (SVG vectoriel)
+    // dont le nom est porté par l'élément <title> : lisible par les moteurs
+    // et annoncé par les lecteurs d'écran.
+    const logos = brands.map((item) => item.querySelector('svg.marquee-logo'));
     check(
         'ruban 1 : maisons et fournisseurs partenaires',
-        brands.length >= 8 && brands.some((item) => item.textContent.includes('Rubelli')),
-        `${brands.length} mentions`,
+        brands.length >= 8 && logos.every((svg) => svg !== null),
+        `${brands.length} marques`,
     );
     check(
-        'ruban 2 : services de la Maison',
-        services.length >= 8 && services.some((item) => item.textContent.includes('Ébénisterie')),
+        'ruban 1 : chaque marque porte un nom accessible',
+        logos.every((svg) => (svg.querySelector('title')?.textContent ?? '').trim().length > 2),
+        logos.map((svg) => svg?.querySelector('title')?.textContent).join(', ').slice(0, 80),
+    );
+    check(
+        'ruban 1 : aucune étiquette textuelle à côté des marques',
+        brands.every((item) =>
+            [...item.childNodes].every(
+                (node) => node.nodeType !== 3 || node.textContent.trim() === '',
+            ),
+        ),
+    );
+    check(
+        'ruban 2 : services de la Maison (texte réel)',
+        services.length >= 8 && services.some((item) => item.textContent.trim().length > 8),
         `${services.length} mentions`,
     );
+    const doublons = {
+        brands: [...brandsTrack.querySelectorAll('.marquee-item[data-marquee-clone]')],
+        services: [...document.querySelectorAll('.marquee-track--services .marquee-item[data-marquee-clone]')],
+    };
     check(
         'copie de bouclage masquée aux lecteurs d’écran',
-        brands.filter((item) => item.getAttribute('aria-hidden') === 'true').length === brands.length / 2 &&
-            services.filter((item) => item.getAttribute('aria-hidden') === 'true').length === services.length / 2,
+        doublons.brands.length === brands.length &&
+            doublons.services.length === services.length &&
+            [...doublons.brands, ...doublons.services].every((item) => item.getAttribute('aria-hidden') === 'true'),
+        `${doublons.brands.length + doublons.services.length} élément(s) masqué(s)`,
     );
 
     check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
@@ -363,62 +392,46 @@ console.log('\n5. Thèmes, WhatsApp et rubans');
 }
 
 /* ========================================================================
-   6. Sélecteur de langues (FR / EN / AR)
+   6. Sélecteur de langues (AR / EN)
    ======================================================================== */
 console.log('\n6. Sélecteur de langues');
 {
+    // La racine du site est la version arabe : on y contrôle à la fois le
+    // sélecteur, les alternances hreflang et les attributs du document.
     const { document, errors } = await loadPage('index.html');
 
     // L'en-tête contient deux sélecteurs (barre desktop + tiroir mobile) :
     // on contrôle le premier, les deux partagent le même gabarit.
     const switcher = document.querySelector('header .language-switch');
     const links = [...switcher.querySelectorAll('a')];
-    check('trois langues proposées dans l’en-tête', links.length === 3, `${links.length} lien(s)`);
+    check('deux langues proposées dans l’en-tête', links.length === 2, `${links.length} lien(s)`);
 
     const codes = links.map((link) => link.getAttribute('hreflang'));
-    check(
-        'chaque lien annonce sa langue (hreflang)',
-        ['fr', 'en', 'ar'].every((code) => codes.includes(code)),
-        codes.join(', '),
-    );
+    check('chaque lien annonce sa langue (hreflang)', ['ar', 'en'].every((code) => codes.includes(code)), codes.join(', '));
 
     const arabic = links.find((link) => link.getAttribute('hreflang') === 'ar');
-    check(
-        'le lien arabe mène à la version /ar/',
-        arabic?.getAttribute('href') === 'ar/',
-        arabic?.getAttribute('href'),
-    );
-    check('le lien arabe est annoté lang="ar"', arabic?.getAttribute('lang') === 'ar');
+    const english = links.find((link) => link.getAttribute('hreflang') === 'en');
+    check('le lien anglais mène à la version /en/', english?.getAttribute('href') === 'en/', english?.getAttribute('href'));
+    check('le lien arabe reste sur la racine', arabic?.getAttribute('href') === './' || arabic?.getAttribute('href') === '', arabic?.getAttribute('href'));
+    check('le lien anglais est annoté lang="en"', english?.getAttribute('lang') === 'en');
 
-    const alternates = [...document.querySelectorAll('link[rel="alternate"]')].map((link) =>
-        link.getAttribute('hreflang'),
-    );
+    const alternates = [...document.querySelectorAll('link[rel="alternate"]')].map((link) => link.getAttribute('hreflang'));
     check(
         'hreflang réciproques + x-default sur la page d’accueil',
-        ['fr', 'en', 'ar', 'x-default'].every((code) => alternates.includes(code)),
+        ['ar', 'en', 'x-default'].every((code) => alternates.includes(code)),
         alternates.join(', '),
     );
 
     const current = links.find((link) => link.getAttribute('aria-current') === 'true');
-    check('la langue courante est signalée', current?.getAttribute('hreflang') === 'fr', current?.getAttribute('hreflang'));
+    check('la langue courante est signalée', current?.getAttribute('hreflang') === 'ar', current?.getAttribute('hreflang'));
 
-    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
-    jsErrors += errors.length;
-}
-
-{
-    // Version arabe : sens de lecture et langue déclarés au niveau du document.
-    const { document, errors } = await loadPage('ar/index.html');
+    // Page arabe servie à la racine : sens de lecture et langue déclarés.
     const root = document.documentElement;
     check('page arabe : lang="ar"', root.getAttribute('lang') === 'ar', root.getAttribute('lang'));
     check('page arabe : dir="rtl"', root.getAttribute('dir') === 'rtl', root.getAttribute('dir'));
 
     const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
-    check(
-        'canonical auto-référent de la version arabe',
-        canonical === 'https://www.maisontripoli.com/ar/',
-        canonical,
-    );
+    check('canonical auto-référent de la version arabe', canonical === 'https://www.maisontripoli.com/', canonical);
 
     const options = [...document.querySelectorAll('header [data-theme-set]')];
     check('sélecteur de thème également présent en arabe', options.length >= 3, `${options.length} pastille(s)`);
@@ -428,10 +441,32 @@ console.log('\n6. Sélecteur de langues');
 }
 
 {
-    // Page anglaise : contenu réellement traduit, liens internes conservés.
+    // Version anglaise : document, canonical et contenu réellement traduits.
+    const { document, errors } = await loadPage('en/index.html');
+    const root = document.documentElement;
+    check('page anglaise : lang="en"', root.getAttribute('lang') === 'en', root.getAttribute('lang'));
+    check('page anglaise : dir="ltr"', root.getAttribute('dir') === 'ltr', root.getAttribute('dir'));
+
+    const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
+    check('canonical auto-référent de la version anglaise', canonical === 'https://www.maisontripoli.com/en/', canonical);
+
+    const heading = document.querySelector('h1')?.textContent?.trim() ?? '';
+    check('page anglaise : titre de niveau 1 en anglais', /Bespoke|furniture/i.test(heading) && !/mobilier/i.test(heading), heading.slice(0, 60));
+
+    const current = [...document.querySelectorAll('header .language-switch a')].find(
+        (link) => link.getAttribute('aria-current') === 'true',
+    );
+    check('la langue courante est signalée en anglais', current?.getAttribute('hreflang') === 'en', current?.getAttribute('hreflang'));
+
+    check('aucune erreur JavaScript', errors.length === 0, errors.join(' | '));
+    jsErrors += errors.length;
+}
+
+{
+    // Page anglaise de collection : liens internes relatifs conservés.
     const { document, errors } = await loadPage('en/collections/index.html');
     const heading = document.querySelector('h1')?.textContent?.trim() ?? '';
-    check('page anglaise : titre de niveau 1 traduit', /Collections/i.test(heading), heading.slice(0, 60));
+    check('page anglaise : titre de niveau 1 traduit', /collections/i.test(heading), heading.slice(0, 60));
 
     const internal = [...document.querySelectorAll('main a[href]')].map((a) => a.getAttribute('href'));
     check(

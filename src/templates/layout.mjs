@@ -66,7 +66,7 @@ ${renderAlternates(path)}
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Salon habillé par Maison Tripoli : mobilier d'art en noyer massif et lin écru">
+    <meta property="og:image:alt" content="${tr('Salon habillé par Maison Tripoli : mobilier d’art en noyer massif et lin écru')}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${title}">
     <meta name="twitter:description" content="${description}">
@@ -606,7 +606,7 @@ ${renderHead({ title, description, path, depth, robots, ogType, preload, jsonLd 
        target="_blank"
        rel="noopener noreferrer"
        title="${tr('Écrire à l’atelier sur WhatsApp')}"
-       aria-label="Écrire à l’atelier sur WhatsApp — ${site.contact.mobile}">
+       aria-label="${tr('Écrire à l’atelier sur WhatsApp')} — ${site.contact.mobile}">
         ${icon('whatsapp', 'icon w-6 h-6')}
         <span class="hidden sm:inline text-[11px] uppercase tracking-[0.18em] font-semibold">${tr('WhatsApp')}</span>
     </a>

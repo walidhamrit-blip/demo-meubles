@@ -115,8 +115,8 @@ export function breadcrumbs(items, depth) {
         .map((item, index) => {
             const isLast = index === items.length - 1;
             const content = isLast
-                ? `<span aria-current="page" class="${index === 0 ? 'text-ink-strong' : 'text-ink-strong'}">${item.label}</span>`
-                : `<a href="${href(item.path, { depth })}" class="hover:text-accent-ink transition">${item.label}</a>`;
+                ? `<span aria-current="page" class="${index === 0 ? 'text-ink-strong' : 'text-ink-strong'}">${tr(item.label)}</span>`
+                : `<a href="${href(item.path, { depth })}" class="hover:text-accent-ink transition">${tr(item.label)}</a>`;
 
             return `<li class="flex items-center gap-2">
                     ${index > 0 ? '<span aria-hidden="true" class="text-on-inverse-faint">/</span>' : ''}
@@ -139,7 +139,7 @@ export function breadcrumbSchema(items) {
         itemListElement: items.map((item, index) => ({
             '@type': 'ListItem',
             position: index + 1,
-            name: item.label,
+            name: tr(item.label),
             ...(item.path ? { item: `${site.url}${item.path}` } : {}),
         })),
     };

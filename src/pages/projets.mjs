@@ -11,7 +11,7 @@ import {
 } from '../lib/paths.mjs';
 import { site } from '../site.config.mjs';
 import { collectionBySlug } from '../content/collections.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -24,72 +24,72 @@ import {
 import { ctaBand } from '../templates/sections.mjs';
 
 const PATH = '/projets/';
-const projects = [
+const projects = () => [
     {
-        name: 'Penthouse Sursock',
-        location: 'Beyrouth / Achrafieh — Liban',
+        name: tr('Penthouse Sursock'),
+        location: tr('Beyrouth / Achrafieh — Liban'),
         year: '2023',
         collection: 'salons',
-        scope: 'Salon de réception complet',
+        scope: tr('Salon de réception complet'),
         description:
-            "Un appartement de réception en hauteur : canapé modulaire composé en noyer foncé, banquette filante sous les fenêtres et suspension en laiton martelé. Le mobilier reprend la teinte des menuiseries existantes pour ne pas rompre l'unité du volume.",
+            tr("Un appartement de réception en hauteur : canapé modulaire composé en noyer foncé, banquette filante sous les fenêtres et suspension en laiton martelé. Le mobilier reprend la teinte des menuiseries existantes pour ne pas rompre l'unité du volume."),
         src: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0',
-        alt: 'Salon du Penthouse Sursock à Beyrouth équipé par Maison Tripoli : canapé en noyer massif et velours grège',
+        alt: tr('Salon du Penthouse Sursock à Beyrouth équipé par Maison Tripoli : canapé en noyer massif et velours grège'),
     },
     {
-        name: 'Villa Al-Bahr',
-        location: 'Tripoli littoral — Liban',
+        name: tr('Villa Al-Bahr'),
+        location: tr('Tripoli littoral — Liban'),
         year: '2024',
         collection: 'salles-a-manger',
-        scope: 'Salle à manger &amp; terrasse',
+        scope: tr('Salle à manger &amp; terrasse'),
         description:
-            "Résidence balnéaire pensée pour les repas d'été : table de réception en chêne blanchi traitée contre les embruns, chaises en cuir sellier et banc filant. Les plateaux ont été dimensionnés pour quatorze convives, en vérifiant les passages de service.",
+            tr("Résidence balnéaire pensée pour les repas d'été : table de réception en chêne blanchi traitée contre les embruns, chaises en cuir sellier et banc filant. Les plateaux ont été dimensionnés pour quatorze convives, en vérifiant les passages de service."),
         src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace',
-        alt: 'Salle à manger de la Villa Al-Bahr à Tripoli : table en chêne blanchi et chaises en cuir sellier cousues main',
+        alt: tr('Salle à manger de la Villa Al-Bahr à Tripoli : table en chêne blanchi et chaises en cuir sellier cousues main'),
     },
     {
-        name: 'Private Estate',
-        location: 'Dubaï Hills — Émirats arabes unis',
+        name: tr('Private Estate'),
+        location: tr('Dubaï Hills — Émirats arabes unis'),
         year: '2024',
         collection: 'chambres',
-        scope: 'Suite présidentielle &amp; boiseries',
+        scope: tr('Suite présidentielle &amp; boiseries'),
         description:
-            "Suite principale livrée clé en main : boiseries murales toute hauteur en chêne fumé, tête de lit capitonnée aux cotes de la pièce et chevets suspendus en laiton brossé. Fabrication à Tripoli, pose sous gants blancs par nos équipes.",
+            tr("Suite principale livrée clé en main : boiseries murales toute hauteur en chêne fumé, tête de lit capitonnée aux cotes de la pièce et chevets suspendus en laiton brossé. Fabrication à Tripoli, pose sous gants blancs par nos équipes."),
         src: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c',
-        alt: 'Chambre principale d’une résidence privée à Dubaï : boiseries intégrées et suite présidentielle en chêne fumé',
+        alt: tr('Chambre principale d’une résidence privée à Dubaï : boiseries intégrées et suite présidentielle en chêne fumé'),
     },
     {
         name: 'Appartement Monnot',
-        location: 'Beyrouth — Liban',
+        location: tr('Beyrouth — Liban'),
         year: '2022',
         collection: 'rangements',
-        scope: 'Enfilade &amp; bibliothèque',
+        scope: tr('Enfilade &amp; bibliothèque'),
         description:
-            "Décloisonnement d'une entrée étroite par une enfilade cannelée en noyer, dont le plateau en marbre noir Marquina prolonge la table de réception. Une bibliothèque toute hauteur a été ajoutée pour masquer une gaine technique.",
+            tr("Décloisonnement d'une entrée étroite par une enfilade cannelée en noyer, dont le plateau en marbre noir Marquina prolonge la table de réception. Une bibliothèque toute hauteur a été ajoutée pour masquer une gaine technique."),
         src: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88',
-        alt: 'Enfilade cannelée en noyer et bibliothèque toute hauteur installées dans un appartement de Beyrouth',
+        alt: tr('Enfilade cannelée en noyer et bibliothèque toute hauteur installées dans un appartement de Beyrouth'),
     },
     {
         name: 'Restaurant Beit El-Mina',
-        location: 'Tripoli — Liban',
+        location: tr('Tripoli — Liban'),
         year: '2023',
         collection: 'eclairage-objets',
-        scope: 'Éclairage &amp; mobilier de salle',
+        scope: tr('Éclairage &amp; mobilier de salle'),
         description:
-            "Quarante-deux suspensions en laiton massif martelé, patinées pour résister à l'air marin, et tables en chêne massif protégées par une finition déperlante. Un chantier livré par lots numérotés, posé en deux nuits sans fermeture de l'établissement.",
+            tr("Quarante-deux suspensions en laiton massif martelé, patinées pour résister à l'air marin, et tables en chêne massif protégées par une finition déperlante. Un chantier livré par lots numérotés, posé en deux nuits sans fermeture de l'établissement."),
         src: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38',
-        alt: 'Suspensions en laiton massif martelé et tables en chêne réalisées pour la salle du restaurant Beit El-Mina à Tripoli',
+        alt: tr('Suspensions en laiton massif martelé et tables en chêne réalisées pour la salle du restaurant Beit El-Mina à Tripoli'),
     },
     {
         name: 'Chalet Faraya',
-        location: 'Mont-Liban — Liban',
+        location: tr('Mont-Liban — Liban'),
         year: '2025',
         collection: 'chambres',
-        scope: 'Chambres &amp; boiseries de sous-comble',
+        scope: tr('Chambres &amp; boiseries de sous-comble'),
         description:
-            "Un chalet d'altitude aux plafonds en pente, aménagé avec des boiseries ajustées aux rampants et deux lits dont les têtes ont été dessinées à la cote. Le chêne fumé a été choisi pour sa tenue face aux variations d'humidité.",
+            tr("Un chalet d'altitude aux plafonds en pente, aménagé avec des boiseries ajustées aux rampants et deux lits dont les têtes ont été dessinées à la cote. Le chêne fumé a été choisi pour sa tenue face aux variations d'humidité."),
         src: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85',
-        alt: 'Chambre de chalet aménagée par Maison Tripoli avec boiseries de sous-comble et tête de lit en chêne fumé',
+        alt: tr('Chambre de chalet aménagée par Maison Tripoli avec boiseries de sous-comble et tête de lit en chêne fumé'),
     },
 ];
 
@@ -112,7 +112,7 @@ export default function projets() {
         <section class="pb-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="residences-title">
             <h2 id="residences-title" class="sr-only">${tr('Liste des résidences et chantiers livrés')}</h2>
             <div class="space-y-16">
-                ${projects
+                ${projects()
                     .map(
                         (project, index) => {
                             const collection = collectionBySlug(project.collection);
@@ -156,7 +156,7 @@ export default function projets() {
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
                     eyebrow: 'Chantier',
-                    title: 'Ce que nous prenons en charge',
+                                        title: tr('Ce que nous prenons en charge'),
                     id: 'chantier-title',
                     align: 'center',
                 })}
@@ -180,19 +180,26 @@ export default function projets() {
         ctaBand({
             depth: DEPTH,
             eyebrow: 'Votre projet',
-            title: 'Parlons de la résidence que vous aménagez',
-            text: "Partagez-nous vos plans ou vos inspirations : nous vous indiquons ce que nous pouvons fabriquer, dans quels délais et à quel ordre de budget.",
+            title: tr('Parlons de la résidence que vous aménagez'),
+            text: tr("Partagez-nous vos plans ou vos inspirations : nous vous indiquons ce que nous pouvons fabriquer, dans quels délais et à quel ordre de budget."),
             primary: { label: tr('Réserver une visite privée'), dialogId: 'consultationModal' },
-            secondary: { label: 'Écrire à la Maison', path: '/contact/' },
+            secondary: { label: tr('Écrire à la Maison'), path: '/contact/' },
         }),
     ].join('\n\n        ');
 
     return {
         path: PATH,
         depth: DEPTH,
-        title: 'Demeures Réalisées &amp; Projets In Situ | Maison Tripoli',
-        description:
-            "Six chantiers livrés par nos ateliers : penthouse à Beyrouth, villa à Tripoli, suite à Dubaï, restaurant du vieux port. Pièces fabriquées et matières.",
+        title: localized({
+            fr: "Demeures Réalisées &amp; Projets In Situ | Maison Tripoli",
+            en: 'Completed Homes &amp; In-Situ Projects | Maison Tripoli',
+            ar: 'منازل منفَّذة ومشاريع أثاث في الموقع | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: 'Six chantiers livrés par nos ateliers : penthouse à Beyrouth, villa à Tripoli, suite à Dubaï, restaurant du vieux port. Pièces fabriquées et matières.',
+            en: 'Six projects delivered by our workshops: a Beirut penthouse, a Tripoli villa, a Dubai suite and an old-port restaurant. Pieces made and materials used.',
+            ar: 'ستة مشاريع سلّمتها ورشاتنا: بنتهاوس في بيروت، وفيلا في طرابلس، وجناح في دبي، ومطعم في المرفأ القديم. القطع المصنوعة والمواد المستخدمة.',
+        }),
         includeQuickView: false,
         body,
         jsonLd: [
@@ -200,17 +207,17 @@ export default function projets() {
                 '@type': 'CollectionPage',
                 '@id': `${site.url}/projets/#page`,
                 url: `${site.url}/projets/`,
-                name: 'Demeures réalisées — projets de mobilier in situ',
+                name: tr('Demeures réalisées — projets de mobilier in situ'),
                 description:
-                    "Sélection de résidences et chantiers équipés par Maison Tripoli au Liban et au Moyen-Orient, avec le détail des pièces fabriquées par collection.",
-                inLanguage: 'fr-FR',
+                    tr("Sélection de résidences et chantiers équipés par Maison Tripoli au Liban et au Moyen-Orient, avec le détail des pièces fabriquées par collection.",),
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 about: { '@id': STORE_ID },
                 breadcrumb: { '@id': `${site.url}/projets/#fil` },
                 mainEntity: {
                     '@type': 'ItemList',
-                    numberOfItems: projects.length,
-                    itemListElement: projects.map((project, index) => ({
+                    numberOfItems: projects().length,
+                    itemListElement: projects().map((project, index) => ({
                         '@type': 'ListItem',
                         position: index + 1,
                         item: {

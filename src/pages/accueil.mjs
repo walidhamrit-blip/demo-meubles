@@ -14,7 +14,7 @@ import {
 import { site } from '../site.config.mjs';
 import { collections } from '../content/collections.mjs';
 import { heroImage, collectionImages, editorialImages, projectImages } from '../content/imagery.mjs';
-import { tr, localized } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -258,7 +258,7 @@ export default function accueil() {
                 '@id': `${site.url}/#site`,
                 url: `${site.url}/`,
                 name: site.name,
-                inLanguage: 'fr-FR',
+                inLanguage: inLanguage(),
                 publisher: { '@id': `${site.url}/#boutique` },
             },
             {

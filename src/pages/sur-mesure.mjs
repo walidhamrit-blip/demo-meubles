@@ -13,7 +13,7 @@ import {
 import { site } from '../site.config.mjs';
 import { editorialImages } from '../content/imagery.mjs';
 import { collections } from '../content/collections.mjs';
-import { tr } from '../content/i18n.mjs';
+import { tr, localized, inLanguage } from '../content/i18n.mjs';
 import {
     icon,
     responsiveImage,
@@ -28,50 +28,50 @@ import {
 import { editorialSection, ctaBand } from '../templates/sections.mjs';
 
 const PATH = '/sur-mesure/';
-const methodology = [
+const methodology = () => [
     {
-        title: 'Cadrage &amp; relevé',
-        text: "Nous partons de votre plan, de vos inspirations et de vos contraintes d'usage. Au Liban, un relevé de cotes est réalisé sur place ; à l'étranger, nous travaillons sur plans vérifiés avec votre architecte.",
-        duration: '3 à 5 jours',
+                title: tr('Cadrage &amp; relevé'),
+        text: tr("Nous partons de votre plan, de vos inspirations et de vos contraintes d'usage. Au Liban, un relevé de cotes est réalisé sur place ; à l'étranger, nous travaillons sur plans vérifiés avec votre architecte."),
+        duration: tr('3 à 5 jours'),
     },
     {
         title: 'Dessins &amp; calepinage',
-        text: "Élévations cotées, plans d'implantation, calepinage des pierres et des bois. Chaque détail d'exécution est arrêté avant le lancement en atelier : c'est la garantie d'un chantier sans improvisation.",
-        duration: '1 à 2 semaines',
+        text: tr("Élévations cotées, plans d'implantation, calepinage des pierres et des bois. Chaque détail d'exécution est arrêté avant le lancement en atelier : c'est la garantie d'un chantier sans improvisation."),
+        duration: tr('1 à 2 semaines'),
     },
     {
         title: 'Prototypes de teinte',
-        text: "Un panneau témoin de 30 cm est réalisé dans l'essence et la finition retenues, puis validé par vous ou votre client. Pour les pièces d'apparat, un prototype à échelle 1 est possible.",
+        text: tr("Un panneau témoin de 30 cm est réalisé dans l'essence et la finition retenues, puis validé par vous ou votre client. Pour les pièces d'apparat, un prototype à échelle 1 est possible."),
         duration: '1 semaine',
     },
     {
-        title: 'Fabrication en atelier',
-        text: "Débit, assemblage, garnissage, finition : chaque corps de métier intervient dans l'atelier de Tripoli. Un point d'avancement photographique vous est transmis à mi-parcours.",
-        duration: '4 à 14 semaines',
+        title: tr('Cadrage &amp; relevé'),
+        text: tr("Débit, assemblage, garnissage, finition : chaque corps de métier intervient dans l'atelier de Tripoli. Un point d'avancement photographique vous est transmis à mi-parcours."),
+        duration: tr('4 à 14 semaines'),
     },
     {
-        title: 'Livraison &amp; pose',
-        text: "Emballage en caisse bois, livraison sous gants blancs et installation par nos artisans. Les réglages de portes, tiroirs et niveaux sont finalisés sur place, une semaine après la mise en place.",
-        duration: '1 à 3 jours',
+        title: tr('Livraison &amp; pose'),
+        text: tr("Emballage en caisse bois, livraison sous gants blancs et installation par nos artisans. Les réglages de portes, tiroirs et niveaux sont finalisés sur place, une semaine après la mise en place."),
+        duration: tr('1 à 3 jours'),
     },
 ];
 
-const faq = [
+const faq = () => [
     {
-        q: 'Travaillez-vous avec les architectes d’intérieur et les décorateurs ?',
-        a: "Oui, c'est une part importante de notre activité. Nous fournissons les fichiers techniques, les nomenclatures matières, les échantillons et les fiches de conformité nécessaires à la présentation au maître d'ouvrage, et nous nous coordonnons directement avec les autres corps d'état.",
+        q: tr('Travaillez-vous avec les architectes d’intérieur et les décorateurs ?'),
+        a: tr("Oui, c'est une part importante de notre activité. Nous fournissons les fichiers techniques, les nomenclatures matières, les échantillons et les fiches de conformité nécessaires à la présentation au maître d'ouvrage, et nous nous coordonnons directement avec les autres corps d'état."),
     },
     {
-        q: 'Quel est le budget d’un projet sur-mesure complet ?',
-        a: "Un projet intégral — boiseries, mobilier, pierre et éclairage — se situe généralement entre 45 000 et 250 000 dollars selon la surface et les matières. Une pièce isolée sur-mesure (table, enfilade, tête de lit) démarre autour de 1 500 dollars. Nous fournissons une estimation de cadrage dès le premier échange.",
+        q: tr('Quel est le budget d’un projet sur-mesure complet ?'),
+        a: tr("Un projet intégral — boiseries, mobilier, pierre et éclairage — se situe généralement entre 45 000 et 250 000 dollars selon la surface et les matières. Une pièce isolée sur-mesure (table, enfilade, tête de lit) démarre autour de 1 500 dollars. Nous fournissons une estimation de cadrage dès le premier échange."),
     },
     {
-        q: 'Intervenez-vous en dehors du Liban ?',
-        a: "Oui. Nous livrons et posons en Europe, dans le Golfe et en Afrique du Nord. Les projets lointains sont encadrés par un chef de projet dédié, des points hebdomadaires en visioconférence et une supervision de pose sur site pour les chantiers les plus importants.",
+        q: tr('Intervenez-vous en dehors du Liban ?'),
+        a: tr("Oui. Nous livrons et posons en Europe, dans le Golfe et en Afrique du Nord. Les projets lointains sont encadrés par un chef de projet dédié, des points hebdomadaires en visioconférence et une supervision de pose sur site pour les chantiers les plus importants."),
     },
     {
-        q: 'Comment se passe le règlement d’un projet sur-mesure ?',
-        a: "Un acompte de 40 % valide le lancement de la fabrication après acceptation des plans, 40 % sont versés à mi-parcours et le solde à la livraison, avant pose finale. Les paiements s'effectuent par virement bancaire, en dollars, euros ou livres libanaises.",
+        q: tr('Comment se passe le règlement d’un projet sur-mesure ?'),
+        a: tr("Un acompte de 40 % valide le lancement de la fabrication après acceptation des plans, 40 % sont versés à mi-parcours et le solde à la livraison, avant pose finale. Les paiements s'effectuent par virement bancaire, en dollars, euros ou livres libanaises."),
     },
 ];
 
@@ -136,13 +136,13 @@ export default function surMesure() {
         `<section id="methode" class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="methode-title">
             <div class="max-w-7xl mx-auto">
                 ${sectionHeading({
-                    eyebrow: 'Méthode',
-                    title: 'Un projet sur-mesure en cinq étapes',
+                    eyebrow: tr('Méthode'),
+                    title: tr('Un projet sur-mesure en cinq étapes'),
                     id: 'methode-title',
                     align: 'center',
                 })}
                 <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mt-16">
-                    ${methodology
+                    ${methodology()
                         .map(
                             (step, index) => `<li class="flex flex-col gap-4">
                         <span class="inline-flex w-11 h-11 items-center justify-center border border-accent font-serif text-accent-ink" aria-hidden="true">${index + 1}</span>
@@ -160,17 +160,17 @@ export default function surMesure() {
         editorialSection(
             {
                 id: 'architectes',
-                eyebrow: 'Espace professionnels',
-                heading: "Un partenaire de fabrication pour les architectes",
+                eyebrow: tr('Espace professionnels'),
+                heading: tr("Un partenaire de fabrication pour les architectes"),
                 paragraphs: [
-                    "Nous intervenons en tant que fabricant pour les agences d'architecture d'intérieur, les décorateurs et les promoteurs : nous ne concurrentons pas la conception, nous l'exécutons avec la précision d'un atelier.",
-                    "Vous recevez les fichiers DWG et PDF cotés, les nomenclatures matière, les échantillons physiques pour vos présentations et les fiches techniques nécessaires aux appels d'offres. Un chef de projet unique suit votre dossier du premier plan à la réception du chantier.",
+                    tr("Nous intervenons en tant que fabricant pour les agences d'architecture d'intérieur, les décorateurs et les promoteurs : nous ne concurrentons pas la conception, nous l'exécutons avec la précision d'un atelier."),
+                    tr("Vous recevez les fichiers DWG et PDF cotés, les nomenclatures matière, les échantillons physiques pour vos présentations et les fiches techniques nécessaires aux appels d'offres. Un chef de projet unique suit votre dossier du premier plan à la réception du chantier."),
                 ],
                 specs: [
-                    { label: 'Livrables', value: 'Plans DWG / PDF, nomenclatures, échantillons' },
-                    { label: 'Séries', value: 'Pièces uniques ou séries numérotées' },
-                    { label: 'Chantiers', value: 'Résidentiel, hôtellerie, bureaux, retail' },
-                    { label: 'Coordination', value: 'Chef de projet dédié, points hebdomadaires' },
+                    { label: 'Livrables', value: tr('Plans DWG / PDF, nomenclatures, échantillons') },
+                    { label: 'Séries', value: tr('Pièces uniques ou séries numérotées') },
+                    { label: 'Chantiers', value: tr('Résidentiel, hôtellerie, bureaux, retail') },
+                    { label: 'Coordination', value: tr('Chef de projet dédié, points hebdomadaires') },
                 ],
             },
             { depth: DEPTH, tone: 'dark' },
@@ -180,7 +180,7 @@ export default function surMesure() {
         `<section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="typologies-title">
             ${sectionHeading({
                 eyebrow: 'Typologies',
-                title: 'Les projets que nous équipons',
+                title: tr('Les projets que nous équipons'),
                 id: 'typologies-title',
                 align: 'center',
             })}
@@ -208,13 +208,13 @@ export default function surMesure() {
         `<section class="py-24 bg-surface-2 border-y border-line px-6 lg:px-12" aria-labelledby="faq-surmesure-title">
             <div class="max-w-4xl mx-auto">
                 ${sectionHeading({
-                    eyebrow: 'Questions fréquentes',
-                    title: 'Projets, délais et conditions',
+                    eyebrow: tr('Questions fréquentes'),
+                    title: tr('Projets, délais et conditions'),
                     id: 'faq-surmesure-title',
                     align: 'center',
                 })}
                 <div class="mt-14">
-                    ${faqBlock(faq)}
+                    ${faqBlock(faq())}
                 </div>
             </div>
         </section>`,
@@ -222,8 +222,8 @@ export default function surMesure() {
         /* ----------------------------------------------------- Renvoi collections */
         `<section class="py-20 px-6 lg:px-12 max-w-7xl mx-auto" aria-labelledby="surmesure-collections">
             ${sectionHeading({
-                eyebrow: 'Compléter un projet',
-                title: 'Parcourir le catalogue',
+                eyebrow: tr('Compléter un projet'),
+                title: tr('Parcourir le catalogue'),
                 id: 'surmesure-collections',
                 align: 'center',
             })}
@@ -243,29 +243,36 @@ export default function surMesure() {
         ctaBand({
             depth: DEPTH,
             eyebrow: 'Lancer un projet',
-            title: 'Exposez-nous votre projet, nous chiffrons sous 48 heures',
-            text: "Plans, inspirations, photomontages ou simple description : notre bureau d'études vous répond avec une première estimation et un calendrier de fabrication réaliste.",
-            primary: { label: 'Prendre rendez-vous', dialogId: 'consultationModal' },
-            secondary: { label: 'Nous écrire', path: '/contact/' },
+            title: tr('Exposez-nous votre projet, nous chiffrons sous 48 heures'),
+            text: tr("Plans, inspirations, photomontages ou simple description : notre bureau d'études vous répond avec une première estimation et un calendrier de fabrication réaliste."),
+            primary: { label: tr('Prendre rendez-vous'), dialogId: 'consultationModal' },
+            secondary: { label: tr('Nous écrire'), path: '/contact/' },
         }),
     ].join('\n\n        ');
 
     return {
         path: PATH,
         depth: DEPTH,
-        title: 'Mobilier Sur-Mesure pour Architectes | Maison Tripoli',
-        description:
-            "Mobilier, boiseries et agencement sur mesure à Tripoli : plans cotés, prototypes de teinte, fabrication en atelier et pose sous gants blancs. Devis sous 48 heures.",
+        title: localized({
+            fr: 'Mobilier Sur-Mesure pour Architectes | Maison Tripoli',
+            en: 'Bespoke Furniture for Architects | Maison Tripoli',
+            ar: 'أثاث حسب الطلب للمهندسين والمصمّمين | ميزون طرابلس',
+        }),
+        description: localized({
+            fr: 'Mobilier, boiseries et agencement sur mesure à Tripoli : plans cotés, prototypes de teinte, fabrication en atelier et pose sous gants blancs. Devis sous 48 heures.',
+            en: 'Bespoke furniture, woodwork and fit-out in Tripoli: dimensioned drawings, colour prototypes, workshop production and white-glove installation. Quote in 48 hours.',
+            ar: 'أثاث وخشبيات وتجهيز حسب الطلب في طرابلس: مخططات بمقاسات، ونماذج ألوان، وتصنيع في الورشة، وتركيب بقفازات بيضاء. عرض سعر خلال ٤٨ ساعة.',
+        }),
         includeQuickView: false,
         body,
         jsonLd: [
             {
                 '@type': 'Service',
                 '@id': `${site.url}/sur-mesure/#service`,
-                name: "Mobilier et agencement sur-mesure",
-                serviceType: "Fabrication de mobilier d'art sur mesure",
+                name: tr("Mobilier et agencement sur-mesure",),
+                serviceType: tr("Fabrication de mobilier d'art sur mesure",),
                 description:
-                    "Conception, fabrication et pose de mobilier et boiseries sur mesure : plans d'exécution, prototypes de teinte, fabrication en atelier de Tripoli et installation sur chantier.",
+                    tr("Conception, fabrication et pose de mobilier et boiseries sur mesure : plans d'exécution, prototypes de teinte, fabrication en atelier de Tripoli et installation sur chantier.",),
                 provider: { '@id': STORE_ID },
                 areaServed: site.areaServed.map((area) => ({ '@type': area.type, name: area.name })),
                 availableChannel: {
@@ -275,11 +282,11 @@ export default function surMesure() {
                 },
                 hasOfferCatalog: {
                     '@type': 'OfferCatalog',
-                    name: 'Prestations sur-mesure',
+                    name: tr('Prestations sur-mesure',),
                     itemListElement: [
-                        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: "Mobilier sur mesure (salons, tables, chambres, rangements)" } },
-                        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: "Boiseries murales et agencement intégré" } },
-                        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: "Livraison internationale et pose sous gants blancs" } },
+                        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: tr("Mobilier sur mesure (salons, tables, chambres, rangements)") }, },
+                        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: tr("Boiseries murales et agencement intégré") }, },
+                        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: tr("Livraison internationale et pose sous gants blancs") }, },
                     ],
                 },
             },
@@ -287,8 +294,8 @@ export default function surMesure() {
                 '@type': 'WebPage',
                 '@id': `${site.url}/sur-mesure/#page`,
                 url: `${site.url}/sur-mesure/`,
-                name: 'Mobilier sur-mesure pour architectes et projets privés',
-                inLanguage: 'fr-FR',
+                name: tr('Mobilier sur-mesure pour architectes et projets privés',),
+                inLanguage: inLanguage(),
                 isPartOf: { '@id': `${site.url}/#site` },
                 breadcrumb: { '@id': `${site.url}/sur-mesure/#fil` },
                 mainEntity: { '@id': `${site.url}/sur-mesure/#service` },
@@ -297,7 +304,7 @@ export default function surMesure() {
                 ...breadcrumbSchema([{ label: 'Accueil', path: '/' }, { label: 'Sur-mesure', path: PATH }]),
                 '@id': `${site.url}/sur-mesure/#fil`,
             },
-            { ...faqSchema(faq), '@id': `${site.url}/sur-mesure/#faq` },
+            { ...faqSchema(faq()), '@id': `${site.url}/sur-mesure/#faq` },
             storeSchema(),
         ],
     };
