@@ -59,7 +59,11 @@
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap">
+    </noscript>
     <link rel="preload" as="image"
           href="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=1600&amp;q=78"
           imagesrcset="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=800&amp;q=72 800w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=1200&amp;q=72 1200w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=1600&amp;q=75 1600w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=2000&amp;q=75 2000w"
@@ -531,7 +535,7 @@
     </header>
 
     <main id="main" class="flex-1">
-<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center bg-inverse overflow-hidden" aria-labelledby="hero-title">
+<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-end bg-inverse overflow-hidden" aria-labelledby="hero-title">
             <div class="absolute inset-0 z-0">
                 <img
                      src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&amp;fit=crop&amp;w=2000&amp;q=75"
@@ -541,23 +545,29 @@
                      height="1125"
                      fetchpriority="high" decoding="async"
                      alt="Contemporary living room by Maison Tripoli: solid-walnut sofa in ecru linen, art cabinetmaking in Tripoli"
-                     class="w-full h-full object-cover object-center opacity-70 filter brightness-[0.88] scale-105">
-                <div class="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/40 to-black/30" aria-hidden="true"></div>
+                     class="hero-zoom w-full h-full object-cover object-center opacity-70 filter brightness-[0.88]">
+                <div class="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/50 to-black/30" aria-hidden="true"></div>
             </div>
 
-            <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-on-inverse py-20">
-                <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-on-inverse-muted mb-4 border-b border-line-strong/40 pb-2">The great Lebanese craft tradition</p>
-                <h1 id="hero-title" class="font-serif text-3xl sm:text-6xl md:text-7xl font-light tracking-wide leading-[1.1] mb-6">Art Furniture &amp; Fine Cabinetmaking<br>
-                    <span class="italic font-normal">Carved in Tripoli since 1948</span>
-                </h1>
-                <p class="max-w-xl mx-auto text-sm sm:text-base text-on-inverse-muted/90 font-light leading-relaxed mb-10 tracking-wide">For over seventy years our master cabinetmakers have combined Levantine marble, solid walnut and exceptional velvets to furnish the most refined residences.</p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="../en/collections/" class="inline-flex items-center justify-center gap-3 px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 bg-paper text-on-paper hover:bg-accent hover:text-on-accent shadow-sm ">Discover the collections</a>
-                    <a href="../en/contact/" class="inline-flex items-center justify-center gap-3 px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 border border-on-inverse/30 text-on-inverse hover:bg-white/10 backdrop-blur-sm ">Visit the showroom</a>
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-20 lg:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+                <div class="lg:col-span-7">
+                    <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-on-inverse-muted mb-5 border-b border-line-strong/40 pb-2">The great Lebanese craft tradition</p>
+                    <h1 id="hero-title" class="hero-title font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-wide leading-[1.12] text-on-inverse">Art Furniture &amp; Fine Cabinetmaking<span class="hero-subline block italic font-normal">Carved in Tripoli since 1948</span>
+                    </h1>
+                </div>
+                <div class="lg:col-span-5">
+                    <p class="max-w-xl text-sm sm:text-base text-on-inverse-muted/90 font-light leading-relaxed mb-8 tracking-wide">For over seventy years our master cabinetmakers have combined Levantine marble, solid walnut and exceptional velvets to furnish the most refined residences.</p>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <a href="../en/collections/" class="inline-flex items-center justify-center gap-3 px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 bg-paper text-on-paper hover:bg-accent hover:text-on-accent shadow-sm ">Discover the collections</a>
+                        <a href="../en/contact/" class="inline-flex items-center justify-center gap-3 px-8 py-3.5 text-xs uppercase tracking-[0.22em] font-medium transition duration-300 border border-on-inverse/30 text-on-inverse hover:bg-white/10 backdrop-blur-sm ">Visit the showroom</a>
+                    </div>
                 </div>
             </div>
 
-            <a href="#collections" class="absolute bottom-8 start-1/2 -translate-x-1/2 z-10 text-on-inverse-muted/70 hover:text-on-inverse-soft transition animate-bounce" aria-label="Scroll to the collections">
+            <!-- Centrage volontairement physique (left) : en écriture arabe,
+                 « start » vaut « right », et la flèche se décalerait de sa
+                 propre largeur. -->
+            <a href="#collections" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-on-inverse-muted/70 hover:text-on-inverse-soft transition animate-bounce" aria-label="Scroll to the collections">
                 <svg class="icon w-6 h-6 stroke-[1.5]" aria-hidden="true" focusable="false"><use href="#i-chevron-down"></use></svg>
             </a>
         </section>

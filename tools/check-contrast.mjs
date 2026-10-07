@@ -39,6 +39,11 @@ async function readPalettes() {
             tokens[key] = value.trim().split(/\s+/).map(Number);
         }
 
+        // Un bloc de thème ne contient que des triplets RVB (« 35 31 29 »).
+        // Les autres blocs `:root` — par exemple la police d'affichage
+        // `--mt-font-display` — ne doivent pas écraser une palette.
+        if (!Object.keys(tokens).length) continue;
+
         for (const name of names.length ? names : ['clair']) palettes[name] = tokens;
     }
     return palettes;
@@ -111,6 +116,12 @@ for (const theme of themes) {
 
     const bad = rows.filter((row) => !row.ok);
     const worst = [...rows].sort((a, b) => a.value / a.min - b.value / b.min)[0];
+
+    if (!worst) {
+        failures += 1;
+        console.log(`\x1b[31m✗\x1b[0m ${theme} : aucune paire contrôlable — palette « ${theme} » illisible dans src/input.css.`);
+        continue;
+    }
 
     console.log(
         `${bad.length === 0 ? '\x1b[32m✓\x1b[0m' : '\x1b[31m✗\x1b[0m'} ${theme.padEnd(7)}` +

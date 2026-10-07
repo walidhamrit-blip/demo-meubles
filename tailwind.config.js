@@ -35,6 +35,10 @@ module.exports = {
             fontFamily: {
                 serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
                 sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                /* Police d'affichage des grands titres : elle change d'écriture
+                   selon la langue de la page (voir --mt-font-display dans
+                   src/input.css). Utilisée par le titre du héros d'accueil. */
+                display: ['var(--mt-font-display)'],
             },
             colors: {
                 /* Surfaces */

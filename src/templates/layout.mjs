@@ -18,8 +18,19 @@ import { icon } from './components.mjs';
 import { partnerRibbon, serviceRibbon } from './ribbons.mjs';
 import { tr, locales, localeCodes, localesFor, defaultLocale, getLocale } from '../content/i18n.mjs';
 
+/* Polices de la Maison : Cormorant Garamond (grands titres latins) et
+   Plus Jakarta Sans (texte courant). */
 const FONT_HREF =
     'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap';
+
+/* Police arabe d'affichage : Amiri (naskh classique), utilisée par les grands
+   titres des pages arabes — voir --mt-font-display dans src/input.css.
+
+   Chargée par une requête distincte, à dessein : si elle venait à échouer,
+   seuls les titres arabes retomberaient sur une police de secours, sans
+   entraîner avec eux les polices de tout le site. */
+const FONT_ARABIC_HREF =
+    'https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap';
 
 /* ------------------------------------------------------------------- <head> */
 
@@ -83,7 +94,11 @@ ${renderAlternates(path)}
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preload" as="style" href="${FONT_HREF}">
     <link rel="stylesheet" href="${FONT_HREF}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="${FONT_HREF}"></noscript>
+    <link rel="stylesheet" href="${FONT_ARABIC_HREF}" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="${FONT_HREF}">
+        <link rel="stylesheet" href="${FONT_ARABIC_HREF}">
+    </noscript>
 ${preload ? `    ${preload}\n` : ''}    <link rel="stylesheet" href="${asset('/assets/css/main.css', depth)}">
 
     <!-- Données structurées Schema.org -->

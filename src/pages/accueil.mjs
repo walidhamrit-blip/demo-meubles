@@ -27,8 +27,26 @@ import {
 import { materialsSection, newsletterSection, ctaBand } from '../templates/sections.mjs';
 
 const PATH = '/';
+/**
+ * Héros de la page d'accueil.
+ *
+ * Mise en page éditoriale : le bloc titre est ancré en BAS et aligné sur le
+ * bord d'attaque (à droite en arabe, à gauche en anglais), tandis que le
+ * chapeau et les appels à l'action occupent la colonne opposée. Le regard
+ * descend l'image puis rencontre le titre, au lieu de buter sur un bloc
+ * centré posé au milieu de la photographie.
+ *
+ * Le fond est animé d'un zoom lent et continu (`hero-zoom`, CSS pur) :
+ * l'image respire sans jamais laisser apparaître de bord, uniquement par
+ * `transform`, donc sans impact sur les Core Web Vitals. L'animation est
+ * neutralisée par `prefers-reduced-motion` (voir src/input.css).
+ *
+ * Le titre est composé dans la police d'affichage de la page : Amiri (naskh
+ * classique) en arabe, Cormorant Garamond en anglais — d'où `font-display`,
+ * qui résout le jeton `--mt-font-display` selon la langue du document.
+ */
 function hero() {
-    return `<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center bg-inverse overflow-hidden" aria-labelledby="hero-title">
+    return `<section class="relative min-h-[80vh] lg:min-h-[90vh] flex items-end bg-inverse overflow-hidden" aria-labelledby="hero-title">
             <div class="absolute inset-0 z-0">
                 ${responsiveImage({
                     src: heroImage.src,
@@ -39,24 +57,30 @@ function hero() {
                     height: heroImage.height,
                     priority: true,
                     className:
-                        'w-full h-full object-cover object-center opacity-70 filter brightness-[0.88] scale-105',
+                        'hero-zoom w-full h-full object-cover object-center opacity-70 filter brightness-[0.88]',
                 })}
-                <div class="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/40 to-black/30" aria-hidden="true"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/50 to-black/30" aria-hidden="true"></div>
             </div>
 
-            <div class="relative z-10 max-w-4xl mx-auto text-center px-6 text-on-inverse py-20">
-                <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-on-inverse-muted mb-4 border-b border-line-strong/40 pb-2">${tr('Le grand savoir-faire libanais')}</p>
-                <h1 id="hero-title" class="font-serif text-3xl sm:text-6xl md:text-7xl font-light tracking-wide leading-[1.1] mb-6">${tr("Mobilier d'Art &amp; Haute Ébénisterie")}<br>
-                    <span class="italic font-normal">${tr('Sculptés à Tripoli depuis 1948')}</span>
-                </h1>
-                <p class="max-w-xl mx-auto text-sm sm:text-base text-on-inverse-muted/90 font-light leading-relaxed mb-10 tracking-wide">${tr("Depuis plus de 70 ans, nos maîtres ébénistes allient le marbre du Levant, le noyer massif et les velours d'exception pour habiller les demeures les plus raffinées.")}</p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    ${buttonLink({ label: tr('Découvrir les collections'), path: '/collections/', depth: DEPTH, variant: 'primary' })}
-                    ${buttonLink({ label: tr('Visiter le showroom'), path: '/contact/', depth: DEPTH, variant: 'outlineLight' })}
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-20 lg:pb-28 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+                <div class="lg:col-span-7">
+                    <p class="inline-block uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[11px] sm:text-xs font-medium text-on-inverse-muted mb-5 border-b border-line-strong/40 pb-2">${tr('Le grand savoir-faire libanais')}</p>
+                    <h1 id="hero-title" class="hero-title font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-wide leading-[1.12] text-on-inverse">${tr("Mobilier d'Art &amp; Haute Ébénisterie")}<span class="hero-subline block italic font-normal">${tr('Sculptés à Tripoli depuis 1948')}</span>
+                    </h1>
+                </div>
+                <div class="lg:col-span-5">
+                    <p class="max-w-xl text-sm sm:text-base text-on-inverse-muted/90 font-light leading-relaxed mb-8 tracking-wide">${tr("Depuis plus de 70 ans, nos maîtres ébénistes allient le marbre du Levant, le noyer massif et les velours d'exception pour habiller les demeures les plus raffinées.")}</p>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        ${buttonLink({ label: tr('Découvrir les collections'), path: '/collections/', depth: DEPTH, variant: 'primary' })}
+                        ${buttonLink({ label: tr('Visiter le showroom'), path: '/contact/', depth: DEPTH, variant: 'outlineLight' })}
+                    </div>
                 </div>
             </div>
 
-            <a href="#collections" class="absolute bottom-8 start-1/2 -translate-x-1/2 z-10 text-on-inverse-muted/70 hover:text-on-inverse-soft transition animate-bounce" aria-label="${tr('Faire défiler vers les collections')}">
+            <!-- Centrage volontairement physique (left) : en écriture arabe,
+                 « start » vaut « right », et la flèche se décalerait de sa
+                 propre largeur. -->
+            <a href="#collections" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-on-inverse-muted/70 hover:text-on-inverse-soft transition animate-bounce" aria-label="${tr('Faire défiler vers les collections')}">
                 ${icon('chevron-down', 'icon w-6 h-6 stroke-[1.5]')}
             </a>
         </section>`;
